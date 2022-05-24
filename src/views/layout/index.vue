@@ -21,11 +21,10 @@ import Layout from './components/Layout.vue';
             footer
         </template>
         <template #main>
-            main
+            <p v-for="(item, index) in 100" :key="index">{{index}}</p>
         </template>
     </Layout>
     
 </template>
 <style scoped lang='less'>
-
 </style>
