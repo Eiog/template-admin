@@ -4,11 +4,10 @@ import { defineComponent } from 'vue';
 </script>
 <script setup lang='ts'>
 import helloWorld from '@/components/helloWorld.vue'
+import Layout from '../layout/index.vue';
 </script>
 <template>
-    <div>
-        <hello-world></hello-world>
-    </div>
+    <Layout></Layout>
 </template>
 <style scoped lang='less'>
 
