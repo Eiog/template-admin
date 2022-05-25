@@ -1,102 +1,221 @@
-<script lang='ts'>
-export default{
-    name:'Layout'
-}
+<script lang="ts">
+export default {
+  name: "Layout",
+};
 </script>
-<script setup lang='ts'>
+<script setup lang="ts">
 const props = defineProps({
-    mode:{
-        type:String,
-        default:'vertical'
-    },
-    siderWidth:{
-        type:String,
-        default:'200'
-    },
-    fixedHeader:{
-        type:Boolean,
-        default:true
-    },
-    fixedFooter:{
-        type:Boolean,
-        default:true
-    },
-    collapse:{
-        type:Boolean,
-        default:false
-    },
-})
+  mode: {
+    type: String,
+    default: "vertical", //'horizontal'
+  },
+  siderWidth: {
+    type: Number,
+    default: 200,
+  },
+  siderCollapseWidth: {
+    type: Number,
+    default: 64,
+  },
+  headerHeight: {
+    type: Number,
+    default: 56,
+  },
+  tabsHeight: {
+    type: Number,
+    default: 44,
+  },
+  footerHeight: {
+    type: Number,
+    default: 40,
+  },
+  fixedHeader: {
+    type: Boolean,
+    default: true,
+  },
+  fixedFooter: {
+    type: Boolean,
+    default: true,
+  },
+  collapse: {
+    type: Boolean,
+    default: false,
+  },
+});
 </script>
 <template>
-<div class="unlit-admin-layout">
-    <header class="unlit-admin-header">
-        <slot name="header"></slot>
-    </header>
-    <div class="unlit-admin-tabs">
-        <slot name="tabs"></slot>
+  <div class="unlit-admin-layout">
+    <div
+      class="unlit-admin-header-wrap"
+      :style="[
+        mode === 'vertical' && collapse
+          ? {
+              paddingLeft: siderCollapseWidth + 'px',
+            }
+          : {},
+        mode === 'vertical' && !collapse
+          ? {
+              paddingLeft: siderWidth + 'px',
+            }
+          : {},
+        mode === 'horizontal'
+          ? {
+              paddingLeft: 0,
+            }
+          : {},
+
+        fixedHeader
+          ? {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              height: headerHeight + 'px',
+            }
+          : {
+              position: 'static',
+              height: headerHeight + 'px',
+            },
+      ]"
+    >
+      <slot name="header"></slot>
     </div>
-    <aside class="unlit-admin-aside">
-        <slot name="aside"></slot>
-    </aside>
-    <main class="unlit-admin-main">
-        <slot name="main"></slot>
-        <slot></slot>
-    </main>
-    <footer class="unlit-admin-footer">
-        <slot name="footer"></slot>
-    </footer>
-    
-</div>
+    <div
+      class="unlit-admin-tabs-wrap"
+      :style="[
+        collapse
+          ? {
+              paddingLeft: siderCollapseWidth + 'px',
+            }
+          : {
+              paddingLeft: siderWidth + 'px',
+            },
+        fixedHeader
+          ? {
+              position: 'fixed',
+              left: 0,
+              top: headerHeight + 'px',
+              height: tabsHeight + 'px',
+            }
+          : {
+              position: 'static',
+              height: tabsHeight + 'px',
+            },
+      ]"
+    >
+      <slot name="tabs"></slot>
+    </div>
+    <div
+      class="unlit-admin-aside-wrap"
+      :style="[
+        collapse
+          ? {
+              width: siderCollapseWidth + 'px',
+            }
+          : {
+              width: siderWidth + 'px',
+            },
+        mode === 'horizontal'
+          ? {
+              paddingTop: headerHeight + 'px',
+            }
+          : {
+              paddingTop: 0,
+            },
+      ]"
+    >
+      <slot name="aside"></slot>
+    </div>
+    <div
+      class="unlit-admin-main-wrap"
+      :style="[
+        collapse
+          ? {
+              paddingLeft: siderCollapseWidth + 'px',
+            }
+          : {
+              paddingLeft: siderWidth + 'px',
+            },
+        fixedHeader
+          ? {
+              paddingTop: headerHeight + tabsHeight + 'px',
+            }
+          : {
+              paddingTop: 0,
+            },
+      ]"
+    >
+      <slot name="main"></slot>
+      <slot></slot>
+    </div>
+    <div
+      class="unlit-admin-footer-wrap"
+      :style="[
+        collapse
+          ? {
+              paddingLeft: siderCollapseWidth + 'px',
+            }
+          : {
+              paddingLeft: siderWidth + 'px',
+            },
+        fixedFooter
+          ? {
+              position: 'fixed',
+              right: 0,
+              bottom: 0,
+              height: footerHeight + 'px',
+            }
+          : {
+              position: 'static',
+              height: footerHeight + 'px',
+            },
+      ]"
+    >
+      <slot name="footer"></slot>
+    </div>
+  </div>
 </template>
-<style scoped lang='less'>
-div{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+<style scoped lang="less">
+div {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.unlit-admin-layout{
-    display: flex;
-    flex-direction: column;
-}
-.unlit-admin-header{
-    position: fixed;
-    top: 0;
-    left: 0;
+.unlit-admin-layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  > div {
+    transition: all 0.3s;
+  }
+  .unlit-admin-header-wrap {
     flex-shrink: 0;
     z-index: 10003;
     width: 100%;
     min-width: 1200px;
-    height: 56px;
-    background: rgba(0,0,0,.1);
-}
-.unlit-admin-tabs{
-    position: fixed;
+  }
+  .unlit-admin-tabs-wrap {
     flex-shrink: 0;
-    top: 56px;
-    left: 0;
     width: 100%;
     min-width: 1200px;
-    padding-left: 200px;
-    height: 44px;
-    background: rgba(216, 216, 216, 0.1);
-}
-.unlit-admin-aside{
+    z-index: 10003;
+  }
+
+  .unlit-admin-aside-wrap {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 200px;
-    padding-top: 56px;
-    background: rgba(0,0,0,.1);
-}
-.unlit-admin-main{
-    position: relative;
-    padding-left: 200px;
-    padding-top: 100px;
-}
-.unlit-admin-footer{
-    position: static;
-    background: rgba(0,0,0,.1);
-    padding-left: 200px;
+    z-index: 10003;
+  }
+  .unlit-admin-main-wrap {
+    flex-shrink: 0;
+    width: 100%;
+    min-width: 1200px;
+  }
+  .unlit-admin-footer-wrap {
+    flex-shrink: 0;
+    width: 100%;
+    z-index: 10003;
+  }
 }
 </style>
