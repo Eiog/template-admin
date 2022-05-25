@@ -81,9 +81,14 @@ watchEffect(() => {
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all .3s;
+    }
+    .close:hover{
+      background: rgb(238, 238, 238);
+      transform: rotate(90deg);
     }
   }
-  .tabs-item.active {
+  .tabs-item.active,.tabs-item:hover {
     background: rgb(199, 199, 199);
   }
 }

@@ -144,8 +144,10 @@ const props = defineProps({
             },
       ]"
     >
-      <slot name="main"></slot>
-      <slot></slot>
+      <div class="unlit-admin-main">
+        <slot name="main"></slot>
+        <slot></slot>
+      </div>
     </div>
     <div
       class="unlit-admin-footer-wrap"
@@ -181,6 +183,8 @@ div {
   box-sizing: border-box;
 }
 .unlit-admin-layout {
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -205,12 +209,18 @@ div {
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 10003;
+    z-index: 10004;
   }
   .unlit-admin-main-wrap {
     flex-shrink: 0;
     width: 100%;
+    flex-grow: 1;
     min-width: 1200px;
+    .unlit-admin-main{
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+    }
   }
   .unlit-admin-footer-wrap {
     flex-shrink: 0;
