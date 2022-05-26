@@ -7,8 +7,8 @@ export default{
 
 </script>
 <template>
-<div class="workbench">
-        <h1>workbench</h1>
+    <div>
+        <h1>vite</h1>
     </div>
 </template>
 <style scoped lang='less'>

@@ -20,9 +20,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(["onChange", "onClose"]);
-const onChange = function (e, item, index) {
-  if (e.target.className === "close" || e.target.className === "ri-close-line")
-    return;
+const onChange = function (item, index) {
   tabsIndex.value = index;
   emit("onChange", { item, index });
 };
@@ -35,61 +33,30 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="tabs-wrap">
+  <div
+    class="w-full h-full flex items-center gap-2 overflow-y-hidden overflow-x-auto"
+  >
     <div
-      class="tabs-item"
-      v-for="(item,index) in (data as any)"
+      class="bg-light-500 rounded-1 flex items-center justify-center transition-colors duration-300 ease-in-out gap-1 cursor-pointer px-2  hover:bg-gray-300"
+      v-for="(item, index) in (data as any)"
       :key="index"
-      :class="tabsIndex === index ? 'active' : ''"
-      @click="onChange($event, item, index)"
+      :class="tabsIndex === index ? '!bg-gray-300' : ''"
     >
-      <i v-if="item.icon" :class="item.icon"></i>
-      <span class="text">{{ item.title }}</span>
-      <span class="close" v-if="!item.rootTab" @click="onClose(item, index)">
-        <i class="ri-close-line"></i>
+      <div class="h-full flex items-center justify-center gap-1 py-1" @click="onChange(item, index)">
+        <i class="leading-tight" v-if="item.icon" :class="item.icon"></i>
+        <span class="text-sm">{{ item.title }}</span>
+      </div>
+      <span
+        class="bg-gray-100 w-16px h-16px flex items-center justify-center rounded-full transition-colors hover:bg-light-50"
+        v-if="!item.rootTab"
+        @click="onClose(item, index)"
+      >
+        <i
+          class="ri-close-line leading-none transition-transform ease-in-out hover:rotate-180"
+        ></i>
       </span>
     </div>
   </div>
 </template>
-<style scoped lang="less">
-.tabs-wrap {
-  width: 100%;
-  height: 100%;
-  overflow-y: hidden;
-  overflow-x: auto;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  .tabs-item {
-    padding: 4px 8px;
-    background: rgb(233, 233, 233);
-    border-radius: 6px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: all .3s;
-    .text {
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .close {
-      width: 14px;
-      height: 14px;
-      border-radius: 100%;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .3s;
-    }
-    .close:hover{
-      background: rgb(238, 238, 238);
-      transform: rotate(90deg);
-    }
-  }
-  .tabs-item.active,.tabs-item:hover {
-    background: rgb(199, 199, 199);
-  }
-}
-</style>
+<style scoped lang="less"></style>
+<style scoped></style>

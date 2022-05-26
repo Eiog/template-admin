@@ -10,52 +10,32 @@ const route = useRoute()
 const theme = themeStore()
 </script>
 <template>
-    <div class="header">
-        <div class="header-item header-btn" @click="theme.asideCollapse = !theme.asideCollapse">
+    <div class="h-full flex items-center">
+        <div class="h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900" @click="theme.asideCollapse = !theme.asideCollapse">
             <i :class="theme.asideCollapse?'ri-menu-unfold-line':'ri-menu-fold-line'"></i>
         </div>
-        <div class="header-item navigation">
+        <div class="hh">
             {{route.path}}
         </div>
-        <div class="header-item header-btn">
+        <div class="h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900">
             <i class="ri-search-2-line"></i>
         </div>
-        <div class="header-item header-btn">
+        <div class="h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900">
             <i class="ri-github-line"></i>
         </div>
-        <div class="header-item header-btn">
+        <div class="h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900">
             <i class="ri-fullscreen-line"></i>
         </div>
-        <div class="header-item header-btn">
+        <div class="h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900">
             <i class="ri-sun-line"></i>
         </div>
-        <div class="header-item header-btn user">
+        <div class="h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900 user">
             user
         </div>
     </div>
 </template>
-<style scoped lang='less'>
-.header{
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    .header-item{
-        cursor: pointer;
-        height: 100%;
-        padding: 0 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all .3s;
-    }
-    .header-btn{
-
-    }
-    .header-btn:hover{
-        background: rgba(124, 124, 124, 0.1);
-    }
-    .navigation{
-        margin-right: auto;
-    }
+<style scoped>
+.hh{
+    @apply h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900;
 }
 </style>

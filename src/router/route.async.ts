@@ -51,6 +51,51 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         ]
 
     },
+    {
+        path: '/document',
+        name: 'document',
+        component: () => import('@/views/layout/index.vue'),
+        meta: {
+            title: '文档',
+            icon: 'ri-apps-line',
+            requiresAuth: true,
+            keepAlive: true,
+            hide: false,
+            href: '',
+            order: 1
+        },
+        children: [
+            {
+                path: 'vue',
+                name: 'vue',
+                component: () => import('@/views/document/vue/index.vue'),
+                meta: {
+                    title: 'vue文档',
+                    icon: 'ri-bubble-chart-line',
+                    requiresAuth: true,
+                    keepAlive: true,
+                    hide: false,
+                    href: '',
+                    order: 1
+                }
+            },
+            {
+                path: 'vite',
+                name: 'vite',
+                component: () => import('@/views/document/vite/index.vue'),
+                meta: {
+                    title: 'vite文档',
+                    icon: 'ri-slideshow-line',
+                    requiresAuth: true,
+                    keepAlive: true,
+                    hide: false,
+                    href: '',
+                    order: 1
+                }
+            },
+        ]
+
+    },
 ];
 
 export default asyncRoutes;
