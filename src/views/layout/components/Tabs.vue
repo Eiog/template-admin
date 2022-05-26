@@ -45,7 +45,7 @@ watchEffect(() => {
     >
       <i v-if="item.icon" :class="item.icon"></i>
       <span class="text">{{ item.title }}</span>
-      <span class="close" @click="onClose(item, index)">
+      <span class="close" v-if="!item.rootTab" @click="onClose(item, index)">
         <i class="ri-close-line"></i>
       </span>
     </div>

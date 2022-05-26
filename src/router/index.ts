@@ -3,7 +3,7 @@ import NProgress from 'nprogress';
 import exceptionRoutes from './route.exception';
 import asyncRoutes from './route.async';
 import commonRoutes from './route.common';
-
+import { tabsStore } from '@/store/tabsStore';
 const routes: Array<RouteRecordRaw> = [
     // 无鉴权的业务路由 ex:登录
     ...commonRoutes,
@@ -31,6 +31,10 @@ router.beforeEach((to, from,next) => {
     if (!NProgress.isStarted()) {
         NProgress.start();
     }
+    next()
+});
+router.beforeEach((to, from,next) => {
+    tabsStore().setTab(to)
     next()
 });
 

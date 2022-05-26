@@ -2,9 +2,10 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import { resolve } from 'path'
+import Unocss from 'unocss/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(),Unocss({ /* options */ })],
   server: {
     port: 3000,
     host: true, // host设置为true才可以使用network的形式，以ip访问项目

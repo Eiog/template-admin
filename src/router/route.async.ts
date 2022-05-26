@@ -11,8 +11,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'dashboard',
         component: () => import('@/views/layout/index.vue'),
         meta: {
-            tiile: '分析页',
-            icon: '',
+            title: '仪表盘',
+            icon: 'ri-apps-line',
             requiresAuth: true,
             keepAlive: true,
             hide: false,
@@ -25,8 +25,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
                 name: 'analysis',
                 component: () => import('@/views/dashboard/analysis/index.vue'),
                 meta: {
-                    tiile: '分析页',
-                    icon: '',
+                    title: '分析页',
+                    icon: 'ri-bubble-chart-line',
                     requiresAuth: true,
                     keepAlive: true,
                     hide: false,
@@ -39,8 +39,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
                 name: 'workbench',
                 component: () => import('@/views/dashboard/workbench/index.vue'),
                 meta: {
-                    tiile: '工作台',
-                    icon: '',
+                    title: '工作台',
+                    icon: 'ri-slideshow-line',
                     requiresAuth: true,
                     keepAlive: true,
                     hide: false,

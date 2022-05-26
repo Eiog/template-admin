@@ -9,38 +9,21 @@ import Layout from "./components/Layout.vue";
 import Header from "./components/Header.vue";
 import Tabs from "./components/Tabs.vue";
 import Menu from "./components/Menu.vue";
-import {themeStore} from '@/store/themeStore'
-const theme = themeStore()
+import { themeStore } from "@/store/themeStore";
+import { tabsStore } from "@/store/tabsStore";
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
+const theme = themeStore();
 const collapse = ref(false);
 const fixedHeader = ref(true);
 const fixedFooter = ref(false);
-const tabsData = ref([
-  {
-    title: "标签1",
-    name: "biaoqian1",
-    path: "/biaoqian1",
-  },
-  {
-    title: "标签2",
-    name: "biaoqian2",
-    path: "/biaoqian2",
-  },
-  {
-    title: "标签3",
-    name: "biaoqian3",
-    path: "/biaoqian3",
-  },
-  {
-    title: "标签4",
-    name: "biaoqian4",
-    path: "/biaoqian4",
-  },
-  {
-    title: "标签5",
-    name: "biaoqian5",
-    path: "/biaoqian5",
-  },
-]);
+const tabsOnChange = function ({ index, item }) {
+  router.push({ name: item.name });
+};
+const tabsOnClose = function({index}){
+  tabsStore().removeTag(index)
+  router.push({name:tabsStore().getTabItem.name})
+}
 </script>
 <template>
   <div class="content">
@@ -57,22 +40,35 @@ const tabsData = ref([
       </template>
       <template #tabs>
         <div class="tabs">
-          <Tabs :data="tabsData" :current-index="1"></Tabs>
+          <Tabs
+            :data="tabsStore().tabs"
+            :current-index="tabsStore().activeIndex"
+            @on-change="tabsOnChange"
+            @on-close="tabsOnClose"
+          ></Tabs>
         </div>
       </template>
       <template #aside>
         <aside class="aside">
+          <div class="brand">
+            <span v-if="!theme.asideCollapse">UnlitAdmin</span>
+            <span v-if="theme.asideCollapse">U</span>
+          </div>
           <Menu></Menu>
         </aside>
       </template>
-      <template #footer> 
-        <div class="footer">
-          footer
-        </div>
-        </template>
+      <template #footer>
+        <div class="footer">footer</div>
+      </template>
       <template #main>
-        <div class="main">
-          <router-view></router-view>
+        <div class="main rounded-16px shadow-light-50">
+          <router-view v-slot="{ Component }">
+            <transition name="fade-transform" mode="out-in">
+              <keep-alive>
+                <component :is="Component"></component>
+              </keep-alive>
+            </transition>
+          </router-view>
         </div>
       </template>
     </Layout>
@@ -95,6 +91,14 @@ const tabsData = ref([
   height: 100%;
   background: rgb(255, 255, 255);
   box-shadow: 3px 0 5px rgba(94, 94, 94, 0.1);
+  .brand {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
 }
 .tabs {
   width: 100%;
@@ -108,14 +112,29 @@ const tabsData = ref([
   border-radius: 20px;
   background: #fff;
   padding: 20px;
+  overflow: hidden;
   box-shadow: 0 0 5px rgba(202, 202, 202, 0.1);
 }
-.footer{
+.footer {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
+}
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

@@ -193,7 +193,7 @@ div {
   }
   .unlit-admin-header-wrap {
     flex-shrink: 0;
-    z-index: 10003;
+    z-index: 1;
     width: 100%;
     min-width: 1200px;
   }
@@ -201,7 +201,7 @@ div {
     flex-shrink: 0;
     width: 100%;
     min-width: 1200px;
-    z-index: 10003;
+    z-index: 1;
   }
 
   .unlit-admin-aside-wrap {
@@ -209,13 +209,14 @@ div {
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 10004;
+    z-index: 2;
   }
   .unlit-admin-main-wrap {
     flex-shrink: 0;
     width: 100%;
     flex-grow: 1;
     min-width: 1200px;
+    z-index: 0;
     .unlit-admin-main{
       width: 100%;
       height: 100%;
@@ -225,7 +226,7 @@ div {
   .unlit-admin-footer-wrap {
     flex-shrink: 0;
     width: 100%;
-    z-index: 10003;
+    z-index: 0;
   }
 }
 </style>

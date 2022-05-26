@@ -5,6 +5,8 @@ export default{
 </script>
 <script setup lang='ts'>
 import {themeStore} from '@/store/themeStore'
+import { useRoute } from 'vue-router';
+const route = useRoute()
 const theme = themeStore()
 </script>
 <template>
@@ -13,7 +15,7 @@ const theme = themeStore()
             <i :class="theme.asideCollapse?'ri-menu-unfold-line':'ri-menu-fold-line'"></i>
         </div>
         <div class="header-item navigation">
-            navigation
+            {{route.path}}
         </div>
         <div class="header-item header-btn">
             <i class="ri-search-2-line"></i>
