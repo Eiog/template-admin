@@ -38,7 +38,7 @@ const onSubmit = function (e:MouseEvent) {
 </script>
 <template>
   <div>
-    <h1 class="text-gray-600 font-thin">注册</h1>
+    <h1 class="text-gray-600 font-thin">验证码登录</h1>
     <div class="mt-2">
       <n-form
         :model="formValue"
@@ -61,7 +61,7 @@ const onSubmit = function (e:MouseEvent) {
           <n-button type="primary" block @click="onSubmit">注册</n-button>
         </n-form-item>
         <n-form-item>
-          <n-button block @click="emit('onBack')">返回</n-button>
+          <n-button type="primary" block @click="emit('onBack')">返回</n-button>
         </n-form-item>
       </n-form>
     </div>

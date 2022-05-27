@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { NMessageProvider } from 'naive-ui';
+import { NMessageProvider } from "naive-ui";
 </script>
 
 <template>
-  <n-message-provider>
-    <router-view></router-view>
-  </n-message-provider>
+  <router-view v-slot="{ Component }">
+    <n-message-provider>
+      <transition name="fade-transform" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </n-message-provider>
+  </router-view>
 </template>
 
 <style>
@@ -19,5 +23,18 @@ body,
 #app {
   width: 100%;
   height: 100%;
+}
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter-from {
+  opacity: 0;
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
 }
 </style>

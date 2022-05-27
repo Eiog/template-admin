@@ -3,7 +3,7 @@ import NProgress from 'nprogress'
 import showCodeMessage from './code';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 import { ElNotification } from 'element-plus'
-import { addPending, removePending,loadingStart,loadingDone } from './_methods'
+import { addPending, removePending} from './_methods'
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
 
 // 创建实例
@@ -43,10 +43,10 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     NProgress.done()
     if (response.status === 200) {
-      return response;
+      return response.data;
     }
     ElNotification.warning(response.data)
-    return response;
+    return Promise.reject(response.data);
   },
   (error: AxiosError) => {
     if (error.code === "ERR_CANCELED") {

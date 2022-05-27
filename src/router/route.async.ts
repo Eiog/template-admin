@@ -1,6 +1,6 @@
 // 需要鉴权的业务路由
 import { RouteRecordRaw } from 'vue-router';
-
+import BasicLayout from '@/views/layout/BasicLayout.vue';
 const asyncRoutes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -9,7 +9,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     {
         path: '/dashboard',
         name: 'dashboard',
-        component: () => import('@/views/layout/BasicLayout.vue'),
+        component: BasicLayout,
         meta: {
             title: '仪表盘',
             icon: 'ri-apps-line',
@@ -55,7 +55,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     {
         path: '/document',
         name: 'document',
-        component: () => import('@/views/layout/BasicLayout.vue'),
+        component: BasicLayout,
         meta: {
             title: '文档',
             icon: 'ri-file-list-line',

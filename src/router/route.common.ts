@@ -1,11 +1,11 @@
 // 不需要鉴权的业务路由
 import { RouteRecordRaw } from 'vue-router';
-
+import BlankLayout from '@/views/layout/BlankLayout.vue';
 const commonRoutes: Array<RouteRecordRaw> = [
     {
         path: '/login',
-        name: 'login',
-        component: () => import('@/views/layout/BlankLayout.vue'),
+        name: '',
+        component: BlankLayout,
         meta: {
             title: '登录页',
             icon: '',
@@ -17,11 +17,11 @@ const commonRoutes: Array<RouteRecordRaw> = [
         },
         children: [
             {
-                path: '/login',
+                path: '',
                 name: 'login',
                 component: () => import('@/views/login/index.vue'),
                 meta: {
-                    title: '登录页',
+                    title: '登录',
                     icon: '',
                     requiresAuth: false,
                     keepAlive: false,

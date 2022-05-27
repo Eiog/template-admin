@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router';
-import NProgress from 'nprogress';
 import exceptionRoutes from './route.exception';
 import asyncRoutes from './route.async';
 import commonRoutes from './route.common';
-import { tabsStore } from '@/store/tabsStore';
+import useAuth from './guard/useAuth';
+import useTabs from './guard/useTabs'
+import useProgress from './guard/useProgress';
 const routes: Array<RouteRecordRaw> = [
     // 无鉴权的业务路由 ex:登录
     ...commonRoutes,
@@ -24,22 +25,11 @@ const router: Router = createRouter({
  * @return {*}
  */
 
-router.beforeEach((to, from,next) => {
-    // console.log('全局路由前置守卫：to,from\n', to, from);
-    // 设置页面标题
-    document.title = (to.meta.title as string) || import.meta.env.VITE_APP_TITLE as string;
-    if (!NProgress.isStarted()) {
-        NProgress.start();
-    }
-    next()
-});
-router.beforeEach((to, from,next) => {
-    tabsStore().setTab(to)
-    next()
-});
+//进度条
+useProgress(router)
+//权限验证
+useAuth(router)
+//添加tabs
+useTabs(router)
 
-router.afterEach((to, from) => {
-    // console.log('全局路由后置守卫：to,from\n', to, from);
-    NProgress.done();
-});
 export default router;
