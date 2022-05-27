@@ -217,7 +217,7 @@ div {
     flex-grow: 1;
     min-width: 1200px;
     z-index: 0;
-    .unlit-admin-main{
+    .unlit-admin-main {
       width: 100%;
       height: 100%;
       padding: 10px;

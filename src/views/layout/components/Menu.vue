@@ -26,7 +26,7 @@ const menuOnChange = function (key: string, item: MenuOption): void {
 };
 </script>
 <template>
-  <aside class="menu">
+  <aside>
     <n-menu
       :options="menuOptions"
       :collapsed="theme.asideCollapse"

@@ -17,7 +17,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
             keepAlive: true,
             hide: false,
             href: '',
-            order: 1
+            order: 1,
+            layoutMode:'basic'
         },
         children: [
             {
@@ -57,7 +58,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/layout/index.vue'),
         meta: {
             title: '文档',
-            icon: 'ri-apps-line',
+            icon: 'ri-file-list-line',
             requiresAuth: true,
             keepAlive: true,
             hide: false,
@@ -71,7 +72,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/document/vue/index.vue'),
                 meta: {
                     title: 'vue文档',
-                    icon: 'ri-bubble-chart-line',
+                    icon: 'ri-vuejs-line',
                     requiresAuth: true,
                     keepAlive: true,
                     hide: false,
