@@ -5,11 +5,11 @@ export default {
 </script>
 <script setup lang="ts">
 import { ref } from "vue";
-import BasicLayout from "./components/BasicLayout.vue";
-import BlankLayout from "./components/BlankLayout.vue";
+import Layout from "./components/Layout.vue";
 import Header from "./components/Header.vue";
 import Tabs from "./components/Tabs.vue";
 import Menu from "./components/Menu.vue";
+import Main from './components/Main.vue'
 import { themeStore } from "@/store/themeStore";
 import { tabsStore } from "@/store/tabsStore";
 import { useRoute, useRouter } from "vue-router";
@@ -31,7 +31,7 @@ console.log();
 </script>
 <template>
   <div class="w-full h-full bg-light-300">
-    <BasicLayout
+    <Layout
       mode="vertical"
       :collapse="theme.asideCollapse"
       :fixed-header="fixedHeader"
@@ -74,16 +74,10 @@ console.log();
         <div
           class="w-full h-full bg-white rounded-16px shadow-sm shadow-gray-200 p-20px overflow-hidden"
         >
-          <router-view v-slot="{ Component }">
-            <transition name="fade-transform" mode="out-in">
-              <keep-alive>
-                <component :is="Component"></component>
-              </keep-alive>
-            </transition>
-          </router-view>
+          <Main></Main>
         </div>
       </template>
-    </BasicLayout>
+    </Layout>
     <!-- <template>
     <BlankLayout>
       <router-view v-slot="{ Component }">
@@ -98,18 +92,5 @@ console.log();
   </div>
 </template>
 <style scoped lang="less">
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.5s;
-}
 
-.fade-transform-enter-from {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
 </style>
