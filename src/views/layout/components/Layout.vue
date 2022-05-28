@@ -37,7 +37,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  collapse: {
+  collapsed: {
     type: Boolean,
     default: false,
   },
@@ -48,12 +48,12 @@ const props = defineProps({
     <div
       class="unlit-admin-header-wrap"
       :style="[
-        mode === 'vertical' && collapse
+        mode === 'vertical' && collapsed
           ? {
               paddingLeft: siderCollapseWidth + 'px',
             }
           : {},
-        mode === 'vertical' && !collapse
+        mode === 'vertical' && !collapsed
           ? {
               paddingLeft: siderWidth + 'px',
             }
@@ -82,7 +82,7 @@ const props = defineProps({
     <div
       class="unlit-admin-tabs-wrap"
       :style="[
-        collapse
+        collapsed
           ? {
               paddingLeft: siderCollapseWidth + 'px',
             }
@@ -107,7 +107,7 @@ const props = defineProps({
     <div
       class="unlit-admin-aside-wrap"
       :style="[
-        collapse
+        collapsed
           ? {
               width: siderCollapseWidth + 'px',
             }
@@ -128,7 +128,7 @@ const props = defineProps({
     <div
       class="unlit-admin-main-wrap"
       :style="[
-        collapse
+        collapsed
           ? {
               paddingLeft: siderCollapseWidth + 'px',
             }
@@ -152,7 +152,7 @@ const props = defineProps({
     <div
       class="unlit-admin-footer-wrap"
       :style="[
-        collapse
+        collapsed
           ? {
               paddingLeft: siderCollapseWidth + 'px',
             }

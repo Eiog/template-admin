@@ -10,8 +10,16 @@ import { NMenu } from "naive-ui";
 import type { MenuOption } from "naive-ui";
 import asyncRoutes from "@/router/route.async";
 import { routerToMenu } from "@/utils/formatRouter";
-import { themeStore } from "@/store/themeStore";
-const theme = themeStore();
+const props = defineProps({
+  collapsed:{
+    type:Boolean,
+    default:false
+  },
+  collapsedWidth:{
+    type:Number,
+    default:64
+  },
+})
 const route = useRoute();
 const router = useRouter();
 const activeKey = ref();
@@ -29,8 +37,8 @@ const menuOnChange = function (key: string, item: MenuOption): void {
   <aside>
     <n-menu
       :options="menuOptions"
-      :collapsed="theme.asideCollapse"
-      :collapsed-width="64"
+      :collapsed="collapsed"
+      :collapsed-width="collapsedWidth"
       :indent="20"
       v-model:value="(activeKey as string)"
       @update:value="menuOnChange"

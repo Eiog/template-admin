@@ -4,17 +4,18 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { NAvatar, NPopselect, NIcon, useMessage } from "naive-ui";
-import { themeStore } from "@/store/themeStore";
+import { NAvatar, NPopselect, NIcon, useMessage,NTooltip } from "naive-ui";
+import { settingStore } from "@/store";
 import { userStore } from "@/store/userStore";
 import { useRoute, useRouter } from "vue-router";
 import { removeStorage } from "@/utils/storage";
-import { nextTick } from "vue";
+import { nextTick, ref } from "vue";
+import { storeToRefs } from "pinia";
 
 const message = useMessage();
 const route = useRoute();
 const router = useRouter();
-const theme = themeStore();
+const { theme,layout,Interface} = storeToRefs(settingStore())
 const dropdownOptions = [
   {
     label: "个人中心",
@@ -36,21 +37,26 @@ const onLogOut = function () {
     router.push("/login");
   });
 };
-const changeTheme = function () {
-  if (theme.mode === "light") return (theme.mode = "dark");
-  if (theme.mode === "dark") return (theme.mode = "light");
-  theme.mode = "light";
+const isFullScreen = ref(false);
+const fullScreen = function () {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+    isFullScreen.value = true;
+  } else {
+    document.exitFullscreen();
+    isFullScreen.value = false;
+  }
 };
 </script>
 <template>
   <div class="h-full flex items-center">
     <div
       class="header-item"
-      @click="theme.asideCollapse = !theme.asideCollapse"
+      @click="layout.collapsed = !layout.collapsed"
     >
       <i
         :class="
-          theme.asideCollapse ? 'ri-menu-unfold-line' : 'ri-menu-fold-line'
+          layout.collapsed ? 'ri-menu-unfold-line' : 'ri-menu-fold-line'
         "
       ></i>
     </div>
@@ -63,11 +69,20 @@ const changeTheme = function () {
     <div class="header-item">
       <i class="ri-github-line"></i>
     </div>
-    <div class="header-item">
-      <i class="ri-fullscreen-line"></i>
+    <div class="header-item" @click="fullScreen">
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <i
+            :class="
+              isFullScreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'
+            "
+          ></i>
+        </template>
+        全屏
+      </n-tooltip>
     </div>
-    <div class="header-item" @click="changeTheme">
-      <i :class="theme.mode==='light'?'ri-sun-line':'ri-moon-line'"></i>
+    <div class="header-item" @click="theme.darkMode = !theme.darkMode">
+      <i :class="theme.darkMode? 'ri-moon-line' : 'ri-sun-line'"></i>
     </div>
     <div class="header-item hover:!bg-white dark:hover:!bg-black">
       <n-popselect
@@ -76,9 +91,6 @@ const changeTheme = function () {
         :options="dropdownOptions"
       >
         <n-avatar size="medium" round :src="userStore().user.avatar">
-          <!-- <n-icon size="20">
-            <i class="ri-user-smile-line"></i>
-          </n-icon> -->
         </n-avatar>
       </n-popselect>
     </div>

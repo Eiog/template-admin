@@ -91,7 +91,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between h-28px">
         <span>头部反转色</span>
         <n-switch
-          v-model:value="layout.headerInverted"
+          v-model:value="layout.invertedHeader"
           size="medium"
           @update:value=""
         />
@@ -99,7 +99,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between h-28px">
         <span>头部固定</span>
         <n-switch
-          v-model:value="layout.headerFixed"
+          v-model:value="layout.fixedHeader"
           size="medium"
           @update:value=""
         />
@@ -111,6 +111,9 @@ const primaryColorOnChange = function ({ item, index }) {
           placeholder=""
           size="small"
           style="width: 100px"
+          :step="2"
+          :min="40"
+          :max="80"
         />
       </div>
     </div>
@@ -131,6 +134,9 @@ const primaryColorOnChange = function ({ item, index }) {
           placeholder=""
           size="small"
           style="width: 100px"
+          :step="2"
+          :min="36"
+          :max="50"
         />
       </div>
     </div>
@@ -139,7 +145,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between h-28px">
         <span>侧边栏反转色</span>
         <n-switch
-          v-model:value="layout.sideInverted"
+          v-model:value="layout.invertedSide"
           size="medium"
           @update:value=""
         />
@@ -147,7 +153,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between h-28px">
         <span>侧边栏固定</span>
         <n-switch
-          v-model:value="layout.sideFixed"
+          v-model:value="layout.fixedSide"
           size="medium"
           @update:value=""
         />
@@ -159,6 +165,9 @@ const primaryColorOnChange = function ({ item, index }) {
           placeholder=""
           size="small"
           style="width: 100px"
+          :step="10"
+          :min="160"
+          :max="300"
         />
       </div>
       <div class="flex items-center justify-between">
@@ -168,6 +177,9 @@ const primaryColorOnChange = function ({ item, index }) {
           placeholder=""
           size="small"
           style="width: 100px"
+          :step="2"
+          :min="64"
+          :max="80"
         />
       </div>
     </div>

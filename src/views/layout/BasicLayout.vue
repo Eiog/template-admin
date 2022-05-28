@@ -15,9 +15,11 @@ import Setting from "./components/Setting.vue";
 import { themeStore } from "@/store/themeStore";
 import { tabsStore } from "@/store/tabsStore";
 import { useRoute, useRouter } from "vue-router";
+import { settingStore } from "@/store";
+import { storeToRefs } from "pinia";
+const { theme,layout,Interface} = storeToRefs(settingStore())
 const route = useRoute();
 const router = useRouter();
-const theme = themeStore();
 const fixedHeader = ref(true);
 const fixedFooter = ref(false);
 const drawerShow = ref(false);
@@ -34,10 +36,15 @@ console.log();
 <template>
   <div class="w-full h-full bg-light-300 dark:bg-dark-300">
     <Layout
-      mode="vertical"
-      :collapse="theme.asideCollapse"
-      :fixed-header="fixedHeader"
-      :fixed-footer="fixedFooter"
+      :mode="layout.mode"
+      :collapsed="layout.collapsed"
+      :fixed-header="layout.fixedHeader"
+      :fixed-footer="layout.fixedFooter"
+      :sider-width="layout.sideWidth"
+      :sider-collapse-width="layout.sideCollapsedWidth"
+      :header-height="layout.headerHeight"
+      :tabs-height="layout.tabsHeight"
+      :footer-height="layout.footerHeight"
     >
       <template #header>
         <header
@@ -61,10 +68,10 @@ console.log();
           <div
             class="w-full h-56px flex items-center justify-center text-2xl cursor-default"
           >
-            <span v-if="!theme.asideCollapse">UnlitAdmin</span>
-            <span v-if="theme.asideCollapse">U</span>
+            <span v-if="!layout.collapsed">UnlitAdmin</span>
+            <span v-if="layout.collapsed">U</span>
           </div>
-          <Menu></Menu>
+          <Menu :collapsed="layout.collapsed" :collapsed-width="layout.sideCollapsedWidth"></Menu>
         </aside>
       </template>
       <template #footer>
