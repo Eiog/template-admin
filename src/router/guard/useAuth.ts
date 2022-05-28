@@ -6,14 +6,14 @@ const useAuth = function (router: Router) {
     router.beforeEach((to, from, next) => {
         const token = getStorage('UNLIT-TOKEN')
         if (!token && to.path != '/login') {
-            next({ name: 'login' })
+            next('/login')
             return
         }
         if (token && to.path === '/login') {
-            router.go(-1)
+            next('/')
             return
         }
-        if (token && to.path != '/login') {
+        if (token && to.meta.requiresAuth) {
             _feachStatus().then((res: any) => {
                 userStore().user = res.data
                 next()

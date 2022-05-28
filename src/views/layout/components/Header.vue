@@ -22,19 +22,24 @@ const dropdownOptions = [
   },
   {
     label: "退出登录",
-    value: "logout"
+    value: "logout",
   },
 ];
 const handleSelect = function (val) {
-  if(val==='logout') onLogOut()
+  if (val === "logout") onLogOut();
 };
 const onLogOut = function () {
   removeStorage("UNLIT-ADMIN-USER");
   removeStorage("UNLIT-TOKEN");
   message.success("已退出");
-  nextTick(()=>{
-      router.push("/login");
-  })
+  nextTick(() => {
+    router.push("/login");
+  });
+};
+const changeTheme = function () {
+  if (theme.mode === "light") return (theme.mode = "dark");
+  if (theme.mode === "dark") return (theme.mode = "light");
+  theme.mode = "light";
 };
 </script>
 <template>
@@ -49,7 +54,7 @@ const onLogOut = function () {
         "
       ></i>
     </div>
-    <div class="mr-auto">
+    <div class="mr-auto dark:!text-light-500">
       {{ route.path }}
     </div>
     <div class="header-item">
@@ -61,10 +66,10 @@ const onLogOut = function () {
     <div class="header-item">
       <i class="ri-fullscreen-line"></i>
     </div>
-    <div class="header-item">
-      <i class="ri-sun-line"></i>
+    <div class="header-item" @click="changeTheme">
+      <i :class="theme.mode==='light'?'ri-sun-line':'ri-moon-line'"></i>
     </div>
-    <div class="header-item hover:!bg-white">
+    <div class="header-item hover:!bg-white dark:hover:!bg-black">
       <n-popselect
         trigger="click"
         @update:value="handleSelect"
@@ -81,6 +86,6 @@ const onLogOut = function () {
 </template>
 <style scoped lang="less">
 .header-item {
-  @apply h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl hover:bg-light-900;
+  @apply h-full flex items-center justify-center px-4 transition-colors duration-300 ease-in-out cursor-pointer text-xl text-dark-100 hover:bg-light-400 dark:text-light-500 dark:hover:bg-dark-50;
 }
 </style>

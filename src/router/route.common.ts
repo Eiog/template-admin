@@ -31,7 +31,7 @@ const commonRoutes: Array<RouteRecordRaw> = [
                 },
             }
         ]
-    }
+    },
 ];
 
 export default commonRoutes;

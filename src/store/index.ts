@@ -1,13 +1,4 @@
-import { defineStore } from "pinia";
-export const defaultStore = defineStore({
-    id:'defaultStore',
-    state:()=>({
-
-    }),
-    actions:{
-
-    },
-    getters:{
-        
-    }
-})
+import { settingStore } from './settingStore'
+import { tabsStore } from './tabsStore'
+import { userStore } from './userStore'
+export { settingStore, tabsStore, userStore }

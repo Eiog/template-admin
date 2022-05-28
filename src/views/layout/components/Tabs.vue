@@ -37,17 +37,17 @@ watchEffect(() => {
     class="w-full h-full flex items-center gap-2 overflow-y-hidden overflow-x-auto"
   >
     <div
-      class="bg-light-500 rounded-1 flex items-center justify-center transition-colors duration-300 ease-in-out gap-1 cursor-pointer px-2  hover:bg-gray-300"
+      class="bg-light-500 rounded-1 flex items-center justify-center transition-colors duration-300 ease-in-out gap-1 cursor-pointer px-2  hover:bg-gray-300 dark:bg-dark-200 dark:hover:bg-dark-50"
       v-for="(item, index) in (data as any)"
       :key="index"
-      :class="tabsIndex === index ? '!bg-gray-300' : ''"
+      :class="tabsIndex === index ? 'active' : ''"
     >
       <div class="h-full flex items-center justify-center gap-1 py-1" @click="onChange(item, index)">
         <i class="leading-tight" v-if="item.icon" :class="item.icon"></i>
         <span class="text-sm">{{ item.title }}</span>
       </div>
       <span
-        class="bg-gray-100 w-16px h-16px flex items-center justify-center rounded-full transition-colors hover:bg-light-50"
+        class="bg-gray-100 dark:bg-dark-50 w-16px h-16px flex items-center justify-center rounded-full transition-colors hover:bg-light-50 dark:hover:bg-dark-500"
         v-if="!item.rootTab"
         @click="onClose(item, index)"
       >
@@ -59,4 +59,8 @@ watchEffect(() => {
   </div>
 </template>
 <style scoped lang="less"></style>
-<style scoped></style>
+<style scoped>
+.active{
+  @apply bg-gray-300 dark:bg-dark-50;
+}
+</style>

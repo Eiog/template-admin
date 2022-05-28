@@ -1,14 +1,68 @@
 <script setup lang="ts">
-import { NMessageProvider } from "naive-ui";
+import {
+  NMessageProvider,
+  NConfigProvider,
+  darkTheme,
+  useOsTheme,
+  GlobalThemeOverrides,
+  NGlobalStyle,
+} from "naive-ui";
+import type { GlobalTheme } from "naive-ui";
+import { watchEffect, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { settingStore } from "./store";
+const { theme } = storeToRefs(settingStore());
+const osTheme = useOsTheme();
+const nTheme = ref<GlobalTheme | null>(null);
+const themeOverrides: GlobalThemeOverrides = {
+  common: {
+    primaryColor: "#FF0000",
+  },
+};
+watchEffect(() => {
+  if (theme.value.darkMode) {
+    nTheme.value = darkTheme;
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
+  } else {
+    nTheme.value = null;
+    document.body.classList.remove("dark");
+    document.body.classList.add("light");
+  }
+});
+watchEffect(() => {
+  if (theme.value.autoMode) {
+    if (osTheme.value === "dark") {
+      nTheme.value = darkTheme;
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
+    } else {
+      nTheme.value = null;
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
+    }
+  }
+});
+watchEffect(()=>{
+  themeOverrides.common.primaryColor = theme.value.primaryColor
+})
+
 </script>
 
 <template>
   <router-view v-slot="{ Component }">
-    <n-message-provider>
-      <transition name="fade-transform" mode="out-in">
-        <component :is="Component"></component>
-      </transition>
-    </n-message-provider>
+    <n-config-provider
+      :theme="nTheme"
+      :theme-overrides="themeOverrides"
+      abstract
+    >
+      <n-message-provider>
+        <transition name="fade-transform" mode="out-in">
+          <component :is="Component"></component>
+        </transition>
+      </n-message-provider>
+      <n-global-style />
+    </n-config-provider>
   </router-view>
 </template>
 
