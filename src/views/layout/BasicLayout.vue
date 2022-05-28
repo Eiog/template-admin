@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import { ref } from "vue";
-import { NDrawer, NDrawerContent,NScrollbar } from "naive-ui";
+import { NDrawer, NDrawerContent, NScrollbar } from "naive-ui";
 import Layout from "./components/Layout.vue";
 import Header from "./components/Header.vue";
 import Tabs from "./components/Tabs.vue";
@@ -17,7 +17,7 @@ import { tabsStore } from "@/store/tabsStore";
 import { useRoute, useRouter } from "vue-router";
 import { settingStore } from "@/store";
 import { storeToRefs } from "pinia";
-const { theme,layout,Interface} = storeToRefs(settingStore())
+const { theme, layout, Interface } = storeToRefs(settingStore());
 const route = useRoute();
 const router = useRouter();
 const fixedHeader = ref(true);
@@ -71,7 +71,11 @@ console.log();
             <span v-if="!layout.collapsed">UnlitAdmin</span>
             <span v-if="layout.collapsed">U</span>
           </div>
-          <Menu :collapsed="layout.collapsed" :collapsed-width="layout.sideCollapsedWidth"></Menu>
+          <Menu
+            :collapsed="layout.collapsed"
+            :collapsed-width="layout.sideCollapsedWidth"
+            :inverted="layout.invertedSide"
+          ></Menu>
         </aside>
       </template>
       <template #footer>
@@ -90,9 +94,18 @@ console.log();
       :class="drawerShow ? '!right-310px' : ''"
       @click="drawerShow = !drawerShow"
     >
-      <i class="transition-transform hover:rotate-90" :class="drawerShow ? 'ri-close-line' : 'ri-settings-3-line'"></i>
+      <i
+        class="transition-transform hover:rotate-90"
+        :class="drawerShow ? 'ri-close-line' : 'ri-settings-3-line'"
+      ></i>
     </div>
-    <n-drawer v-model:show="drawerShow" :auto-focus="false" display-directive="show" :width="310" placement="right">
+    <n-drawer
+      v-model:show="drawerShow"
+      :auto-focus="false"
+      display-directive="show"
+      :width="310"
+      placement="right"
+    >
       <n-drawer-content title="设置" :native-scrollbar="false">
         <Setting></Setting>
       </n-drawer-content>

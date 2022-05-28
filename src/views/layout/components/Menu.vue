@@ -15,6 +15,10 @@ const props = defineProps({
     type:Boolean,
     default:false
   },
+  inverted:{
+    type:Boolean,
+    default:false
+  },
   collapsedWidth:{
     type:Number,
     default:64
@@ -39,6 +43,7 @@ const menuOnChange = function (key: string, item: MenuOption): void {
       :options="menuOptions"
       :collapsed="collapsed"
       :collapsed-width="collapsedWidth"
+      :inverted="inverted"
       :indent="20"
       v-model:value="(activeKey as string)"
       @update:value="menuOnChange"
