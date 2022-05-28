@@ -14,11 +14,11 @@ import { settingStore } from "./store";
 const { theme } = storeToRefs(settingStore());
 const osTheme = useOsTheme();
 const nTheme = ref<GlobalTheme | null>(null);
-const themeOverrides: GlobalThemeOverrides = {
+const themeOverrides: GlobalThemeOverrides|any = ref({
   common: {
     primaryColor: "#FF0000",
   },
-};
+});
 watchEffect(() => {
   if (theme.value.darkMode) {
     nTheme.value = darkTheme;
@@ -43,10 +43,9 @@ watchEffect(() => {
     }
   }
 });
-watchEffect(()=>{
-  themeOverrides.common.primaryColor = theme.value.primaryColor
-})
-
+watchEffect(() => {
+  themeOverrides.value.common.primaryColor = theme.value.primaryColor;
+});
 </script>
 
 <template>
