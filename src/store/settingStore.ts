@@ -1,4 +1,7 @@
 import { defineStore } from "pinia";
+import { darkColor } from "@/utils/color";
+import {colord} from 'colord'
+
 export const settingStore = defineStore({
     id: 'settingStore',
     state: () => ({
@@ -30,6 +33,8 @@ export const settingStore = defineStore({
 
     },
     getters: {
-
+        primaryColorHover(state) {
+            return colord(state.theme.primaryColor).darken(.1).toHex()
+        }
     }
 })

@@ -11,12 +11,14 @@ import type { GlobalTheme } from "naive-ui";
 import { watchEffect, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { settingStore } from "./store";
-const { theme } = storeToRefs(settingStore());
+
+const { theme,primaryColorHover } = storeToRefs(settingStore());
 const osTheme = useOsTheme();
 const nTheme = ref<GlobalTheme | null>(null);
 const themeOverrides: GlobalThemeOverrides|any = ref({
   common: {
     primaryColor: "#FF0000",
+    primaryColorHover:'cc0000'
   },
 });
 watchEffect(() => {
@@ -45,6 +47,9 @@ watchEffect(() => {
 });
 watchEffect(() => {
   themeOverrides.value.common.primaryColor = theme.value.primaryColor;
+});
+watchEffect(() => {
+  themeOverrides.value.common.primaryColorHover = primaryColorHover;
 });
 </script>
 

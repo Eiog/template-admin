@@ -1,5 +1,5 @@
 import http from "@/http"
-import '@/http/mock/user.mock'
+import '@/mock/user.mock'
 export const _feachLogin = (data) => {
     return http.post('user/login', data)
 }

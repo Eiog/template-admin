@@ -17,7 +17,7 @@ import { tabsStore } from "@/store/tabsStore";
 import { useRoute, useRouter } from "vue-router";
 import { settingStore } from "@/store";
 import { storeToRefs } from "pinia";
-const { theme, layout, Interface } = storeToRefs(settingStore());
+const { theme, layout, Interface,primaryColorHover } = storeToRefs(settingStore());
 const route = useRoute();
 const router = useRouter();
 const fixedHeader = ref(true);
@@ -90,8 +90,9 @@ console.log();
       </template>
     </Layout>
     <div
-      class="fixed top-1/4 right-10px w-40px h-40px bg-gray-400 rounded-md shadow-md flex items-center justify-center text-white text-2xl cursor-pointer transition-all ease-linear z-9999"
+      class="fixed top-1/4 right-10px w-40px h-40px rounded-md shadow-md flex items-center justify-center text-white text-2xl cursor-pointer transition-all ease-linear z-9999"
       :class="drawerShow ? '!right-310px' : ''"
+      :style="{background:theme.primaryColor}"
       @click="drawerShow = !drawerShow"
     >
       <i
