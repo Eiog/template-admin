@@ -8,14 +8,13 @@ import { ref } from "vue";
 import { NDrawer, NDrawerContent, NScrollbar } from "naive-ui";
 import Layout from "./components/Layout.vue";
 import Header from "./components/Header.vue";
-import Tabs from "./components/Tabs.vue";
+import Tab from "./components/Tab.vue";
 import Menu from "./components/Menu.vue";
 import Main from "./components/Main.vue";
 import Setting from "./components/Setting.vue";
 import { useAppStore,useThemeStore,useTabStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
-import { use } from "echarts/core";
 const appStore = useAppStore()
 const themeStore = useThemeStore()
 const tabStore = useTabStore()
@@ -36,7 +35,7 @@ console.log();
   <div class="w-full h-full bg-light-300 dark:bg-dark-300">
     <Layout
       :mode="layout.mode"
-      :collapsed="layout.collapsed"
+      :collapsed="appStore.sideCollapsed"
       :fixed-header="header.fixed"
       :fixed-footer="footer.fixed"
       :sider-width="side.width"
@@ -54,12 +53,12 @@ console.log();
       </template>
       <template #tabs>
         <div class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-sm">
-          <Tabs
+          <Tab
             :data="tabStore.tabs"
             :current-index="tabStore.activeIndex"
             @on-change="tabsOnChange"
             @on-close="tabsOnClose"
-          ></Tabs>
+          ></Tab>
         </div>
       </template>
       <template #aside>
@@ -67,11 +66,11 @@ console.log();
           <div
             class="w-full h-56px flex items-center justify-center text-2xl cursor-default"
           >
-            <span v-if="!layout.collapsed">UnlitAdmin</span>
-            <span v-if="layout.collapsed">U</span>
+            <span v-if="!appStore.sideCollapsed">UnlitAdmin</span>
+            <span v-if="appStore.sideCollapsed">U</span>
           </div>
           <Menu
-            :collapsed="layout.collapsed"
+            :collapsed="appStore.sideCollapsed"
             :collapsed-width="side.collapsedWidth"
             :inverted="side.inverted"
           ></Menu>

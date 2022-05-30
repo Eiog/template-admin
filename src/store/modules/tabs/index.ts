@@ -1,33 +1,34 @@
 import { RouteLocationNormalized } from "vue-router";
 import { defineStore } from "pinia";
 type tabs = {
-    title: string|unknown,
+    title: string | unknown,
     name: string,
-    path: string|unknown,
-    icon: string|unknown,
-    rootTab?:boolean|unknown
-}|RouteLocationNormalized
+    path: string | unknown,
+    icon: string | unknown,
+    rootTab?: boolean | unknown
+} | RouteLocationNormalized
 interface tabState {
-    tabs:tabs[]
-    activeIndex:number
+    tabs: tabs[]
+    activeIndex: number
+}
+const rootTab = {
+    title: '分析页',
+    name: 'analysis',
+    path: '/dashboard/analysis',
+    icon: 'ri-bubble-chart-line',
+    rootTab: true
 }
 export const useTabStore = defineStore({
     id: 'tabStore',
-    state: ():tabState => ({
+    state: (): tabState => ({
         tabs: [
-            {
-                title:'分析页',
-                name:'analysis',
-                path:'/dashboard/analysis',
-                icon:'ri-bubble-chart-line',
-                rootTab:true
-            }
+            rootTab
         ],
         activeIndex: 0
     }),
     actions: {
-        setTab(route:RouteLocationNormalized) {
-            let tab:tabs = {
+        setTab(route: RouteLocationNormalized) {
+            let tab: tabs = {
                 title: route.meta.title,
                 name: route.name,
                 path: route.path,
@@ -41,10 +42,20 @@ export const useTabStore = defineStore({
             }
             this.activeIndex = index
         },
-        removeTag(index){
-            this.tabs.splice(index,1)
-            if(this.activeIndex === index){
-                this.activeIndex = this.tabs.length-1
+        removeTag(index) {
+            this.tabs.splice(index, 1)
+            if (this.activeIndex === index) {
+                this.activeIndex = this.tabs.length - 1
+            }
+        },
+        closeTab(key:string){
+            switch (key) {
+                case 'close-all':
+                    this.$reset()
+                    break;
+            
+                default:
+                    break;
             }
         }
     },
