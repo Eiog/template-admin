@@ -4,18 +4,18 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { NAvatar, NPopselect, NIcon, useMessage,NTooltip } from "naive-ui";
-import { settingStore } from "@/store";
-import { userStore } from "@/store/userStore";
+import { NAvatar, NPopselect, NIcon, useMessage, NTooltip } from "naive-ui";
+import { useAppStore, useAuthStore, useThemeStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { removeStorage } from "@/utils/storage";
 import { nextTick, ref } from "vue";
-import { storeToRefs } from "pinia";
-
+const appStore = useAppStore()
+const authStore = useAuthStore()
+const themeStore = useThemeStore()
 const message = useMessage();
 const route = useRoute();
 const router = useRouter();
-const { theme,layout,Interface} = storeToRefs(settingStore())
+
 const dropdownOptions = [
   {
     label: "个人中心",
@@ -38,7 +38,7 @@ const onLogOut = function () {
   });
 };
 const isFullScreen = ref(false);
-const fullScreen = function () {
+const fullScreenOnClick = function () {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen();
     isFullScreen.value = true;
@@ -47,16 +47,19 @@ const fullScreen = function () {
     isFullScreen.value = false;
   }
 };
+const collapsedOnClick = () => {
+  appStore.sideCollapsed = !appStore.sideCollapsed;
+};
+const darkModeOnClick = () => {
+  themeStore.darkMode = !themeStore.darkMode;
+};
 </script>
 <template>
   <div class="h-full flex items-center">
-    <div
-      class="header-item"
-      @click="layout.collapsed = !layout.collapsed"
-    >
+    <div class="header-item" @click="collapsedOnClick">
       <i
         :class="
-          layout.collapsed ? 'ri-menu-unfold-line' : 'ri-menu-fold-line'
+          appStore.sideCollapsed ? 'ri-menu-unfold-line' : 'ri-menu-fold-line'
         "
       ></i>
     </div>
@@ -69,7 +72,7 @@ const fullScreen = function () {
     <div class="header-item">
       <i class="ri-github-line"></i>
     </div>
-    <div class="header-item" @click="fullScreen">
+    <div class="header-item" @click="fullScreenOnClick">
       <n-tooltip trigger="hover">
         <template #trigger>
           <i
@@ -81,8 +84,8 @@ const fullScreen = function () {
         全屏
       </n-tooltip>
     </div>
-    <div class="header-item" @click="theme.darkMode = !theme.darkMode">
-      <i :class="theme.darkMode? 'ri-moon-line' : 'ri-sun-line'"></i>
+    <div class="header-item" @click="darkModeOnClick">
+      <i :class="themeStore.darkMode ? 'ri-moon-line' : 'ri-sun-line'"></i>
     </div>
     <div class="header-item hover:!bg-white dark:hover:!bg-black">
       <n-popselect
@@ -90,7 +93,7 @@ const fullScreen = function () {
         @update:value="handleSelect"
         :options="dropdownOptions"
       >
-        <n-avatar size="medium" round :src="userStore().user.avatar">
+        <n-avatar size="medium" round :src="authStore.user.avatar">
         </n-avatar>
       </n-popselect>
     </div>

@@ -1,4 +1,4 @@
-import { userStore } from '@/store/userStore';
+import { useAuthStore } from '@/store';
 import { Router } from 'vue-router'
 import { getStorage } from '@/utils/storage'
 import { _feachStatus } from '@/http/api/userApi'
@@ -15,7 +15,7 @@ const useAuth = function (router: Router) {
         }
         if (token && to.meta.requiresAuth) {
             _feachStatus().then((res: any) => {
-                userStore().user = res.data
+                useAuthStore().user = res.data
                 next()
             }).catch(() => {
                 router.push('/login')

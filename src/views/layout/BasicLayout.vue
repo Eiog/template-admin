@@ -12,23 +12,22 @@ import Tabs from "./components/Tabs.vue";
 import Menu from "./components/Menu.vue";
 import Main from "./components/Main.vue";
 import Setting from "./components/Setting.vue";
-import { themeStore } from "@/store/themeStore";
-import { tabsStore } from "@/store/tabsStore";
+import { useAppStore,useThemeStore,useTabStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
-import { settingStore } from "@/store";
 import { storeToRefs } from "pinia";
-const { theme, layout, Interface,primaryColorHover } = storeToRefs(settingStore());
+import { use } from "echarts/core";
+const appStore = useAppStore()
+const themeStore = useThemeStore()
+const tabStore = useTabStore()
+const { themeColor,layout,header,side,tabs,footer} = storeToRefs(themeStore);
 const route = useRoute();
 const router = useRouter();
-const fixedHeader = ref(true);
-const fixedFooter = ref(false);
-const drawerShow = ref(false);
 const tabsOnChange = function ({ index, item }) {
   router.push({ name: item.name });
 };
 const tabsOnClose = function ({ index }) {
-  tabsStore().removeTag(index);
-  router.push({ name: tabsStore().getTabItem.name });
+  tabStore.removeTag(index);
+  router.push({ name: tabStore.getTabItem.name as any });
 };
 const layoutMode = route.meta.layoutMode;
 console.log();
@@ -38,13 +37,13 @@ console.log();
     <Layout
       :mode="layout.mode"
       :collapsed="layout.collapsed"
-      :fixed-header="layout.fixedHeader"
-      :fixed-footer="layout.fixedFooter"
-      :sider-width="layout.sideWidth"
-      :sider-collapse-width="layout.sideCollapsedWidth"
-      :header-height="layout.headerHeight"
-      :tabs-height="layout.tabsHeight"
-      :footer-height="layout.footerHeight"
+      :fixed-header="header.fixed"
+      :fixed-footer="footer.fixed"
+      :sider-width="side.width"
+      :sider-collapse-width="side.collapsedWidth"
+      :header-height="header.height"
+      :tabs-height="tabs.height"
+      :footer-height="footer.height"
     >
       <template #header>
         <header
@@ -56,8 +55,8 @@ console.log();
       <template #tabs>
         <div class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-sm">
           <Tabs
-            :data="tabsStore().tabs"
-            :current-index="tabsStore().activeIndex"
+            :data="tabStore.tabs"
+            :current-index="tabStore.activeIndex"
             @on-change="tabsOnChange"
             @on-close="tabsOnClose"
           ></Tabs>
@@ -73,8 +72,8 @@ console.log();
           </div>
           <Menu
             :collapsed="layout.collapsed"
-            :collapsed-width="layout.sideCollapsedWidth"
-            :inverted="layout.invertedSide"
+            :collapsed-width="side.collapsedWidth"
+            :inverted="side.inverted"
           ></Menu>
         </aside>
       </template>
@@ -91,23 +90,23 @@ console.log();
     </Layout>
     <div
       class="fixed top-1/4 right-10px w-40px h-40px rounded-md shadow-md flex items-center justify-center text-white text-2xl cursor-pointer transition-all ease-linear z-9999"
-      :class="drawerShow ? '!right-310px' : ''"
-      :style="{background:theme.primaryColor}"
-      @click="drawerShow = !drawerShow"
+      :class="appStore.settingShow ? '!right-310px' : ''"
+      :style="{background:themeColor}"
+      @click="appStore.settingShow = !appStore.settingShow"
     >
       <i
         class="transition-transform hover:rotate-90"
-        :class="drawerShow ? 'ri-close-line' : 'ri-settings-3-line'"
+        :class="appStore.settingShow ? 'ri-close-line' : 'ri-settings-3-line'"
       ></i>
     </div>
     <n-drawer
-      v-model:show="drawerShow"
+      v-model:show="appStore.settingShow"
       :auto-focus="false"
       display-directive="show"
       :width="310"
       placement="right"
     >
-      <n-drawer-content title="设置" :native-scrollbar="false">
+      <n-drawer-content title="主题设置" :native-scrollbar="false">
         <Setting></Setting>
       </n-drawer-content>
     </n-drawer>

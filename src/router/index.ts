@@ -3,7 +3,7 @@ import exceptionRoutes from './route.exception';
 import asyncRoutes from './route.async';
 import commonRoutes from './route.common';
 import useAuth from './guard/useAuth';
-import useTabs from './guard/useTabs'
+import useTab from './guard/useTab'
 import useProgress from './guard/useProgress';
 const routes: Array<RouteRecordRaw> = [
     // 无鉴权的业务路由 ex:登录
@@ -30,6 +30,9 @@ useProgress(router)
 //权限验证
 useAuth(router)
 //添加tabs
-useTabs(router)
+useTab(router)
 
 export default router;
+export * from './route.async'
+export * from './route.common'
+export * from './route.exception'

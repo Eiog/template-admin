@@ -6,7 +6,7 @@ export default {
 <script setup lang="ts">
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
-import { settingStore } from "@/store";
+import { useThemeStore } from "@/store";
 import {
   NDivider,
   NSwitch,
@@ -14,31 +14,25 @@ import {
   NButton,
   NInputNumber,
 } from "naive-ui";
-const { theme, layout, Interface } = storeToRefs(settingStore());
-const primaryColor = ref("");
-const primaryColorList = [
-  { name: "朱砂", color: "#ff461f" },
-  { name: "火红", color: "#ff2d51" },
-  { name: "鹅黄", color: "#fff143" },
-  { name: "蔚蓝", color: "#70f3ff" },
-  { name: "石青", color: "#1685a9" },
-  { name: "靛蓝", color: "#065279" },
-  { name: "品红", color: "#f00056" },
-  { name: "宝蓝", color: "#4b5cc4" },
-  { name: "蓝灰色", color: "#a1afc9" },
-  { name: "青葱", color: "#0aa344" },
-  { name: "黛紫", color: "#574266" },
-  { name: "乌色", color: "#725e82" },
-  { name: "玄青", color: "#3d3b4f" },
-  { name: "丁香色", color: "#cca4e3" },
-  { name: "鸦青", color: "#424c50" },
-  { name: "藕色", color: "#edd1d8" },
-];
+const themeStore = useThemeStore()
+const {
+  darkMode,
+  autoMode,
+  themeColor,
+  themeColorList,
+  layout,
+  header,
+  tabs,
+  main,
+  side,
+  footer,
+} = storeToRefs(themeStore);
 const primaryColorIndex = ref(0);
 const primaryColorOnChange = function ({ item, index }) {
   primaryColorIndex.value = index;
-  theme.value.primaryColor = item.color;
+  themeColor.value = item.color
 };
+
 </script>
 <template>
   <div>
@@ -46,18 +40,18 @@ const primaryColorOnChange = function ({ item, index }) {
     <div class="flex flex-col gap-3">
       <div class="flex justify-items-center justify-between">
         <span>深色主题</span>
-        <n-switch v-model:value="theme.darkMode" size="medium" @update:value="">
+        <n-switch v-model:value="darkMode" size="medium" @update:value="">
           <template #icon>
-            <i :class="theme.darkMode ? 'ri-moon-line' : 'ri-sun-line'"></i>
+            <i :class="darkMode ? 'ri-moon-line' : 'ri-sun-line'"></i>
           </template>
         </n-switch>
       </div>
       <div class="flex justify-items-center justify-between">
         <span>跟随系统</span>
-        <n-switch v-model:value="theme.autoMode" size="medium" @update:value="">
+        <n-switch v-model:value="autoMode" size="medium" @update:value="themeStore.followSysMode">
           <template #icon>
             <i
-              :class="theme.autoMode ? 'ri-close-circle-line' : 'ri-sun-line'"
+              :class="autoMode ? 'ri-close-circle-line' : 'ri-sun-line'"
             ></i>
           </template>
         </n-switch>
@@ -68,7 +62,7 @@ const primaryColorOnChange = function ({ item, index }) {
     <div class="flex flex-wrap gap-3 justify-between">
       <div
         class="w-20px h-20px rounded-1 bg-gray-600 cursor-pointer flex items-center justify-center"
-        v-for="(item, index) in primaryColorList"
+        v-for="(item, index) in themeColorList"
         :key="index"
         :style="{ background: item.color }"
         @click="primaryColorOnChange({ item, index })"
@@ -80,7 +74,7 @@ const primaryColorOnChange = function ({ item, index }) {
       </div>
     </div>
     <div class="mt-3">
-      <n-color-picker v-model:value="theme.primaryColor" :show-preview="true" />
+      <n-color-picker v-model:value="themeColor" :show-preview="true" />
     </div>
     <div class="mt-2">
       <n-button size="small" block @click="">更多颜色</n-button>
@@ -91,15 +85,16 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between h-28px">
         <span>头部反转色</span>
         <n-switch
-          v-model:value="layout.invertedHeader"
+          v-model:value="header.inverted"
           size="medium"
           @update:value=""
+          :disabled="!darkMode"
         />
       </div>
       <div class="flex items-center justify-between h-28px">
         <span>头部固定</span>
         <n-switch
-          v-model:value="layout.fixedHeader"
+          v-model:value="header.fixed"
           size="medium"
           @update:value=""
         />
@@ -107,7 +102,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between">
         <span>头部高度</span>
         <n-input-number
-          v-model:value="layout.headerHeight"
+          v-model:value="header.height"
           placeholder=""
           size="small"
           style="width: 100px"
@@ -130,7 +125,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between">
         <span>标签页高度</span>
         <n-input-number
-          v-model:value="layout.tabsHeight"
+          v-model:value="tabs.height"
           placeholder=""
           size="small"
           style="width: 100px"
@@ -145,15 +140,16 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between h-28px">
         <span>侧边栏反转色</span>
         <n-switch
-          v-model:value="layout.invertedSide"
+          v-model:value="side.inverted"
           size="medium"
           @update:value=""
+          :disabled="!darkMode"
         />
       </div>
       <div class="flex items-center justify-between h-28px">
         <span>侧边栏固定</span>
         <n-switch
-          v-model:value="layout.fixedSide"
+          v-model:value="side.fixed"
           size="medium"
           @update:value=""
         />
@@ -161,7 +157,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between">
         <span>侧边栏展开宽度</span>
         <n-input-number
-          v-model:value="layout.sideWidth"
+          v-model:value="side.width"
           placeholder=""
           size="small"
           style="width: 100px"
@@ -173,7 +169,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between">
         <span>侧边栏收起宽度</span>
         <n-input-number
-          v-model:value="layout.sideCollapsedWidth"
+          v-model:value="side.collapsedWidth"
           placeholder=""
           size="small"
           style="width: 100px"
@@ -186,6 +182,14 @@ const primaryColorOnChange = function ({ item, index }) {
 
     <n-divider>界面显示</n-divider>
     <n-divider>主题配置</n-divider>
+    <div class="flex gap-3">
+      <div class="flex-1">
+        <n-button type="primary" size="medium" block @click="">导出</n-button>
+      </div>
+      <div class="flex-1">
+        <n-button size="medium" block @click="themeStore.resetTheme">重置</n-button>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped lang="less"></style>

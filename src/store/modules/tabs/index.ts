@@ -1,14 +1,19 @@
+import { RouteLocationNormalized } from "vue-router";
 import { defineStore } from "pinia";
 type tabs = {
-    title: string,
+    title: string|unknown,
     name: string,
-    path: string,
-    icon: string,
-    rootTab?:boolean
+    path: string|unknown,
+    icon: string|unknown,
+    rootTab?:boolean|unknown
+}|RouteLocationNormalized
+interface tabState {
+    tabs:tabs[]
+    activeIndex:number
 }
-export const tabsStore = defineStore({
-    id: 'tabsStore',
-    state: () => ({
+export const useTabStore = defineStore({
+    id: 'tabStore',
+    state: ():tabState => ({
         tabs: [
             {
                 title:'分析页',
@@ -21,8 +26,8 @@ export const tabsStore = defineStore({
         activeIndex: 0
     }),
     actions: {
-        setTab(route) {
-            let tab = {
+        setTab(route:RouteLocationNormalized) {
+            let tab:tabs = {
                 title: route.meta.title,
                 name: route.name,
                 path: route.path,

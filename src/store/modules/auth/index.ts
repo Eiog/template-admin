@@ -9,8 +9,8 @@ type state = {
         token: string
     } | Object
 }
-export const userStore = defineStore({
-    id: 'userStore',
+export const useAuthStore = defineStore({
+    id: 'authStore',
     state: () => ({
         user: {
             id: undefined,
