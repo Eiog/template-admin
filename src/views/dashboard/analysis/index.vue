@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  name: "",
+  name: "analysis",
 };
 </script>
 <script setup lang="ts">

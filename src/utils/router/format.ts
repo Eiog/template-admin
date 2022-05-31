@@ -12,7 +12,7 @@ type menuItem = {
     disabled?:boolean|unknown,
     children?:menuItem|unknown
 }
-export const routerToMenu = function (routes:RouteRecordRaw[]) {
+export function routerToMenu (routes:RouteRecordRaw[]) {
     let arr:any = []
     routes.forEach((item)=>{
         if(!item.meta) return
@@ -28,4 +28,13 @@ export const routerToMenu = function (routes:RouteRecordRaw[]) {
         arr.push(menuItem)
     })
     return arr
+}
+export function setComponentName(routes:RouteRecordRaw[]){
+    routes.forEach((item:any)=>{
+        // item.component.name = item.name
+        console.log(item);
+        if(item.children){
+            setComponentName(item.children)
+        }
+    })
 }

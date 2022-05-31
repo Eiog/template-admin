@@ -1,21 +1,24 @@
-import { RouteLocationNormalized } from "vue-router";
+import { RouteLocationNormalized, RouteLocationRaw } from "vue-router";
 import { defineStore } from "pinia";
-type tabs = {
-    title: string | unknown,
-    name: string,
+type tab = {
+    name: string|unknown,
     path: string | unknown,
-    icon: string | unknown,
-    rootTab?: boolean | unknown
-} | RouteLocationNormalized
-interface tabState {
-    tabs: tabs[]
-    activeIndex: number
+    meta: object | unknown,
+    rootTab?: boolean | unknown,
+    loading?:boolean|unknown
 }
-const rootTab = {
-    title: '分析页',
+interface tabState {
+    tabs: tab[]
+    activeIndex: number,
+}
+const rootTab:tab = {
+
     name: 'analysis',
     path: '/dashboard/analysis',
-    icon: 'ri-bubble-chart-line',
+    meta: {
+        title: '分析页',
+        icon: 'ri-bubble-chart-line',
+    },
     rootTab: true
 }
 export const useTabStore = defineStore({
@@ -28,11 +31,11 @@ export const useTabStore = defineStore({
     }),
     actions: {
         setTab(route: RouteLocationNormalized) {
-            let tab: tabs = {
-                title: route.meta.title,
+            let tab: tab = {
                 name: route.name,
                 path: route.path,
-                icon: route.meta.icon
+                meta: route.meta,
+                loading:true
             }
             let index = this.tabs.findIndex(item => { return item.name === tab.name })
             if (index === -1) {
@@ -41,6 +44,10 @@ export const useTabStore = defineStore({
                 return
             }
             this.activeIndex = index
+            this.tabs[index].loading = true
+        },
+        changeTab(index:number){
+            
         },
         removeTag(index) {
             this.tabs.splice(index, 1)
@@ -48,18 +55,24 @@ export const useTabStore = defineStore({
                 this.activeIndex = this.tabs.length - 1
             }
         },
-        closeTab(key:string){
+        closeTab(key: string) {
             switch (key) {
                 case 'close-all':
                     this.$reset()
                     break;
-            
+
                 default:
                     break;
             }
+        },
+        loaded(){
+            this.tabs[this.activeIndex].loading = false
         }
     },
     getters: {
+        getTab(state) {
+
+        },
         getTabItem(state) {
             return state.tabs[state.activeIndex]
         }

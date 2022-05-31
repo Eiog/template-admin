@@ -19,6 +19,10 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  loading:{
+    type:Boolean,
+    defalt:false
+  }
 });
 const emit = defineEmits(["onChange", "onClose"]);
 const onChange = function (item, index) {
@@ -57,8 +61,8 @@ const handleSelect = (key)=>{
           class="h-full flex items-center justify-center gap-1 py-1"
           @click="onChange(item, index)"
         >
-          <i class="leading-tight" v-if="item.icon" :class="item.icon"></i>
-          <span class="text-sm">{{ item.title }}</span>
+          <i class="leading-tight" v-if="item.meta.icon" :class="item.meta.icon"></i>
+          <span class="text-sm">{{ item.meta.title }}</span>
         </div>
         <span
           class="bg-gray-100 dark:bg-dark-50 w-16px h-16px flex items-center justify-center rounded-full transition-colors hover:bg-light-50 dark:hover:bg-dark-500"
@@ -66,7 +70,8 @@ const handleSelect = (key)=>{
           @click="onClose(item, index)"
         >
           <i
-            class="ri-close-line leading-none transition-transform ease-in-out hover:rotate-180"
+            class=" leading-none transition-transform ease-in-out hover:rotate-180"
+            :class="item.loading?'ri-loader-3-line animate-rotate-in':'ri-close-line'"
           ></i>
         </span>
       </div>

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import NProgress from 'nprogress'
 import showCodeMessage from './code';
-import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
+import { formatJsonToUrlParams, instanceObject } from '@/utils/common/format';
 import { ElNotification } from 'element-plus'
 import { addPending, removePending} from './_methods'
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
     config.headers.token = token
     removePending(config)
     addPending(config)
-    NProgress.start()
+    // NProgress.start()
     return config;
   },
   (error: AxiosError) => {

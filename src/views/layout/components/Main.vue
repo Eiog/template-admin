@@ -3,12 +3,15 @@ export default {
   name: "Main",
 };
 </script>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouteStore } from '@/store/modules/route';
+const routeStore = useRouteStore()
+</script>
 <template>
   <main class="w-full h-full">
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
-        <keep-alive>
+        <keep-alive :include="routeStore.keepAlives">
           <component :is="Component"></component>
         </keep-alive>
       </transition>

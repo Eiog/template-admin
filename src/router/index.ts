@@ -1,17 +1,14 @@
 import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router';
-import exceptionRoutes from './route.exception';
-import asyncRoutes from './route.async';
-import commonRoutes from './route.common';
-import useAuth from './guard/useAuth';
-import useTab from './guard/useTab'
-import useProgress from './guard/useProgress';
+import {rootRoutes,commonRoutes} from './routes';
+import { setComponentName } from '@/utils';
+import { createGuard } from './guard';
+import moduleRoutes from './modules';
+console.log(setComponentName(moduleRoutes));
+
 const routes: Array<RouteRecordRaw> = [
-    // 无鉴权的业务路由 ex:登录
+    rootRoutes,
+    ...moduleRoutes,
     ...commonRoutes,
-    // 带鉴权的业务路由
-    ...asyncRoutes,
-    // 异常页必须放在路由匹配规则的最后
-    ...exceptionRoutes,
 ];
 const router: Router = createRouter({
     // 新的vue-router4 使用 history路由模式 和 base前缀
@@ -24,15 +21,8 @@ const router: Router = createRouter({
  * @param {RouteLocationNormalizedLoaded} from  当前导航正在离开的路由
  * @return {*}
  */
-
-//进度条
-useProgress(router)
-//权限验证
-useAuth(router)
-//添加tabs
-useTab(router)
+/**添加路由守卫 */
+ createGuard(router)
 
 export default router;
-export * from './route.async'
-export * from './route.common'
-export * from './route.exception'
+export * from './modules'

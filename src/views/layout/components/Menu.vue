@@ -8,8 +8,8 @@ import { ref,watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { NMenu } from "naive-ui";
 import type { MenuOption } from "naive-ui";
-import asyncRoutes from "@/router/route.async";
-import { routerToMenu } from "@/utils/formatRouter";
+import { useRouteStore } from "@/store/modules/route";
+const routeStore = useRouteStore()
 const props = defineProps({
   collapsed:{
     type:Boolean,
@@ -30,7 +30,7 @@ const activeKey = ref();
 watchEffect(()=>{
     activeKey.value = route.name
 })
-const menuOptions = routerToMenu(asyncRoutes);
+const menuOptions = routeStore.naiveMenu;
 const menuOnChange = function (key: string, item: MenuOption): void {
   router.push({
     name: key,

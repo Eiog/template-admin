@@ -1,5 +1,7 @@
 import { colord } from "colord"
 import type { GlobalThemeOverrides } from 'naive-ui';
+import { defaultThemeSetting } from '@/setting/theme/index';
+import { getThemeColor } from "@/utils";
 interface colors{
     primary:string,
     info:string,
@@ -14,6 +16,10 @@ function getColor(color){
         pressed:colord(color).darken(.1).toHex(),
         suppl:colord(color).lighten(.1).toHex()
     }
+}
+export function getDefaultThemeSetting(){
+    const themeColor = getThemeColor()||defaultThemeSetting.themeColor
+    return {...defaultThemeSetting,themeColor}
 }
 export function getNaiveThemeOverrides(colors:colors):GlobalThemeOverrides{
     const {primary,info,success,warning,error} = colors

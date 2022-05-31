@@ -14,7 +14,7 @@ import {
   useMessage,
 } from "naive-ui";
 import md5 from "md5";
-import {setStorage} from '@/utils/storage'
+import {setLocal} from '@/utils/storage'
 import router from "@/router";
 import {_feachLogin} from '@/http/api/userApi'
 const message = useMessage();
@@ -38,8 +38,8 @@ const onSubmit = function (e: MouseEvent) {
     loading.value = true
     validateOnSuccess().then((res:any)=>{
       message.success('登录成功')
-      setStorage('UNLIT-ADMIN-USER',res.nickName)
-      setStorage('UNLIT-TOKEN',res.token)
+      setLocal('UNLIT-ADMIN-USER',res.nickName)
+      setLocal('UNLIT-TOKEN',res.token)
       router.push('/')
     }).catch(()=>{
       message.error('用户名或密码错误')

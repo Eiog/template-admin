@@ -1,25 +1,18 @@
 import { defineStore } from "pinia";
 type state = {
-    user?: {
+    user: {
         id: number,
         userName: string,
         nickName: string,
         auth: string,
         avatar: string,
         token: string
-    } | Object
+    } | undefined
 }
 export const useAuthStore = defineStore({
     id: 'authStore',
-    state: () => ({
-        user: {
-            id: undefined,
-            userName: undefined,
-            nickName: undefined,
-            auth: undefined,
-            avatar: undefined,
-            token: undefined
-        }
+    state: ():state => ({
+        user: undefined
     }),
     actions: {
 

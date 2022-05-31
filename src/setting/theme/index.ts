@@ -16,7 +16,7 @@ const themeColorList = [
     { name: "鸦青", color: "#424c50" },
     { name: "藕色", color: "#edd1d8" },
 ]
-const defaultThemeSetting = {
+export const defaultThemeSetting = {
     darkMode: false,
     autoMode: false,
     themeColor: themeColorList[0].color,
@@ -62,7 +62,4 @@ const defaultThemeSetting = {
         fixed: true,
         height: 60,
     }
-}
-export function getDefaultThemeSetting(){
-    return defaultThemeSetting
 }

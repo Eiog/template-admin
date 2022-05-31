@@ -1,7 +1,7 @@
 // 不需要鉴权的业务路由
 import { RouteRecordRaw } from 'vue-router';
 import BlankLayout from '@/views/layout/BlankLayout.vue';
-const commonRoutes: Array<RouteRecordRaw> = [
+export const commonRoutes: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: '',
@@ -34,4 +34,3 @@ const commonRoutes: Array<RouteRecordRaw> = [
     },
 ];
 
-export default commonRoutes;

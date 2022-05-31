@@ -7,7 +7,7 @@ export default {
 import { NAvatar, NPopselect, NIcon, useMessage, NTooltip } from "naive-ui";
 import { useAppStore, useAuthStore, useThemeStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
-import { removeStorage } from "@/utils/storage";
+import { removeLocal } from "@/utils/";
 import { nextTick, ref } from "vue";
 const appStore = useAppStore()
 const authStore = useAuthStore()
@@ -30,8 +30,8 @@ const handleSelect = function (val) {
   if (val === "logout") onLogOut();
 };
 const onLogOut = function () {
-  removeStorage("UNLIT-ADMIN-USER");
-  removeStorage("UNLIT-TOKEN");
+  removeLocal("UNLIT-ADMIN-USER");
+  removeLocal("UNLIT-TOKEN");
   message.success("已退出");
   nextTick(() => {
     router.push("/login");
