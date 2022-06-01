@@ -1,5 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
+import documentVue from '@/views/document/document-vue/index.vue'
+import documentVite from '@/views/document/document-vite/index.vue'
+
 const documentRoute: RouteRecordRaw = {
     path: '/document',
     name: 'document',
@@ -8,6 +11,7 @@ const documentRoute: RouteRecordRaw = {
         title: '文档',
         icon: 'ri-file-list-line',
         requiresAuth: true,
+        permissions:['admin','super'],
         keepAlive: true,
         hide: false,
         href: '',
@@ -16,12 +20,13 @@ const documentRoute: RouteRecordRaw = {
     children: [
         {
             path: '/document/vue',
-            name: 'vue',
-            component: () => import('@/views/document/vue/index.vue'),
+            name: documentVue.name,
+            component: documentVue,
             meta: {
                 title: 'vue文档',
                 icon: 'ri-vuejs-line',
                 requiresAuth: true,
+                permissions:['admin','super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -30,12 +35,13 @@ const documentRoute: RouteRecordRaw = {
         },
         {
             path: '/document/vite',
-            name: 'vite',
-            component: () => import('@/views/document/vite/index.vue'),
+            name: documentVite.name,
+            component: documentVite,
             meta: {
                 title: 'vite文档',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
+                permissions:['admin','super'],
                 keepAlive: true,
                 hide: false,
                 href: '',

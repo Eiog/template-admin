@@ -4,15 +4,17 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { useRouteStore } from '@/store/modules/route';
+import { useRouteStore,useTabStore } from '@/store';
 const routeStore = useRouteStore()
+const tabStore = useTabStore()
+
 </script>
 <template>
   <main class="w-full h-full">
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
-        <keep-alive :include="routeStore.keepAlives">
-          <component :is="Component"></component>
+        <keep-alive :include="routeStore.include" :exclude="routeStore.excludes">
+          <component :is="!tabStore.refreshing?Component:undefined"></component>
         </keep-alive>
       </transition>
     </router-view>

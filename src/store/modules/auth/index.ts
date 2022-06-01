@@ -7,7 +7,7 @@ type state = {
         auth: string,
         avatar: string,
         token: string
-    } | undefined
+    }|undefined
 }
 export const useAuthStore = defineStore({
     id: 'authStore',

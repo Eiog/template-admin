@@ -30,7 +30,7 @@ const activeKey = ref();
 watchEffect(()=>{
     activeKey.value = route.name
 })
-const menuOptions = routeStore.naiveMenu;
+const menuOptions = routeStore.authMenu;
 const menuOnChange = function (key: string, item: MenuOption): void {
   router.push({
     name: key,

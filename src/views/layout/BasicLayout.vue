@@ -12,12 +12,13 @@ import Tab from "./components/Tab.vue";
 import Menu from "./components/Menu.vue";
 import Main from "./components/Main.vue";
 import Setting from "./components/Setting.vue";
-import { useAppStore,useThemeStore,useTabStore } from "@/store";
+import { useAppStore,useThemeStore,useTabStore,useRouteStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 const appStore = useAppStore()
 const themeStore = useThemeStore()
 const tabStore = useTabStore()
+const routeStore = useRouteStore()
 const { themeColor,layout,header,side,tabs,footer} = storeToRefs(themeStore);
 const route = useRoute();
 const router = useRouter();
@@ -26,7 +27,7 @@ const tabsOnChange = function ({ index, item }) {
 };
 const tabsOnClose = function ({ index }) {
   tabStore.removeTag(index);
-  router.push({ name: tabStore.getTabItem.name as any });
+  router.push({ name: tabStore.activeTab.name as any });
 };
 const layoutMode = route.meta.layoutMode;
 console.log();
@@ -56,8 +57,10 @@ console.log();
           <Tab
             :data="tabStore.tabs"
             :current-index="tabStore.activeIndex"
+            :refreshing="tabStore.refreshing"
             @on-change="tabsOnChange"
             @on-close="tabsOnClose"
+            @on-refresh="tabStore.refresh"
           ></Tab>
         </div>
       </template>

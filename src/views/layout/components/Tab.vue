@@ -22,9 +22,13 @@ const props = defineProps({
   loading:{
     type:Boolean,
     defalt:false
+  },
+  refreshing:{
+    type:Boolean,
+    defalt:false
   }
 });
-const emit = defineEmits(["onChange", "onClose"]);
+const emit = defineEmits(["onChange", "onClose",'onRefresh']);
 const onChange = function (item, index) {
   tabsIndex.value = index;
   emit("onChange", { item, index });
@@ -43,8 +47,16 @@ const options = [
 ]
 const handleSelect = (key)=>{
   
-  
 }
+const onRefresh = ()=>{
+  isRefreshing.value = true
+  setTimeout(()=>{
+    isRefreshing.value = false
+  },1000)
+  emit('onRefresh')
+}
+const isRefreshing = ref(false)
+
 </script>
 <template>
   <div class="w-full h-full flex">
@@ -77,8 +89,11 @@ const handleSelect = (key)=>{
       </div>
     </div>
     <div class="h-full flex">
-      <div class="px-3 flex items-center justify-center text-xl cursor-pointer hover:bg-gray-100">
-        <i class="ri-refresh-line"></i>
+      <div class="px-3 flex items-center justify-center text-xl cursor-pointer hover:bg-gray-100"
+      @click="onRefresh"
+      >
+        <i class="ri-refresh-line"
+        :class="refreshing || isRefreshing? 'animate-rotate-in':''"></i>
       </div>
       <n-dropdown trigger="click" :options="options" @select="handleSelect">
       <div class="px-3 flex items-center justify-center text-xl cursor-pointer hover:bg-gray-100">

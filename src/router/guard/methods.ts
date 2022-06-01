@@ -21,11 +21,17 @@ export function useNProgress() {
 export function useAuth(to: RouteLocation) {
     return new Promise((resolve, reject) => {
         const token = getLocal('UNLIT-TOKEN')
-        if (!token && to.path != '/login') {
+        if (!token && to.meta.requiresAuth) {
             return resolve('/login')
+        }
+        if (!token && !to.meta.requiresAuth) {
+            return resolve(undefined)
         }
         if (token && to.path === '/login') {
             return resolve('/')
+        }
+        if (token && !to.meta.requiresAuth) {
+            return resolve(undefined)
         }
         if (token && to.meta.requiresAuth) {
             _feachStatus().then((res: any) => {

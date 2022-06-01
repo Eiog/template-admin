@@ -18,7 +18,7 @@ Mock.mock(baseUrl + '/user/status', 'get', {
         id: 10001,
         userName: 'unlit',
         nickName: 'unlit',
-        auth: 'admin',
+        auth: 'super',
         avatar: 'http://unlit.oss-cn-beijing.aliyuncs.com/2022-04-22/e3beb59b0652f7fbfc32a0102dcf035a.png!avatar',
         token:Mock.Random.guid()
     }

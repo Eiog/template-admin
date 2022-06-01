@@ -3,7 +3,7 @@ import {rootRoutes,commonRoutes} from './routes';
 import { setComponentName } from '@/utils';
 import { createGuard } from './guard';
 import moduleRoutes from './modules';
-console.log(setComponentName(moduleRoutes));
+console.log();
 
 const routes: Array<RouteRecordRaw> = [
     rootRoutes,

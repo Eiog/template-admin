@@ -32,5 +32,10 @@ export const commonRoutes: Array<RouteRecordRaw> = [
             }
         ]
     },
+    {
+        path: '/refresh',
+        name: 'refresh',
+        component: () => import('@/views/refresh/index.vue')
+    }
 ];
 

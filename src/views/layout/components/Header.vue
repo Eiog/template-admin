@@ -93,8 +93,13 @@ const darkModeOnClick = () => {
         @update:value="handleSelect"
         :options="dropdownOptions"
       >
-        <n-avatar size="medium" round :src="authStore.user.avatar">
+        <div class="flex items-center justify-center gap-2">
+        <n-avatar size="medium" round :src="authStore.user?.avatar">
         </n-avatar>
+        <span>
+          {{authStore.user?.nickName}}
+        </span>
+        </div>
       </n-popselect>
     </div>
   </div>

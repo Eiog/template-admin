@@ -1,5 +1,8 @@
 import { RouteLocationNormalized, RouteLocationRaw } from "vue-router";
 import { defineStore } from "pinia";
+import { useRouteStore } from '@/store';
+import { nextTick } from "vue";
+import router from '@/router'
 type tab = {
     name: string|unknown,
     path: string | unknown,
@@ -10,6 +13,7 @@ type tab = {
 interface tabState {
     tabs: tab[]
     activeIndex: number,
+    refreshing:boolean
 }
 const rootTab:tab = {
 
@@ -27,10 +31,12 @@ export const useTabStore = defineStore({
         tabs: [
             rootTab
         ],
-        activeIndex: 0
+        activeIndex: 0,
+        refreshing:false
     }),
     actions: {
         setTab(route: RouteLocationNormalized) {
+            this.refreshing = true
             let tab: tab = {
                 name: route.name,
                 path: route.path,
@@ -66,14 +72,26 @@ export const useTabStore = defineStore({
             }
         },
         loaded(){
+            this.refreshing = false
             this.tabs[this.activeIndex].loading = false
+        },
+        refresh(){
+            const routeStore = useRouteStore()
+            routeStore.addExcludes(this.activeTab.name)
+            this.tabs[this.activeIndex].loading = true
+            this.refreshing = true
+            nextTick(()=>{
+                routeStore.clearExcludes()
+                this.tabs[this.activeIndex].loading = false
+                this.refreshing = false
+            })
         }
     },
     getters: {
         getTab(state) {
 
         },
-        getTabItem(state) {
+        activeTab(state) {
             return state.tabs[state.activeIndex]
         }
     }

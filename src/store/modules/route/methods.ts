@@ -3,25 +3,53 @@ import { RouteRecordRaw } from "vue-router";
 import type { MenuOption } from 'naive-ui'
 import { NIcon } from 'naive-ui';
 import moduleRoutes from "@/router/modules";
+import { useAuthStore } from '../auth';
+type routeItem= {
+    name:string,
+    meta?:{
+        title:string,
+        hide:boolean,
+        permissions:Array<string>|any,
+        icon:string
+    },
+    children:RouteRecordRaw[]
+}
+type menuType = {
+    permissions?:Array<string>|any,
+    children?:any
+}|MenuOption
 export function initRoutes() {
     return moduleRoutes
 }
 function renderIcon(icon: string) {
     return () => h(NIcon, null, { default: () => h('i', { class: icon }, {}) })
 }
+
 export function routeToMenu(routes: RouteRecordRaw[] = moduleRoutes) {
     let arr: any = []
-    routes.forEach((item) => {
+    routes.forEach((item:RouteRecordRaw|routeItem) => {
         if (!item.meta) return
         if (item.meta.hide) return
-        let menuItem: MenuOption = {
+        let menuItem: menuType = {
             label: item.meta.title,
             key: item.name as string,
-            icon: renderIcon(item.meta.icon as any)
+            permissions:item.meta.permissions,
+            icon: renderIcon(item.meta.icon as string)
         }
         if (item.children) {
             menuItem.children = routeToMenu(item.children)
         }
+        arr.push(menuItem)
+    })
+    return arr
+}
+
+export function getAuthMenu(menu:menuType[],auth:string){
+    let arr: any = []
+    menu.forEach((item:menuType)=>{
+        if(!item.permissions.includes(auth)) return
+        let menuItem = item
+        if (item.children) menuItem.children = getAuthMenu(item.children,auth)
         arr.push(menuItem)
     })
     return arr

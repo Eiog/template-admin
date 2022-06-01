@@ -1,5 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
+import analysis from '@/views/dashboard/analysis/index.vue'
+import workbench from '@/views/dashboard/workbench/index.vue'
+
 const dashboardRoute: RouteRecordRaw = {
     path: '/dashboard',
     name: 'dashboard',
@@ -8,21 +11,22 @@ const dashboardRoute: RouteRecordRaw = {
         title: '仪表盘',
         icon: 'ri-apps-line',
         requiresAuth: true,
+        permissions:['user','admin','super'],
         keepAlive: true,
         hide: false,
         href: '',
         order: 1,
-        layoutMode: 'basic'
     },
     children: [
         {
             path: '/dashboard/analysis',
-            name: 'analysis',
-            component: () => import('@/views/dashboard/analysis/index.vue'),
+            name: analysis.name,
+            component: analysis,
             meta: {
                 title: '分析页',
                 icon: 'ri-bubble-chart-line',
                 requiresAuth: true,
+                permissions:['admin','super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -31,12 +35,13 @@ const dashboardRoute: RouteRecordRaw = {
         },
         {
             path: '/dashboard/workbench',
-            name: 'workbench',
-            component: () => import('@/views/dashboard/workbench/index.vue'),
+            name: workbench.name,
+            component: workbench,
             meta: {
                 title: '工作台',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
+                permissions:['super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
