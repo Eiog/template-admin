@@ -3,12 +3,14 @@ export default {
   name: "workbench",
 };
 </script>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UserPanel from './components/UserPanel.vue';
+import Content from './components/Content.vue';
+</script>
 <template>
-  <div
-    class="w-full h-full bg-white rounded-16px shadow-sm shadow-gray-200 p-20px overflow-hidden"
-  >
-    <h1>workbench</h1>
+  <div>
+    <user-panel></user-panel>
+    <content></content>
   </div>
 </template>
 <style scoped lang="less"></style>

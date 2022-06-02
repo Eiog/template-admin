@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
+import App from './App.vue'
+import './assets'
 import router from '@/router';
 import store from '@/store'
-import 'uno.css'
-import 'remixicon/fonts/remixicon.css'
-import '@/assets/style/nprogress.css'
-import App from './App.vue'
-const app = createApp(App)
-app.use(router)
-app.use(store)
-app.mount('#app')
+import directives from './directives';
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(directives)
+    .mount('#app')

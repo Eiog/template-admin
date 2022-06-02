@@ -142,6 +142,13 @@ const props = defineProps({
           : {
               paddingTop: 0,
             },
+        fixedFooter
+          ? {
+              paddingBottom: footerHeight + 'px',
+            }
+          : {
+              paddingTop: 0,
+            },
       ]"
     >
       <div class="unlit-admin-main">
@@ -183,11 +190,13 @@ div {
   box-sizing: border-box;
 }
 .unlit-admin-layout {
+  flex-shrink: 0;
   width: 100%;
   height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
   > div {
     transition: all 0.3s;
   }
@@ -195,6 +204,7 @@ div {
     flex-shrink: 0;
     z-index: 1;
     width: 100%;
+    height: 100%;
     min-width: 1200px;
   }
   .unlit-admin-tabs-wrap {
@@ -205,6 +215,7 @@ div {
   }
 
   .unlit-admin-aside-wrap {
+    flex-shrink: 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -212,12 +223,16 @@ div {
     z-index: 2;
   }
   .unlit-admin-main-wrap {
+    position: relative;
     flex-shrink: 0;
     width: 100%;
-    flex-grow: 1;
+    height: 100%;
+    flex-grow:1;
     min-width: 1200px;
     z-index: 0;
     .unlit-admin-main {
+      position: relative;
+      flex-shrink: 0;
       width: 100%;
       height: 100%;
       padding: 10px;

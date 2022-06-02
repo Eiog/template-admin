@@ -81,7 +81,7 @@ console.log();
       </template>
       <template #footer>
         <div
-          class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-sm shadow-gray-200 flex items-center justify-center"
+          class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-md shadow-dark-500 flex items-center justify-center"
         >
           footer
         </div>

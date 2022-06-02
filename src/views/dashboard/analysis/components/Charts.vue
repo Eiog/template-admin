@@ -6,13 +6,12 @@ export default {
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { NGrid, NGi, NCard } from "naive-ui";
-import useEcharts from "@/hooks/useECharts";
-import { type ECOption } from "@/hooks/useECharts";
-import CountTo from "@/components/widget/CountTo.vue";
+import {type ECOption,useECharts} from "@/hooks";
+import { CountTo } from "@/components";
 import { useThemeStore } from "@/store";
 const themeStore = useThemeStore();
 const darkMode = computed(() => themeStore.darkMode);
-const { domRef: lineRef } = useEcharts(
+const { domRef: lineRef } = useECharts(
   ref<ECOption>({
     tooltip: {
       trigger: "axis",
@@ -120,7 +119,7 @@ const { domRef: lineRef } = useEcharts(
   }),
   darkMode
 );
-const { domRef: pieRef } = useEcharts(
+const { domRef: pieRef } = useECharts(
   ref<ECOption>({
     tooltip: {
       trigger: "item",
@@ -170,31 +169,31 @@ const { domRef: pieRef } = useEcharts(
 );
 </script>
 <template>
-    <n-grid :x-gap="10" :y-gap="10" :item-responsive="true">
-      <n-gi span="0:24 640:24 1024:16">
-        <n-card :bordered="false" class="rounded-16px shadow-sm">
-          <div class="w-full h-360px flex">
-            <div class="w-200px h-full flex flex-col">
-              <div class="">
-                <h3>数据总览</h3>
-                <p>当前应用程序数据报告</p>
-              </div>
-              <div class="flex items-end gap-2 mt-2">
-                <span>下载量</span>
-                <span class="font-bold text-3xl">
-                  <count-to :start-value="0" :end-value="7754" />
-                </span>
-              </div>
+  <n-grid :x-gap="10" :y-gap="10" :item-responsive="true">
+    <n-gi span="0:24 640:24 1024:16">
+      <n-card :bordered="false" class="rounded-16px shadow-sm">
+        <div class="w-full h-360px flex">
+          <div class="w-200px h-full flex flex-col">
+            <div class="">
+              <h3>数据总览</h3>
+              <p>当前应用程序数据报告</p>
             </div>
-            <div ref="lineRef" class="w-full h-full"></div>
+            <div class="flex items-end gap-2 mt-2">
+              <span>下载量</span>
+              <span class="font-bold text-3xl">
+                <count-to :start-value="0" :end-value="7754" />
+              </span>
+            </div>
           </div>
-        </n-card>
-      </n-gi>
-      <n-gi span="0:24 640:24 1024:8">
-        <n-card :bordered="false" class="rounded-16px shadow-sm">
-          <div ref="pieRef" class="w-full h-360px"></div>
-        </n-card>
-      </n-gi>
-    </n-grid>
+          <div ref="lineRef" class="w-full h-full"></div>
+        </div>
+      </n-card>
+    </n-gi>
+    <n-gi span="0:24 640:24 1024:8">
+      <n-card :bordered="false" class="rounded-16px shadow-sm">
+        <div ref="pieRef" class="w-full h-360px"></div>
+      </n-card>
+    </n-gi>
+  </n-grid>
 </template>
 <style scoped lang="less"></style>

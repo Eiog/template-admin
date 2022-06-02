@@ -5,8 +5,8 @@ export default {
 </script>
 <script setup lang="ts"></script>
 <template>
-  <div>
-    <h1>vue</h1>
+  <div class="w-full h-full">
+    <iframe class="w-full h-full" src="https://staging-cn.vuejs.org/" frameborder="0"></iframe>
   </div>
 </template>
 <style scoped lang="less"></style>
