@@ -4,22 +4,19 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref, watchEffect,watch } from "vue";
-import { useRoute,useRouter,onBeforeRouteUpdate } from "vue-router";       
+import { ref } from "vue";
+import { useRouter } from "vue-router";       
 import { NDropdown,NScrollbar } from "naive-ui";
 import { useTabStore } from "@/store";
 const tabStore = useTabStore()
-const route = useRoute()
 const router = useRouter()
-const emit = defineEmits(["onChange", "onClose",'onRefresh']);
 const onChange = function (item, index) {
-  tabsIndex.value = index;
-  emit("onChange", { item, index });
+  router.push(item.path)
 };
 const onClose = function (item, index) {
-  emit("onClose", { item, index });
+  tabStore.removeTag(index);
+  router.push(tabStore.activeTab.path as string);
 };
-const tabsIndex = ref(0);
 
 const options = [
   {label:'关闭全部',key:'close-all'},
@@ -34,7 +31,7 @@ const onRefresh = ()=>{
   setTimeout(()=>{
     isRefreshing.value = false
   },1000)
-  emit('onRefresh')
+  tabStore.refresh()
 }
 const isRefreshing = ref(false)
 

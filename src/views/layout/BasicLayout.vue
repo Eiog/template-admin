@@ -22,13 +22,6 @@ const routeStore = useRouteStore()
 const { themeColor,layout,header,side,tabs,footer} = storeToRefs(themeStore);
 const route = useRoute();
 const router = useRouter();
-const tabsOnChange = function ({ index, item }) {
-  router.push({ name: item.name });
-};
-const tabsOnClose = function ({ index }) {
-  tabStore.removeTag(index);
-  router.push({ name: tabStore.activeTab.name as any });
-}; 
 const layoutMode = route.meta.layoutMode;
 console.log();
 </script>
@@ -54,15 +47,12 @@ console.log();
       </template>
       <template #tabs>
         <div class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-sm">
-          <Tab
-            @on-change="tabsOnChange"
-            @on-close="tabsOnClose"
-            @on-refresh="tabStore.refresh"
-          ></Tab>
+          <Tab></Tab>
         </div>
       </template>
       <template #aside>
         <aside class="w-full h-full bg-white dark:bg-dark-900 shadow-sm">
+          <n-scrollbar>
           <div
             class="w-full h-56px flex items-center justify-center text-2xl cursor-default"
           >
@@ -74,6 +64,7 @@ console.log();
             :collapsed-width="side.collapsedWidth"
             :inverted="side.inverted"
           ></Menu>
+          </n-scrollbar>
         </aside>
       </template>
       <template #footer>
