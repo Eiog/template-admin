@@ -28,7 +28,7 @@ const tabsOnChange = function ({ index, item }) {
 const tabsOnClose = function ({ index }) {
   tabStore.removeTag(index);
   router.push({ name: tabStore.activeTab.name as any });
-};
+}; 
 const layoutMode = route.meta.layoutMode;
 console.log();
 </script>
@@ -55,9 +55,6 @@ console.log();
       <template #tabs>
         <div class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-sm">
           <Tab
-            :data="tabStore.tabs"
-            :current-index="tabStore.activeIndex"
-            :refreshing="tabStore.refreshing"
             @on-change="tabsOnChange"
             @on-close="tabsOnClose"
             @on-refresh="tabStore.refresh"

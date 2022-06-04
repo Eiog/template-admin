@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 const baseUrl = import.meta.env.VITE_API_BASEURL
-Mock.setup({ timeout: '500-1000' })
+Mock.setup({ timeout: '100-500' })
 Mock.mock(baseUrl + '/user/login', 'post', {
     code: 200,
     data: {

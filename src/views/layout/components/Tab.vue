@@ -4,30 +4,13 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect,watch } from "vue";
+import { useRoute,useRouter,onBeforeRouteUpdate } from "vue-router";       
 import { NDropdown,NScrollbar } from "naive-ui";
-const props = defineProps({
-  mode: {
-    type: String,
-    default: "",
-  },
-  data: {
-    type: Array,
-    default: [],
-  },
-  currentIndex: {
-    type: Number,
-    default: 0,
-  },
-  loading:{
-    type:Boolean,
-    defalt:false
-  },
-  refreshing:{
-    type:Boolean,
-    defalt:false
-  }
-});
+import { useTabStore } from "@/store";
+const tabStore = useTabStore()
+const route = useRoute()
+const router = useRouter()
 const emit = defineEmits(["onChange", "onClose",'onRefresh']);
 const onChange = function (item, index) {
   tabsIndex.value = index;
@@ -37,9 +20,7 @@ const onClose = function (item, index) {
   emit("onClose", { item, index });
 };
 const tabsIndex = ref(0);
-watchEffect(() => {
-  tabsIndex.value = props.currentIndex;
-});
+
 const options = [
   {label:'关闭全部',key:'close-all'},
   {label:'关闭左侧',key:'close-left'},
@@ -67,9 +48,9 @@ const isRefreshing = ref(false)
     
       <div
         class="bg-light-500 rounded-1 flex items-center justify-center transition-colors duration-300 ease-in-out gap-1 cursor-pointer px-2 hover:bg-gray-300 dark:bg-dark-200 dark:hover:bg-dark-50"
-        v-for="(item, index) in (data as any)"
+        v-for="(item, index) in (tabStore.tabs)"
         :key="index"
-        :class="tabsIndex === index ? 'active' : ''"
+        :class="tabStore.activeIndex === index ? 'active' : ''"
       >
         <div
           class="h-full flex items-center justify-center gap-1 py-1"
@@ -97,7 +78,7 @@ const isRefreshing = ref(false)
       @click="onRefresh"
       >
         <i class="ri-refresh-line"
-        :class="refreshing || isRefreshing? 'animate-rotate-in':''"></i>
+        :class="tabStore.refreshing || isRefreshing? 'animate-rotate-in':''"></i>
       </div>
       <n-dropdown trigger="click" :options="options" @select="handleSelect">
       <div class="px-3 flex items-center justify-center text-xl cursor-pointer hover:bg-gray-100">

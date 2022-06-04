@@ -6,7 +6,10 @@ import router from '@/router'
 type tab = {
     name: string|unknown,
     path: string | unknown,
-    meta: object | unknown,
+    meta: {
+        icon?:string,
+        title?:string
+    } ,
     rootTab?: boolean | unknown,
     loading?:boolean|unknown
 }
@@ -52,6 +55,7 @@ export const useTabStore = defineStore({
                 this.tabs.push(tab)
                 return
             }
+            
             this.activeIndex = index
             this.tabs[index].loading = true
         },
