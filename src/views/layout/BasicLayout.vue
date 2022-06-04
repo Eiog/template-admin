@@ -33,7 +33,7 @@ const layoutMode = route.meta.layoutMode;
 console.log();
 </script>
 <template>
-  <div class="w-full h-full bg-light-300 dark:bg-dark-300">
+  <div class="w-full h-full">
     <Layout
       :mode="layout.mode"
       :collapsed="appStore.sideCollapsed"

@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { NDropdown } from "naive-ui";
+import { NDropdown,NScrollbar } from "naive-ui";
 const props = defineProps({
   mode: {
     type: String,
@@ -59,10 +59,12 @@ const isRefreshing = ref(false)
 
 </script>
 <template>
-  <div class="w-full h-full flex">
+  <div class="w-full h-full flex items-center">
+    <n-scrollbar x-scrollable class="h-auto">
     <div
-      class="w-full h-full flex-1 flex items-center gap-2 overflow-y-hidden overflow-x-auto"
+      class="w-full h-full p-t-3 pb-3 flex-1 flex items-center gap-2 overflow-y-hidden overflow-x-hidden"
     >
+    
       <div
         class="bg-light-500 rounded-1 flex items-center justify-center transition-colors duration-300 ease-in-out gap-1 cursor-pointer px-2 hover:bg-gray-300 dark:bg-dark-200 dark:hover:bg-dark-50"
         v-for="(item, index) in (data as any)"
@@ -74,7 +76,7 @@ const isRefreshing = ref(false)
           @click="onChange(item, index)"
         >
           <i class="leading-tight" v-if="item.meta.icon" :class="item.meta.icon"></i>
-          <span class="text-sm">{{ item.meta.title }}</span>
+          <span class="text-sm whitespace-nowrap">{{ item.meta.title }}</span>
         </div>
         <span
           class="bg-gray-100 dark:bg-dark-50 w-16px h-16px flex items-center justify-center rounded-full transition-colors hover:bg-light-50 dark:hover:bg-dark-500"
@@ -87,7 +89,9 @@ const isRefreshing = ref(false)
           ></i>
         </span>
       </div>
+      
     </div>
+    </n-scrollbar>
     <div class="h-full flex">
       <div class="px-3 flex items-center justify-center text-xl cursor-pointer hover:bg-gray-100"
       @click="onRefresh"

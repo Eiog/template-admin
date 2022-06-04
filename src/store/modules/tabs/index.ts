@@ -13,7 +13,8 @@ type tab = {
 interface tabState {
     tabs: tab[]
     activeIndex: number,
-    refreshing:boolean
+    refreshing:boolean,
+    scroll:number
 }
 const rootTab:tab = {
 
@@ -32,10 +33,12 @@ export const useTabStore = defineStore({
             rootTab
         ],
         activeIndex: 0,
-        refreshing:false
+        refreshing:false,
+        scroll:0,
     }),
     actions: {
         setTab(route: RouteLocationNormalized) {
+            useRouteStore().addIncludes(route.name)
             this.refreshing = true
             let tab: tab = {
                 name: route.name,
@@ -56,6 +59,7 @@ export const useTabStore = defineStore({
             
         },
         removeTag(index) {
+            useRouteStore().removeIncludes(this.activeTab.name)
             this.tabs.splice(index, 1)
             if (this.activeIndex === index) {
                 this.activeIndex = this.tabs.length - 1

@@ -1,7 +1,10 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import documentVue from '@/views/document/document-vue/index.vue'
-import documentVite from '@/views/document/document-vite/index.vue'
+import Vue from '@/views/document/vue/index.vue'
+import Vite from '@/views/document/vite/index.vue'
+import Pinia from '@/views/document/pinia/index.vue'
+import UnoCSS from '@/views/document/unocss/index.vue'
+import NaiveUI from '@/views/document/naiveui/index.vue'
 
 const documentRoute: RouteRecordRaw = {
     path: '/document',
@@ -20,10 +23,10 @@ const documentRoute: RouteRecordRaw = {
     children: [
         {
             path: '/document/vue',
-            name: documentVue.name,
-            component: documentVue,
+            name: Vue.name,
+            component: Vue,
             meta: {
-                title: 'vue文档',
+                title: 'Vue文档',
                 icon: 'ri-vuejs-line',
                 requiresAuth: true,
                 permissions:['admin','super'],
@@ -35,10 +38,55 @@ const documentRoute: RouteRecordRaw = {
         },
         {
             path: '/document/vite',
-            name: documentVite.name,
-            component: documentVite,
+            name: Vite.name,
+            component: Vite,
             meta: {
-                title: 'vite文档',
+                title: 'Vite文档',
+                icon: 'ri-slideshow-line',
+                requiresAuth: true,
+                permissions:['admin','super'],
+                keepAlive: true,
+                hide: false,
+                href: '',
+                order: 1
+            }
+        },
+        {
+            path: '/document/pinia',
+            name: Pinia.name,
+            component: Pinia,
+            meta: {
+                title: 'Pinia文档',
+                icon: 'ri-slideshow-line',
+                requiresAuth: true,
+                permissions:['admin','super'],
+                keepAlive: true,
+                hide: false,
+                href: '',
+                order: 1
+            }
+        },
+        {
+            path: '/document/unocss',
+            name: UnoCSS.name,
+            component: UnoCSS,
+            meta: {
+                title: 'UnoCSS文档',
+                icon: 'ri-slideshow-line',
+                requiresAuth: true,
+                permissions:['admin','super'],
+                keepAlive: true,
+                hide: false,
+                href: '',
+                order: 1
+            }
+        },
+        {
+            path: '/document/naiveui',
+            name: NaiveUI.name,
+            component: NaiveUI,
+            meta: {
+                title: 'NaiveUI文档',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
                 permissions:['admin','super'],

@@ -4,21 +4,26 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { useRouteStore,useTabStore } from '@/store';
-const routeStore = useRouteStore()
-const tabStore = useTabStore()
 
+import { useRouteStore, useTabStore } from "@/store";
+const routeStore = useRouteStore();
+const tabStore = useTabStore();
 </script>
 <template>
-  <main class="w-full h-full">
-    <router-view v-slot="{ Component }">
-      <transition name="fade-transform" mode="out-in">
-        <keep-alive :include="routeStore.include" :exclude="routeStore.excludes">
-          <component :is="!tabStore.refreshing?Component:undefined"></component>
-        </keep-alive>
-      </transition>
-    </router-view>
-  </main>
+    <main class="w-full h-full">
+      <router-view v-slot="{ Component }">
+        <transition name="fade-transform" mode="out-in">
+          <keep-alive
+            :include="routeStore.include"
+            :exclude="routeStore.excludes"
+          >
+            <component
+              :is="!tabStore.refreshing ? Component : undefined"
+            ></component>
+          </keep-alive>
+        </transition>
+      </router-view>
+    </main>
 </template>
 <style scoped lang="less">
 .fade-transform-leave-active,

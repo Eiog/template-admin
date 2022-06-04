@@ -4,6 +4,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
+import { NScrollbar } from "naive-ui";
 const props = defineProps({
   mode: {
     type: String,
@@ -126,7 +127,7 @@ const props = defineProps({
       <slot name="aside"></slot>
     </div>
     <div
-      class="unlit-admin-main-wrap"
+      class="unlit-admin-main-wrap bg-light-300 dark:bg-dark-300"
       :style="[
         collapsed
           ? {
@@ -151,10 +152,12 @@ const props = defineProps({
             },
       ]"
     >
+    <n-scrollbar>
       <div class="unlit-admin-main">
         <slot name="main"></slot>
         <slot></slot>
       </div>
+      </n-scrollbar>
     </div>
     <div
       class="unlit-admin-footer-wrap"
