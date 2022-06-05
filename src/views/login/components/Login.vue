@@ -48,11 +48,6 @@ const onSubmit = function (e: MouseEvent) {
 };
 const validateOnSuccess = function () {
   return new Promise((resolve, reject) => {
-    const md5Key = import.meta.env.VITE_MD5_KEY;
-    const userName = formValue.value.userName
-    const md5Password = md5(formValue.value.password + md5Key);
-    const realUserName = 'unlit'
-    const realPassword = "63695d5723b29a74a78865a83787a1c3";
     _feachLogin(formValue.value).then((res:any)=>{
       return resolve(res.data)
     }).catch(()=>{

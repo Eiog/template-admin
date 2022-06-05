@@ -7,7 +7,7 @@ export default {
 import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { NDropdown, NScrollbar,type ScrollbarInst } from "naive-ui";
-import { useElementBounding, useActiveElement,useElementSize } from "@vueuse/core";
+import { useElementBounding, useActiveElement,useElementSize,useDebounceFn  } from "@vueuse/core";
 import { useTabStore } from "@/store";
 const tabStore = useTabStore();
 const route = useRoute();
@@ -36,29 +36,39 @@ const onRefresh = () => {
   tabStore.refresh();
 };
 const isRefreshing = ref(false);
+
 const tabRef = ref<HTMLElement>();
 const scrollRef = ref<ScrollbarInst>()
 const tabWrapRef = ref<HTMLElement>()
 const getBounding = function(){
   const tabElement = tabRef.value as Element
-  const {width:maxWidth} = tabElement?.getBoundingClientRect()
+  const {x:tabX,width:tabWidth} = tabElement?.getBoundingClientRect()
+
   const currentTabElement = tabRef.value?.children[tabStore.activeIndex] as Element
-  const {x,width} = currentTabElement.getBoundingClientRect()
+  const {x:currentTabX,width:currentTabWidth} = currentTabElement.getBoundingClientRect()
+
   const scrollElement = tabWrapRef.value as Element
-  const {x:clientX,width:clientWidth} = scrollElement?.getBoundingClientRect()
-  return{x:x-clientX,width,clientWidth,maxWidth}
+  const {x:tabWrapX,width:tabWrapWidth} = scrollElement?.getBoundingClientRect()
+  return{
+    tabX,tabWidth,tabRight:tabX+tabWidth,
+    currentTabX,currentTabWidth,
+    tabWrapX,tabWrapWidth,tabWrapRight:tabWrapX+tabWrapWidth
+  }
 }
 const scrollTab = function(){
-    const {clientWidth,maxWidth} = getBounding()
-    const deltaX = maxWidth-clientWidth
-    // if(deltaX>0){
-    //   scrollRef.value?.scrollTo({left:deltaX})
-    // }else{
-    //   scrollRef.value?.scrollTo({left:0})
-    // }
-    
-    
-    
+    console.log(getBounding());
+    const {tabX,tabWidth,tabRight,currentTabX,currentTabWidth,tabWrapX,tabWrapWidth,tabWrapRight} = getBounding()
+    const scrollRight = (currentTabX+currentTabWidth*2)-tabWrapRight
+    console.log('scrollX',scrollRight);
+    console.log('scrollValue',scrollValue.value);
+    if(scrollRight>1){
+      scrollRef.value?.scrollTo({left:scrollRight+scrollValue.value })
+    }
+    const scrollLeft = (tabWrapX-currentTabX)+currentTabWidth
+    if(scrollLeft>1){
+      scrollRef.value?.scrollTo({left:scrollValue.value-scrollLeft})
+    }
+    console.log('scrollLeft',scrollLeft); 
 }
 onMounted(() => {
   watch(
@@ -69,11 +79,20 @@ onMounted(() => {
     { immediate: true }
   );
 });
+const scrollValue = ref(0)
+const onScroll = function(e){
+  // console.log(e);
+  
+  scrollValue.value = e.target.scrollLeft
+}
+const setScroll = useDebounceFn(()=>{
+
+},200)
 </script>
 <template>
   <div class="w-full h-full flex items-center">
     <div class="flex-1 min-w-0" ref="tabWrapRef">
-    <n-scrollbar x-scrollable ref="scrollRef">
+    <n-scrollbar x-scrollable ref="scrollRef" @scroll="onScroll" >
       <div
         class="h-full p-t-3 pb-3 flex w-max gap-2 items-center"
         ref="tabRef"
