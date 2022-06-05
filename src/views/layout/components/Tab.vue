@@ -19,7 +19,7 @@ const onClose = function (item, index) {
   tabStore.removeTag(index);
   console.log(tabStore.activeTab);
   
-  // router.push(tabStore.activeTab.path as string);
+  router.push(tabStore.activeTab.path as string);
 };
 
 const options = [
