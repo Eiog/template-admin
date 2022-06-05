@@ -65,6 +65,8 @@ export const useTabStore = defineStore({
         removeTag(index) {
             useRouteStore().removeIncludes(this.activeTab.name)
             this.tabs.splice(index, 1)
+            console.log(index,this.activeIndex);
+            
             if (this.activeIndex === index) {
                 this.activeIndex = this.tabs.length - 1
             }
