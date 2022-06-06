@@ -1,14 +1,14 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
 import BlankLayout from '@/views/layout/BlankLayout.vue';
-import Video from '@/views/plugin/video/index.vue'
-import Print from '@/views/plugin/print/index.vue'
-import Editor from '@/views/plugin/editor/index.vue'
-import Map from '@/views/plugin/map/index.vue'
-import Clipboard from '@/views/plugin/clipboard/index.vue'
-import Swiper from '@/views/plugin/swiper/index.vue'
-import Charts from '@/views/plugin/charts/index.vue'
-import ECharts from '@/views/plugin/charts/echarts/index.vue'
+import Video from '@/views/plugin-demo/video/index.vue'
+import Print from '@/views/plugin-demo/print/index.vue'
+import Editor from '@/views/plugin-demo/editor/index.vue'
+import Map from '@/views/plugin-demo/map/index.vue'
+import Clipboard from '@/views/plugin-demo/clipboard/index.vue'
+import Swiper from '@/views/plugin-demo/swiper/index.vue'
+import Charts from '@/views/plugin-demo/charts/index.vue'
+import ECharts from '@/views/plugin-demo/charts/echarts/index.vue'
 const pluginRoute: RouteRecordRaw = {
     path: '/plugin',
     name: 'plugin',
