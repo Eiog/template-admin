@@ -14,8 +14,8 @@ const pluginRoute: RouteRecordRaw = {
     name: 'plugin',
     component: BasicLayout,
     meta: {
-        title: '插件',
-        icon: 'ri-apps-line',
+        title: '插件示例',
+        icon: 'ri-plug-line',
         requiresAuth: true,
         permissions:['user','admin','super'],
         keepAlive: true,
@@ -30,8 +30,8 @@ const pluginRoute: RouteRecordRaw = {
             name: Video.name,
             component: Video,
             meta: {
-                title: '视频',
-                icon: 'ri-bubble-chart-line',
+                title: '视频播放器',
+                icon: 'ri-video-line',
                 requiresAuth: true,
                 permissions:['user','admin','super'],
                 keepAlive: true,
@@ -61,7 +61,7 @@ const pluginRoute: RouteRecordRaw = {
             component: Editor,
             meta: {
                 title: '富文本编辑器',
-                icon: 'ri-bubble-chart-line',
+                icon: 'ri-edit-box-line',
                 requiresAuth: true,
                 permissions:['user','admin','super'],
                 keepAlive: true,
@@ -75,8 +75,8 @@ const pluginRoute: RouteRecordRaw = {
             name: Print.name,
             component: Print,
             meta: {
-                title: '打印',
-                icon: 'ri-bubble-chart-line',
+                title: '打印示例',
+                icon: 'ri-printer-line',
                 requiresAuth: true,
                 permissions:['user','admin','super'],
                 keepAlive: true,
@@ -91,7 +91,7 @@ const pluginRoute: RouteRecordRaw = {
             component: Clipboard,
             meta: {
                 title: '剪切板',
-                icon: 'ri-bubble-chart-line',
+                icon: 'ri-clipboard-line',
                 requiresAuth: true,
                 permissions:['user','admin','super'],
                 keepAlive: true,
@@ -120,8 +120,8 @@ const pluginRoute: RouteRecordRaw = {
             name: BlankLayout.name,
             component: BlankLayout,
             meta: {
-                title: '图表',
-                icon: 'ri-bubble-chart-line',
+                title: '图表示例',
+                icon: 'ri-pie-chart-line',
                 requiresAuth: true,
                 permissions:['user','admin','super'],
                 keepAlive: true,
@@ -137,7 +137,7 @@ const pluginRoute: RouteRecordRaw = {
                     component: ECharts,
                     meta: {
                         title: 'ECharts',
-                        icon: 'ri-bubble-chart-line',
+                        icon: 'ri-line-chart-line',
                         requiresAuth: true,
                         permissions:['user','admin','super'],
                         keepAlive: true,

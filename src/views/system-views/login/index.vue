@@ -35,7 +35,7 @@ const onBack = function () {
           ></path>
         </svg>
       </div>
-      <div class="absolute right-0 top-8 w-300px">
+      <div class="absolute right-0 top-8 w-300px transition-transform hover:scale-90">
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path
             fill="#A7F0BA"
@@ -44,7 +44,7 @@ const onBack = function () {
           />
         </svg>
       </div>
-      <div class="absolute left-0 top-8 w-300px h-full">
+      <div class="absolute left-0 top-8 w-300px h-full transition-transform hover:translate-4">
         <svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path
             d="

@@ -22,7 +22,13 @@ onMounted(()=>{
 <template>
   <div class="w-full h-full">
     <n-card title="视频播放器" :bordered="false" class="rounded-16px shadow-sm">
-      <div ref="videoRef"></div>
+      <div>
+        <span>xgplayer官网：</span>
+        <a class="text-gray-500 text-warmGray" href="http://v2.h5player.bytedance.com/gettingStarted/" target="_blank" rel="noopener noreferrer">http://v2.h5player.bytedance.com/gettingStarted/</a>
+      </div>
+      <div class="mt-3">
+        <div ref="videoRef"></div>
+      </div>
     </n-card>
   </div>
 </template>

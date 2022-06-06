@@ -12,8 +12,10 @@ import {
   NButton,
   NInput,
   useMessage,
+  NSpace
 } from "naive-ui";
-import md5 from "md5";
+import { getImgCodeRule } from '@/utils';
+import {ImageVerify} from "@/components";
 import {setLocal} from '@/utils/storage'
 import router from "@/router";
 import {_feachLogin} from '@/http/api/userApi'
@@ -24,10 +26,13 @@ const formRef = ref<FormInst | null>(null);
 const formValue = ref({
   userName: "",
   password: "",
+  verifyCode:''
 });
+const verifyCode = ref()
 const formRules = {
   userName: { required: true, message: "请输入用户名", trigger: ["blur"] },
   password: { required: true, message: "请输入密码", trigger: ["blur"] },
+  verifyCode:getImgCodeRule(verifyCode)
 };
 const onSubmit = function (e: MouseEvent) {
   e.preventDefault();
@@ -76,6 +81,16 @@ const validateOnSuccess = function () {
             type="password"
             placeholder="密码"
           />
+        </n-form-item>
+        <n-form-item label="密码" path="verifyCode">
+          <n-space :wrap="false">
+          <n-input
+            v-model:value="formValue.verifyCode"
+            type="text"
+            placeholder="验证码"
+          />
+          <image-verify v-model:code="verifyCode"></image-verify>
+          </n-space>
         </n-form-item>
         <n-form-item>
           <n-button type="primary" :loading="loading" block @click="onSubmit">登录</n-button>
