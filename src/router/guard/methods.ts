@@ -1,5 +1,5 @@
 import NProgress from 'nprogress';
-import { RouteLocation,NavigationGuardNext } from 'vue-router';
+import { RouteLocation,NavigationGuardNext, RouteMeta } from 'vue-router';
 import { useTabStore, useAuthStore,useRouteStore } from '@/store';
 import { getLocal } from '@/utils/storage'
 import { _feachStatus } from '@/http/api/userApi'
@@ -34,6 +34,7 @@ export function useAuth(to: RouteLocation) {
             return resolve(undefined)
         }
         if (token && to.meta.requiresAuth) {
+
             _feachStatus().then((res: any) => {
                 useAuthStore().user = res.data
                 return resolve(undefined)
@@ -49,4 +50,7 @@ export function useTab(to: RouteLocation) {
     if (to.meta.requiresAuth) {
         useTabStore().setTab(to)
     }
+}
+function isAuthed(to:AuthRoute.Route,auth:AuthRoute.RoleType){
+    return to.meta?.permissions?.includes(auth)
 }

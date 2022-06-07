@@ -35,7 +35,7 @@ export const useRouteStore = defineStore({
     getters: {
         authMenu(state){
             const authStore = useAuthStore()
-            return getAuthMenu(state.Menu,authStore.auth as string)
+            return getAuthMenu(routeToMenu(),authStore.auth as string)
         }
     }
 })
