@@ -2,9 +2,9 @@ declare namespace AuthRoute {
     type RoleType = keyof typeof import('@/enum').EnumUserRole
     type RouteMeta = {
         title: string,
-        icon?: string,
+        icon?: string|import ('vue').VNode,
         requiresAuth?: boolean,
-        permissions?: RoleType[],
+        role: RoleType[],
         keepAlive: boolean,
         hide: boolean,
         href?: string,
@@ -15,7 +15,7 @@ declare namespace AuthRoute {
         name?:string,
         redirect?:string,
         component:import('vue').Component
-        meta?:RouteMeta,
-        children?:Route
-    }
+        meta:RouteMeta,
+        children?:Route|import('vue-router').RouteRecordSingleView
+    }|import('vue-router').RouteRecordSingleView
 }

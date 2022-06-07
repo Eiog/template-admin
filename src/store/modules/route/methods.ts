@@ -9,14 +9,14 @@ type routeItem= {
     meta?:{
         title:string,
         hide:boolean,
-        permissions:Array<string>|any,
+        role:Array<string>|any,
         icon:string
     },
     children:RouteRecordRaw[]
 }
 type menuType = {
-    permissions?:Array<string>|any,
-    children?:any
+    role?:Array<string>|any,
+    children?:menuType
 }|MenuOption
 export function initRoutes() {
     return moduleRoutes
@@ -25,39 +25,27 @@ function renderIcon(icon: string) {
     return () => h(NIcon, null, { default: () => h('i', { class: icon }, {}) })
 }
 
-export function routeToMenu(routes: RouteRecordRaw[] = moduleRoutes) {
-    console.log(1);
-    
+export function routeToMenu(auth,routes:AuthRoute.Route[] = moduleRoutes) {
     let arr: any = []
-    routes.forEach((item:RouteRecordRaw|routeItem) => {
+    routes.forEach((item:AuthRoute.Route) => {
         if (!item.meta) return
         if (item.meta.hide) return
+        if (!item.meta.role.includes(auth)) return
         let menuItem: menuType = {
             label: item.meta.title,
             key: item.name as string,
-            permissions:item.meta.permissions,
+            role:item.meta.role,
             icon: renderIcon(item.meta.icon as string)
         }
         if (item.children) {
-            menuItem.children = routeToMenu(item.children)
+            menuItem.children = routeToMenu(auth,item.children)
         }
         arr.push(menuItem)
     })
     return arr
 }
 
-export function getAuthMenu(menu:menuType[],auth:string){
-    let arr: any = []
-    menu.forEach((item:menuType)=>{
-        if(!item.permissions.includes(auth)) {
-            return
-        }
-        let menuItem = item
-        if (item.children) menuItem.children = getAuthMenu(item.children,auth)
-        arr.push(menuItem)
-    })
-    return arr
-}
+
 /**获取需要缓存的路由 */
 export function getCacheRoutes(routes: RouteRecordRaw[] =moduleRoutes) {
     const cacheNames: string[] = [];

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { initRoutes,routeToMenu,getCacheRoutes,getAuthMenu } from "./methods";
+import { initRoutes,routeToMenu,getCacheRoutes } from "./methods";
 import { useAuthStore } from "../auth";
 import { useTabStore } from "../tabs";
 import { nextTick } from "vue";
@@ -8,7 +8,6 @@ export const useRouteStore = defineStore({
     id: 'routeStore',
     state: () => ({
         routes:initRoutes(),
-        Menu:routeToMenu(),
         include:new Array,
         excludes:new Array,
     }),
@@ -35,7 +34,7 @@ export const useRouteStore = defineStore({
     getters: {
         authMenu(state){
             const authStore = useAuthStore()
-            return getAuthMenu(routeToMenu(),authStore.auth as string)
+            return routeToMenu(authStore.auth)
         }
     }
 })
