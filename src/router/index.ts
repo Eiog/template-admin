@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router';
 import {rootRoutes,commonRoutes} from './routes';
-import { setComponentName } from '@/utils';
 import { createGuard } from './guard';
 import moduleRoutes from './modules';
 console.log();

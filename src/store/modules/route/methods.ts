@@ -26,6 +26,8 @@ function renderIcon(icon: string) {
 }
 
 export function routeToMenu(routes: RouteRecordRaw[] = moduleRoutes) {
+    console.log(1);
+    
     let arr: any = []
     routes.forEach((item:RouteRecordRaw|routeItem) => {
         if (!item.meta) return
@@ -47,7 +49,9 @@ export function routeToMenu(routes: RouteRecordRaw[] = moduleRoutes) {
 export function getAuthMenu(menu:menuType[],auth:string){
     let arr: any = []
     menu.forEach((item:menuType)=>{
-        if(!item.permissions.includes(auth)) return
+        if(!item.permissions.includes(auth)) {
+            return
+        }
         let menuItem = item
         if (item.children) menuItem.children = getAuthMenu(item.children,auth)
         arr.push(menuItem)

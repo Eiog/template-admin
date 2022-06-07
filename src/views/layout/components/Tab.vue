@@ -17,8 +17,6 @@ const onChange = function (item, index) {
 };
 const onClose = function (item, index) {
   tabStore.removeTag(index);
-  console.log(tabStore.activeTab);
-  
   router.push(tabStore.activeTab.path as string);
 };
 
@@ -56,11 +54,8 @@ const getBounding = function(){
   }
 }
 const scrollTab = function(){
-    console.log(getBounding());
     const {tabX,tabWidth,tabRight,currentTabX,currentTabWidth,tabWrapX,tabWrapWidth,tabWrapRight} = getBounding()
     const scrollRight = (currentTabX+currentTabWidth*2)-tabWrapRight
-    console.log('scrollX',scrollRight);
-    console.log('scrollValue',scrollValue.value);
     if(scrollRight>1){
       scrollRef.value?.scrollTo({left:scrollRight+scrollValue.value })
     }
@@ -68,7 +63,6 @@ const scrollTab = function(){
     if(scrollLeft>1){
       scrollRef.value?.scrollTo({left:scrollValue.value-scrollLeft})
     }
-    console.log('scrollLeft',scrollLeft); 
 }
 onMounted(() => {
   watch(
@@ -81,13 +75,9 @@ onMounted(() => {
 });
 const scrollValue = ref(0)
 const onScroll = function(e){
-  // console.log(e);
-  
   scrollValue.value = e.target.scrollLeft
 }
-const setScroll = useDebounceFn(()=>{
 
-},200)
 </script>
 <template>
   <div class="w-full h-full flex items-center">

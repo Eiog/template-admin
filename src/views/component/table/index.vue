@@ -1,16 +1,10 @@
-<script lang='ts'>
-export default{
-    name:'Table'
-}
+<script lang="ts">
+export default {
+  name: "Table",
+};
 </script>
-<script setup lang='ts'>
-
-</script>
+<script setup lang="ts"></script>
 <template>
-<div>
-    table
-</div>
+  <div>table</div>
 </template>
-<style scoped lang='less'>
-
-</style>
+<style scoped lang="less"></style>

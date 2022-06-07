@@ -30,7 +30,6 @@ const activeKey = ref();
 watchEffect(()=>{
     activeKey.value = route.name
 })
-const menuOptions = routeStore.authMenu;
 const menuOnChange = function (key: string, item: MenuOption): void {
   router.push({
     name: key,
@@ -40,7 +39,7 @@ const menuOnChange = function (key: string, item: MenuOption): void {
 <template>
   <aside>
     <n-menu
-      :options="menuOptions"
+      :options="routeStore.authMenu"
       :collapsed="collapsed"
       :collapsed-width="collapsedWidth"
       :inverted="inverted"
