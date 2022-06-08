@@ -5,17 +5,9 @@ declare namespace AuthRoute {
         icon?: string|import ('vue').VNode,
         requiresAuth?: boolean,
         role: RoleType[],
-        keepAlive: boolean,
-        hide: boolean,
+        keepAlive?: boolean,
+        hide?: boolean,
         href?: string,
         order?: number
-    }
-    type Route = {
-        path:string,
-        name?:string,
-        redirect?:string,
-        component:import('vue').DefineComponent
-        meta:RouteMeta,
-        children?:Route
     }
 }

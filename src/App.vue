@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NMessageProvider, NConfigProvider, NGlobalStyle } from "naive-ui";
+import { NConfigProvider, NGlobalStyle } from "naive-ui";
 import NaiveProvider from "./components/common/NaiveProvider.vue";
 import { storeToRefs } from "pinia";
 import { useThemeStore } from "./store";

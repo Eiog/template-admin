@@ -2,7 +2,6 @@ import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-rout
 import {rootRoutes,commonRoutes} from './routes';
 import { createGuard } from './guard';
 import moduleRoutes from './modules';
-console.log();
 
 const routes: Array<RouteRecordRaw> = [
     rootRoutes,

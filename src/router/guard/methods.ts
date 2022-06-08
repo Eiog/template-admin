@@ -1,7 +1,7 @@
 import NProgress from 'nprogress';
-import { RouteLocation,RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { useTabStore, useAuthStore,useRouteStore } from '@/store';
-import { getLocal,setLocal } from '@/utils/storage'
+import { RouteLocation, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
+import { useTabStore, useAuthStore } from '@/store';
+import { getLocal, setLocal } from '@/utils/storage'
 import { _feachStatus } from '@/http/api/userApi'
 
 /**使用进度条 */
@@ -20,64 +20,66 @@ export function useNProgress() {
 }
 
 /**token判断登录状态 */
-export function useAuth(to: RouteLocation,form:RouteLocationNormalized,next:NavigationGuardNext) {
-        const token = getLocal('UNLIT-TOKEN')
-        /**没有token并且去往需要权限地址 跳转到登录 */
-        if (!token && to.meta.requiresAuth) {
-            next('/login')
+export function useAuth(to: RouteLocation, form: RouteLocationNormalized, next: NavigationGuardNext) {
+    const token = getLocal('UNLIT-TOKEN')
+    const authStore = useAuthStore()
+    /**没有token并且去往需要权限地址 跳转到登录 */
+    if (!token && to.meta.requiresAuth) {
+        next('/login')
+    }
+    /**有token并且去往登录页面 跳转到form-path */
+    if (token && to.path === '/login') {
+        next(form.path)
+    }
+    /**有token并且去往权限页面 开始验证 */
+    if (token && to.meta.requiresAuth) {
+        /**判断是否是第一次验证 */
+        if (authStore.refreshed) {
+            /**不是第一次验证 直接跳转路由权限验证 */
+            checkAuth(to,form,authStore.auth,next)
+        } else {
+            /**是第一次验证 获取登录状态 刷新token */
+            refreshToken().then(() => {
+                checkAuth(to,form,authStore.auth,next)
+            }).catch(() => {
+                window.$notification.error({ content: '登录失效' })
+                next('/login')
+            })
         }
-        /**有token并且去往登录页面 跳转到form-path */
-        if (token && to.path === '/login') {
-            next(form.path)
-        }
-        /**有token并且去往权限页面 开始验证 */
-        if (token && to.meta.requiresAuth) {
-            /**判断是否是第一次验证 */
-            if(useAuthStore().refreshed){
-                /**不是第一次验证 直接跳转路由权限验证 */
-                if(isAuthed(to,useAuthStore().auth)){
-                    next()
-                }else{
-                    window.$notification.error({content:'没有权限'})
-                    next(form.path)
-                }
-            }else{
-                /**是第一次验证 获取登录状态 刷新token */
-                refreshToken().then(()=>{
-                    if(isAuthed(to,useAuthStore().auth)){
-                        next()
-                    }else{
-                        window.$notification.error({content:'没有权限'})
-                        next(form.path)
-                    }
-                }).catch(()=>{
-                    window.$notification.error({content:'登录失效'})
-                    next('/login')
-                })
-            }
-        }
-        /**不需要权限验证的路由直接通过 */
-        if (!to.meta.requiresAuth) {
-            next()
-        }
+    }
+    /**不需要权限验证的路由直接通过 */
+    if (!to.meta.requiresAuth) {
+        next()
+    }
 }
 /**添加tab */
 export function useTab(to: RouteLocation) {
-    if (to.meta.requiresAuth) {
+    if (to.meta.requiresAuth && !to.meta.hide) {
         useTabStore().setTab(to)
     }
 }
-function isAuthed(to:RouteLocation,auth:AuthRoute.RoleType){
+/**是否包含权限*/
+function isAuthed(to: RouteLocation, auth: AuthRoute.RoleType) {
     return to.meta?.role?.includes(auth)
 }
-
-function refreshToken(){
-    return new Promise((resolve,reject)=>{
+/**检测权限*/
+function checkAuth(to: RouteLocation, form: RouteLocationNormalized, auth: AuthRoute.RoleType, next: NavigationGuardNext) {
+    if (isAuthed(to, auth)) {
+        next()
+    } else {
+        window.$notification.error({ content: '没有权限' })
+        next(form.path)
+    }
+}
+/**检测状态刷新token*/
+function refreshToken() {
+    const authStore = useAuthStore()
+    return new Promise((resolve, reject) => {
         _feachStatus().then((res: any) => {
-            useAuthStore().user = res.data
-            useAuthStore().auth = res.data.auth
-            useAuthStore().refreshed = true
-            setLocal('UNLIT-TOKEN',res.data.token)
+            authStore.user = res.data
+            authStore.auth = res.data.auth
+            authStore.refreshed = true
+            setLocal('UNLIT-TOKEN', res.data.token)
             return resolve(res)
         }).catch(() => {
             return reject()

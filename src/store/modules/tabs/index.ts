@@ -1,32 +1,27 @@
-import { RouteLocationNormalized, RouteLocationRaw } from "vue-router";
+import { RouteLocation } from "vue-router";
 import { defineStore } from "pinia";
 import { useRouteStore } from '@/store';
 import { nextTick } from "vue";
-import router from '@/router'
-type tab = {
+interface Tab {
     name: string|unknown,
     path: string | unknown,
-    meta: {
-        icon?:string,
-        title?:string
-    } ,
+    title:string,
+    icon:string,
     rootTab?: boolean | unknown,
     loading?:boolean|unknown
 }
-interface tabState {
-    tabs: tab[]
+
+type tabState = {
+    tabs: Tab[]
     activeIndex: number,
     refreshing:boolean,
     scroll:number
 }
-const rootTab:tab = {
-
+const rootTab:Tab = {
     name: 'analysis',
     path: '/dashboard/analysis',
-    meta: {
-        title: '分析页',
-        icon: 'ri-bubble-chart-line',
-    },
+    title: '分析页',
+    icon: 'ri-bubble-chart-line',
     rootTab: true
 }
 export const useTabStore = defineStore({
@@ -40,22 +35,22 @@ export const useTabStore = defineStore({
         scroll:0,
     }),
     actions: {
-        setTab(route: RouteLocationNormalized) {
+        setTab(route: RouteLocation) {
             useRouteStore().addIncludes(route.name)
             this.refreshing = true
-            let tab: tab = {
-                name: route.name,
-                path: route.path,
-                meta: route.meta,
-                loading:true
-            }
-            let index = this.tabs.findIndex(item => { return item.name === tab.name })
+            let index = this.tabs.findIndex(item => { return item.name === route.name})
             if (index === -1) {
+                let tab: Tab = {
+                    name: route.name,
+                    path: route.path,
+                    title:route.meta.title,
+                    icon:route.meta.icon as string,
+                    loading:true
+                }
                 this.activeIndex = this.tabs.length
                 this.tabs.push(tab)
                 return
             }
-            
             this.activeIndex = index
             this.tabs[index].loading = true
         },

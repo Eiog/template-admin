@@ -7,7 +7,6 @@ export default {
 import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { NDropdown, NScrollbar,type ScrollbarInst } from "naive-ui";
-import { useElementBounding, useActiveElement,useElementSize,useDebounceFn  } from "@vueuse/core";
 import { useTabStore } from "@/store";
 const tabStore = useTabStore();
 const route = useRoute();
@@ -100,10 +99,10 @@ const onScroll = function(e){
           >
             <i
               class="leading-tight"
-              v-if="item.meta.icon"
-              :class="item.meta.icon"
+              v-if="item.icon"
+              :class="item.icon"
             ></i>
-            <span class="text-sm whitespace-nowrap">{{ item.meta.title }}</span>
+            <span class="text-sm whitespace-nowrap">{{ item.title }}</span>
           </div>
           <span
             class="bg-gray-100 dark:bg-dark-50 w-16px h-16px flex items-center justify-center rounded-full transition-colors hover:bg-light-50 dark:hover:bg-dark-500"

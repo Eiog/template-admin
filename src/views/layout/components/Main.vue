@@ -4,7 +4,6 @@ export default {
 };
 </script>
 <script setup lang="ts">
-
 import { useRouteStore, useTabStore } from "@/store";
 const routeStore = useRouteStore();
 const tabStore = useTabStore();

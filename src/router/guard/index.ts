@@ -1,4 +1,4 @@
-import { Router, NavigationGuardNext } from 'vue-router'
+import { Router } from 'vue-router'
 import { useNProgress, useTab, useAuth } from './methods';
 import { useTabStore } from '@/store';
 export function createGuard(router: Router) {
