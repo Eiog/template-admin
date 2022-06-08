@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import {
-  NMessageProvider,
-  NConfigProvider,
-  NGlobalStyle,
-} from "naive-ui";
+import { NMessageProvider, NConfigProvider, NGlobalStyle } from "naive-ui";
+import NaiveProvider from "./components/common/NaiveProvider.vue";
 import { storeToRefs } from "pinia";
 import { useThemeStore } from "./store";
 import { subscribeStore } from "@/store";
@@ -19,11 +16,11 @@ subscribeStore();
       :theme="naiveThemeMode"
       :theme-overrides="naiveThemeOverrides"
     >
-      <n-message-provider>
+      <naive-provider>
         <transition name="fade-transform" mode="out-in">
           <component :is="Component"></component>
         </transition>
-      </n-message-provider>
+      </naive-provider>
       <n-global-style />
     </n-config-provider>
   </router-view>

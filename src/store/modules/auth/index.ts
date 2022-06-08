@@ -13,13 +13,15 @@ type state = {
         avatar?: string,
         token?: string
     },
-    auth:`${Auth}`|undefined
+    auth:`${Auth}`,
+    refreshed:boolean
 }
 export const useAuthStore = defineStore({
     id: 'authStore',
     state: ():state => ({
         user:{},
-        auth:'super'
+        auth:'user',
+        refreshed:false
     }),
     actions: {
 

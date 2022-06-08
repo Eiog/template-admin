@@ -6,9 +6,7 @@ export function createGuard(router: Router) {
     router.beforeEach((to, from, next) => {
         start()
         useTab(to)
-        useAuth(to).then((path) => { 
-            next(path as NavigationGuardNext)
-         })
+        useAuth(to,from,next)
     })
     router.afterEach((to, from) => {
         useTabStore().loaded()

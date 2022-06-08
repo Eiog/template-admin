@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import GlobalApi from "vite-plugin-global-api"
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import { resolve } from 'path'

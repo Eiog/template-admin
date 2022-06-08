@@ -4,8 +4,5 @@ import './assets'
 import router from '@/router';
 import store from '@/store'
 import directives from './directives';
-createApp(App)
-    .use(store)
-    .use(router)
-    .use(directives)
-    .mount('#app')
+const app = createApp(App)
+app.use(store).use(router).use(directives).mount('#app')

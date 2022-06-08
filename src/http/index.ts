@@ -2,8 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } f
 import NProgress from 'nprogress'
 import showCodeMessage from './code';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/common/format';
-import { ElNotification } from 'element-plus'
 import { addPending, removePending} from './_methods'
+import {getLocal} from '@/utils'
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
 
 // 创建实例
@@ -26,7 +26,7 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig | T) => {
     // TODO 在这里可以加上想要在请求发送前处理的逻辑
     // TODO 比如 loading 等
-    const token = window.localStorage.getItem('unlit_token') as any
+    const token = getLocal('UNLIT-TOKEN')
     config.headers.token = token
     removePending(config)
     addPending(config)
@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(
     if (response.status === 200) {
       return response.data;
     }
-    ElNotification.warning(response.data)
+    window.$notification.warning({content:response.data})
     return Promise.reject(response.data);
   },
   (error: AxiosError) => {
@@ -56,12 +56,12 @@ axiosInstance.interceptors.response.use(
     NProgress.done()
     if (response) {
       console.log(showCodeMessage(response.status));
-      ElNotification.error(showCodeMessage(response.status) + response.data)
+      window.$notification.error({content:showCodeMessage(response.status) + response.data})
       console.log(response)
       return Promise.reject(response.data);
     }
     if (request) {
-      ElNotification.error('链接超时')
+      window.$notification.error({content:'链接超时'})
       return Promise.reject(error);
     }
   }

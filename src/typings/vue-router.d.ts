@@ -1,5 +1,11 @@
+import { _RouteLocationBase } from "vue-router";
+type RoleType = keyof typeof import('@/enum').EnumUserRole
+declare module 'vue-router'{
+    interface RouteMeta extends AuthRoute.RouteMeta{}
+}
+
 declare namespace AuthRoute {
-    type RoleType = keyof typeof import('@/enum').EnumUserRole
+    type RoleType = keyof typeof import('@/enum').EnumUserRole|undefined
     type RouteMeta = {
         title: string,
         icon?: string|import ('vue').VNode,
@@ -9,13 +15,5 @@ declare namespace AuthRoute {
         hide: boolean,
         href?: string,
         order?: number
-    }
-    type Route = {
-        path:string,
-        name?:string,
-        redirect?:string,
-        component:import('vue').DefineComponent
-        meta:RouteMeta,
-        children?:Route
     }
 }

@@ -43,7 +43,6 @@ const onSubmit = function (e: MouseEvent) {
     loading.value = true
     validateOnSuccess().then((res:any)=>{
       message.success('登录成功')
-      setLocal('UNLIT-ADMIN-USER',res.nickName)
       setLocal('UNLIT-TOKEN',res.token)
       router.push('/')
     }).catch(()=>{

@@ -1,44 +1,27 @@
-import { h, Component } from 'vue'
-import { RouteRecordRaw } from "vue-router";
+import { h } from 'vue'
+import { RouteRecordRaw, } from "vue-router";
 import type { MenuOption } from 'naive-ui'
 import { NIcon } from 'naive-ui';
 import moduleRoutes from "@/router/modules";
-import { useAuthStore } from '../auth';
-type routeItem= {
-    name:string,
-    meta?:{
-        title:string,
-        hide:boolean,
-        role:Array<string>|any,
-        icon:string
-    },
-    children:RouteRecordRaw[]
-}
-type menuType = {
-    role?:Array<string>|any,
-    children?:menuType
-}|MenuOption
+/**获取全部路由 */
 export function initRoutes() {
     return moduleRoutes
 }
-function renderIcon(icon: string) {
-    return () => h(NIcon, null, { default: () => h('i', { class: icon }, {}) })
-}
-
-export function routeToMenu(auth,routes:AuthRoute.Route[] = moduleRoutes) {
+/**路由转naive菜单 剔除无权限路由 */
+export function routeToMenu(auth: AuthRoute.RoleType, routes = moduleRoutes) {
     let arr: any = []
-    routes.forEach((item:AuthRoute.Route) => {
+    routes.forEach((item) => {
         if (!item.meta) return
         if (item.meta.hide) return
         if (!item.meta.role.includes(auth)) return
-        let menuItem: menuType = {
+        let menuItem: MenuOption = {
             label: item.meta.title,
             key: item.name as string,
-            role:item.meta.role,
+            role: item.meta.role,
             icon: renderIcon(item.meta.icon as string)
         }
         if (item.children) {
-            menuItem.children = routeToMenu(auth,item.children)
+            menuItem.children = routeToMenu(auth, item.children)
         }
         arr.push(menuItem)
     })
@@ -47,7 +30,7 @@ export function routeToMenu(auth,routes:AuthRoute.Route[] = moduleRoutes) {
 
 
 /**获取需要缓存的路由 */
-export function getCacheRoutes(routes: RouteRecordRaw[] =moduleRoutes) {
+export function getCacheRoutes(routes: RouteRecordRaw[] = moduleRoutes) {
     const cacheNames: string[] = [];
     routes.forEach(route => {
         // 只需要获取二级路由的缓存的组件名
@@ -74,4 +57,7 @@ function isKeepAlive(route: RouteRecordRaw) {
  */
 function hasChildren(route: RouteRecordRaw) {
     return Boolean(route.children && route.children.length);
+}
+function renderIcon(icon: string) {
+    return () => h(NIcon, null, { default: () => h('i', { class: icon }, {}) })
 }
