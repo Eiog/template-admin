@@ -1,8 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig,AxiosRequestHeaders, AxiosResponse, AxiosError } from 'axios';
 import NProgress from 'nprogress'
 import showCodeMessage from './code';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/common/format';
-import { addPending, removePending} from './_methods'
+import { repeatRequestIntercept} from './_methods'
+const {addPending,removePending} = repeatRequestIntercept()
 import {getLocal} from '@/utils'
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
 
@@ -17,20 +18,16 @@ const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-type T = {
-  headers: any
-}
 // 请求拦截器
 axiosInstance.interceptors.request.use(
-  (config: AxiosRequestConfig | T) => {
+  (config:AxiosRequestConfig) => {
     // TODO 在这里可以加上想要在请求发送前处理的逻辑
     // TODO 比如 loading 等
     const token = getLocal('UNLIT-TOKEN')
-    config.headers.token = token
+    config.headers!.Authorization = token as string
     removePending(config)
     addPending(config)
-    // NProgress.start()
+    NProgress.start()
     return config;
   },
   (error: AxiosError) => {
@@ -45,7 +42,7 @@ axiosInstance.interceptors.response.use(
     if (response.status === 200) {
       return response.data;
     }
-    window.$notification.warning({content:response.data})
+    window.$notification.warning({title:response.statusText,content:response.data})
     return Promise.reject(response.data);
   },
   (error: AxiosError) => {
@@ -56,8 +53,7 @@ axiosInstance.interceptors.response.use(
     NProgress.done()
     if (response) {
       console.log(showCodeMessage(response.status));
-      window.$notification.error({content:showCodeMessage(response.status) + response.data})
-      console.log(response)
+      window.$notification.error({title:showCodeMessage(response.status),content:response.data as string})
       return Promise.reject(response.data);
     }
     if (request) {
@@ -80,5 +76,5 @@ const http = {
     window.location.href = downloadUrl;
   },
 };
-
+export * from './api'
 export default http;

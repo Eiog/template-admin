@@ -1,9 +1,6 @@
 import { defineStore } from "pinia";
-import { initRoutes,routeToMenu,getCacheRoutes } from "./methods";
+import { initRoutes,routeToMenu } from "./_methods";
 import { useAuthStore } from "../auth";
-import { useTabStore } from "../tabs";
-import { nextTick } from "vue";
-
 export const useRouteStore = defineStore({
     id: 'routeStore',
     state: () => ({

@@ -15,7 +15,7 @@ const onChange = function (item, index) {
   router.push(item.path);
 };
 const onClose = function (item, index) {
-  tabStore.removeTag(index);
+  tabStore.removeTab(item);
   router.push(tabStore.activeTab.path as string);
 };
 
@@ -41,7 +41,7 @@ const getBounding = function(){
   const tabElement = tabRef.value as Element
   const {x:tabX,width:tabWidth} = tabElement?.getBoundingClientRect()
 
-  const currentTabElement = tabRef.value?.children[tabStore.activeIndex] as Element
+  const currentTabElement = tabRef.value?.children[tabStore.authActiveIndex] as Element
   const {x:currentTabX,width:currentTabWidth} = currentTabElement.getBoundingClientRect()
 
   const scrollElement = tabWrapRef.value as Element
@@ -88,9 +88,9 @@ const onScroll = function(e){
       >
         <div
           class="bg-light-500 rounded-1 flex items-center justify-center transition-colors duration-300 ease-in-out gap-1 cursor-pointer px-2 hover:bg-gray-300 dark:bg-dark-200 dark:hover:bg-dark-50"
-          v-for="(item, index) in tabStore.tabs"
+          v-for="(item, index) in tabStore.authTab"
           :key="index"
-          :class="tabStore.activeIndex === index ? 'active' : ''"
+          :class="tabStore.authActiveIndex === index ? 'active' : ''"
           
         >
           <div

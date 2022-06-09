@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { darkTheme,useOsTheme } from 'naive-ui';
-import {getDefaultThemeSetting,getNaiveThemeOverrides} from './methods'
+import {getDefaultThemeSetting,getNaiveThemeOverrides} from './_methods'
 export const useThemeStore = defineStore({
     id:'themeStore',
     state:()=>getDefaultThemeSetting(),
