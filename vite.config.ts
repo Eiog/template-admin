@@ -14,7 +14,7 @@ export default defineConfig({
     strictPort: true, // 如果端口已占用直接退出
     proxy: {
       '/api': {
-        target: 'http://localhost:3000/api/',
+        target: 'http://localhost:5000/api/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
