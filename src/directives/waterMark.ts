@@ -1,4 +1,4 @@
-function renderWaterMarker(str, parentNode, font, textColor) {
+function renderWaterMarke(str, parentNode, font, textColor) {
     // 水印文字，父元素，字体，文字颜色
     const can = document.createElement('canvas')
     parentNode.appendChild(can)
@@ -14,8 +14,9 @@ function renderWaterMarker(str, parentNode, font, textColor) {
     cans.fillText(str, can.width / 10, can.height / 2)
     parentNode.style.backgroundImage = 'url(' + can.toDataURL('image/png') + ')'
   }
-export const waterMarker = {
+const waterMarke = {
     mounted(el, binding){
-        renderWaterMarker(binding.value.text, el, binding.value.font, binding.value.textColor)
+        renderWaterMarke(binding.value.text, el, binding.value.font, binding.value.textColor)
     }
 }
+export default waterMarke

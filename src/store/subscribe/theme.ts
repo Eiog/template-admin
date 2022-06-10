@@ -1,5 +1,4 @@
-import { onMounted, watch } from "vue";
-import { useOsTheme } from "naive-ui";
+import { watch } from "vue";
 import { useThemeStore } from "@/store";
 import { setThemeColor, addDarkClass, removeDarkClass } from "@/utils";
 /**订阅theme */

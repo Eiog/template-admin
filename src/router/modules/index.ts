@@ -4,6 +4,7 @@ import componentRoute from './component';
 import pluginRoute from "./pluginDemo";
 import authRoute from "./authDemo";
 import axiosDemo from "./axiosDemo";
+import directivesDemo from "./directivesDemo";
 
 const moduleRoutes = [
     dashboardRoute,
@@ -11,6 +12,7 @@ const moduleRoutes = [
     componentRoute,
     pluginRoute,
     authRoute,
-    axiosDemo
+    axiosDemo,
+    directivesDemo
 ]
 export default moduleRoutes

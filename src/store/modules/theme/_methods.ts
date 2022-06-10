@@ -17,6 +17,7 @@ function getColor(color){
         suppl:colord(color).lighten(.1).toHex()
     }
 }
+
 export function getDefaultThemeSetting(){
     const themeColor = getThemeColor()||defaultThemeSetting.themeColor
     return {...defaultThemeSetting,themeColor}

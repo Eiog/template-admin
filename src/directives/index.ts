@@ -1,6 +1,8 @@
-import { waterMarker } from "./components"
+import waterMarke  from "./waterMark"
+import permission from './permission'
 const directives = {
-    waterMarker
+    waterMarke,
+    permission
 }
 export default {
     install(Vue){

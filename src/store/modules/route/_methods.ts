@@ -1,6 +1,6 @@
 import { h } from 'vue'
 import { RouteRecordRaw, } from "vue-router";
-import type { MenuOption } from 'naive-ui'
+import type { MenuOption,MenuGroupOption,MenuDividerOption  } from 'naive-ui'
 import { NIcon } from 'naive-ui';
 import moduleRoutes from "@/router/modules";
 /**获取全部路由 */
@@ -8,7 +8,7 @@ export function initRoutes() {
     return moduleRoutes
 }
 /**路由转naive菜单 剔除无权限路由 */
-export function routeToMenu(auth: AuthRoute.RoleType, routes = moduleRoutes) {
+export function routeToMenu(auth: AuthRoute.RoleType, routes = moduleRoutes):MenuOption[]  {
     let arr: any = []
     routes.forEach((item) => {
         if (!item.meta) return

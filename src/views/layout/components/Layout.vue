@@ -46,6 +46,7 @@ const props = defineProps({
 </script>
 <template>
   <div class="unlit-admin-layout">
+    <n-scrollbar>
     <div
       class="unlit-admin-header-wrap"
       :style="[
@@ -152,12 +153,11 @@ const props = defineProps({
             },
       ]"
     >
-    <n-scrollbar>
+    
       <div class="unlit-admin-main">
         <slot name="main"></slot>
         <slot></slot>
       </div>
-      </n-scrollbar>
     </div>
     <div
       class="unlit-admin-footer-wrap"
@@ -184,6 +184,7 @@ const props = defineProps({
     >
       <slot name="footer"></slot>
     </div>
+    </n-scrollbar>
   </div>
 </template>
 <style scoped lang="less">
@@ -200,21 +201,22 @@ div {
   display: flex;
   flex-direction: column;
   position: relative;
-  > div {
-    transition: all 0.3s;
-  }
+  transition: all 0.3s;
+
   .unlit-admin-header-wrap {
     flex-shrink: 0;
     z-index: 1;
     width: 100%;
     height: 100%;
     min-width: 1200px;
+    transition: all 0.3s;
   }
   .unlit-admin-tabs-wrap {
     flex-shrink: 0;
     width: 100%;
     min-width: 1200px;
     z-index: 1;
+    transition: all 0.3s;
   }
 
   .unlit-admin-aside-wrap {
@@ -224,15 +226,18 @@ div {
     left: 0;
     bottom: 0;
     z-index: 2;
+    transition: all 0.3s;
   }
   .unlit-admin-main-wrap {
     position: relative;
     flex-shrink: 0;
     width: 100%;
     height: 100%;
+    min-height: 900px;
     flex-grow:1;
     min-width: 1200px;
     z-index: 0;
+    transition: all 0.3s;
     .unlit-admin-main {
       position: relative;
       flex-shrink: 0;
