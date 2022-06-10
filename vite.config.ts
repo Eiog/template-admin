@@ -1,63 +1,45 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import autoprefixer from 'autoprefixer'
-import { resolve } from 'path'
-import Unocss from 'unocss/vite'
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(),Unocss({ /* options */ })],
-  server: {
-    port: 3000,
-    host: true, // host设置为true才可以使用network的形式，以ip访问项目
-    open: false, // 自动打开浏览器
-    cors: true, // 跨域设置允许
-    strictPort: true, // 如果端口已占用直接退出
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000/api/',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    }
-  },
-  build: {
-    brotliSize: false,
-    // 消除打包大小超过500kb警告
-    chunkSizeWarningLimit: 2000,
-    // 在生产环境移除console.log
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
+import { defineConfig, loadEnv } from 'vite'
+import path from 'path'
+
+import { wrapperEnv, createProxy } from './build/utils'
+import { createVitePlugins } from './build/plugin'
+import { OUTPUT_DIR } from './build/constant'
+
+export default defineConfig(({ command, mode }) => {
+  const root = process.cwd()
+  const isBuild = command === 'build'
+
+  const env = loadEnv(mode, process.cwd())
+  const viteEnv = wrapperEnv(env)
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY } = viteEnv
+
+  return {
+    root,
+    base: VITE_PUBLIC_PATH || '/',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
       },
     },
-    assetsDir: 'static/assets',
-    // 静态资源打包到dist下的不同目录
-    rollupOptions: {
-      output: {
-        chunkFileNames: 'static/js/[name]-[hash].js',
-        entryFileNames: 'static/js/[name]-[hash].js',
-        assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+    plugins: createVitePlugins(viteEnv, isBuild),
+    css: {
+      preprocessorOptions: {
+        //define global scss variable
+        scss: {
+          additionalData: `@import '@/styles/variables.scss';`,
+        },
       },
     },
-  },
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, './src'), // 路径别名
-    }
-  },
-  css: {
-    postcss:{
-      plugins:[
-        autoprefixer()
-      ]
+    server: {
+      host: '0.0.0.0',
+      port: VITE_PORT,
+      proxy: createProxy(VITE_PROXY),
     },
-    // css预处理器
-    preprocessorOptions: {
-      less: {
-        charset: false,
-        // additionalData: '@import "./src/assets/style/index.less";',
-      },
+    build: {
+      target: 'es2015',
+      outDir: OUTPUT_DIR,
+      reportCompressedSize: false, // 启用/禁用 gzip 压缩大小报告
+      chunkSizeWarningLimit: 1024, // chunk 大小警告的限制（单位kb）
     },
-  },
+  }
 })
