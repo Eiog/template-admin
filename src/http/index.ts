@@ -76,5 +76,4 @@ const http = {
     window.location.href = downloadUrl;
   },
 };
-export * from './api'
 export default http;

@@ -1,8 +1,8 @@
 import NProgress from 'nprogress';
 import { RouteLocation, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useTabStore, useAuthStore } from '@/store';
-import { getLocal, setLocal } from '@/utils/storage'
-import { _feachStatus } from '@/http/api/userApi'
+import { getLocal, setLocal,removeLocal } from '@/utils/storage'
+import { _feachStatus } from '@/api'
 
 /**使用进度条 */
 export function useNProgress() {

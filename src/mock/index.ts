@@ -1,4 +1,6 @@
-import { mock, Random } from 'mockjs'
-mock('/login', 'post', {
-    "name": Random.cname()
-})
+import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
+import mocks from './mocks';
+
+export function setupProdMockServer() {
+  createProdMockServer([...mocks]);
+}

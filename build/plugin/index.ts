@@ -1,5 +1,6 @@
 import vue from '@vitejs/plugin-vue'
-
+import Unocss from 'unocss/vite'
+import { presetUno, presetAttributify, presetIcons } from 'unocss'
 /**
  * * 扩展setup插件，支持在script标签中使用name属性
  * usage: <script setup name="MyComp"></script>
@@ -23,33 +24,19 @@ import Icons from 'unplugin-icons/vite'
 // rollup打包分析插件
 import visualizer from 'rollup-plugin-visualizer'
 
-import { unocss } from './unocss'
-import { configHtmlPlugin } from './html'
-import { configMockPlugin } from './mock'
-
-export function createVitePlugins(viteEnv, isBuild) {
-  const plugins = [
-    vue(),
-    VueSetupExtend(),
-    Components({
-      resolvers: [NaiveUiResolver()],
-    }),
-    Icons({ compiler: 'vue3', autoInstall: true }),
-    unocss(),
-    configHtmlPlugin(viteEnv, isBuild),
-  ]
-
-  viteEnv?.VITE_APP_USE_MOCK && plugins.push(configMockPlugin(isBuild))
-
-  if (isBuild) {
-    plugins.push(
-      visualizer({
-        open: true,
-        gzipSize: true,
-        brotliSize: true,
-      })
-    )
-  }
-
-  return plugins
+import {createMockServe} from './mock'
+export function createVitePlugins() {
+    const plugin = [
+        vue(),
+        VueSetupExtend(),
+        Components({
+            resolvers: [NaiveUiResolver()]
+        }),
+        Icons({ compiler: 'vue3', autoInstall: true }),
+        Unocss({
+            presets: [presetUno(), presetAttributify(), presetIcons()],
+        }),
+        createMockServe(false)
+    ]
+    return plugin
 }

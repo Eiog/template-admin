@@ -4,12 +4,13 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { NCard } from 'naive-ui';
+import LogosNaiveui from '~icons/logos/naiveui'
 </script>
 <template>
   <div class="w-full h-full">
     <n-card title="水印示例" :bordered="false" class="rounded-16px shadow-sm">
         <div class="w-full h-600px" v-water-marke="{text:'测试水印'}"></div>
+        <LogosNaiveui></LogosNaiveui>
     </n-card>
   </div>
 </template>

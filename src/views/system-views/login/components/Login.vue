@@ -19,7 +19,7 @@ import { getImgCodeRule } from '@/utils';
 import {ImageVerify} from "@/components";
 import {setLocal} from '@/utils/storage'
 import router from "@/router";
-import {_feachLogin} from '@/http/api/userApi'
+import {_feachLogin} from '@/api'
 const message = useMessage();
 const emit = defineEmits(["onGo"]);
 const loading = ref(false)
