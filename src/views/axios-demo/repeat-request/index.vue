@@ -7,7 +7,7 @@ export default {
 import { NCard,NSpace,NButton } from 'naive-ui';
 import http from '@/http'
 const sendRequest = function(path){
-    http.get(path).then(res=>{
+    http.get('repeat-request/'+path).then(res=>{
       console.log(res);
       
     })

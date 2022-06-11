@@ -29,7 +29,7 @@ export const useTabStore = defineStore({
     }),
     actions: {
         setTab(route: RouteLocation) {
-            useRouteStore().addIncludes(route.name)
+            useRouteStore().addIncludes(route.name as string)
             this.refreshing = true
             let index = this.tabs.findIndex(tab => { return tab.path === route.path })
             if (index === -1) {
@@ -38,7 +38,7 @@ export const useTabStore = defineStore({
                     path: route.path,
                     title: route.meta.title,
                     icon: route.meta.icon as string,
-                    role: route.meta.role,
+                    role: route.meta.role!,
                     loading: true
                 }
                 this.tabs.push(tab)
@@ -53,7 +53,7 @@ export const useTabStore = defineStore({
 
         },
         removeTab(removeTab:AuthTab.Tab) {
-            useRouteStore().removeIncludes(removeTab.name)
+            useRouteStore().removeIncludes(removeTab.name as string)
             if(this.activePath === removeTab.path){
                 this.tabs.splice(this.activeIndex,1)
                 this.activePath = this.tabs[this.tabs.length-1].path as string
@@ -78,7 +78,7 @@ export const useTabStore = defineStore({
         },
         refresh() {
             const routeStore = useRouteStore()
-            routeStore.addExcludes(this.activeTab.name)
+            routeStore.addExcludes(this.activeTab.name as string)
             this.tabs[this.activeIndex].loading = true
             this.refreshing = true
             nextTick(() => {

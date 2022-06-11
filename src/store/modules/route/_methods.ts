@@ -13,7 +13,7 @@ export function routeToMenu(auth: AuthRoute.RoleType, routes = moduleRoutes):Men
     routes.forEach((item) => {
         if (!item.meta) return
         if (item.meta.hide) return
-        if (!item.meta.role.includes(auth)) return
+        if (!item.meta.role!.includes(auth)) return
         let menuItem: MenuOption = {
             label: item.meta.title,
             key: item.name as string,

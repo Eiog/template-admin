@@ -4,7 +4,7 @@ declare namespace AuthRoute {
         title: string,
         icon?: string|import ('vue').VNode,
         requiresAuth?: boolean,
-        role: RoleType[],
+        role?: RoleType[],
         keepAlive?: boolean,
         hide?: boolean,
         href?: string,

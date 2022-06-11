@@ -82,6 +82,7 @@ function refreshToken() {
             setLocal('UNLIT-TOKEN', res.data.token)
             return resolve(res)
         }).catch(() => {
+            removeLocal('UNLIT-TOKEN')
             return reject()
         })
     })

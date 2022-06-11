@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { NAvatar, NPopselect, NIcon, useMessage, NTooltip } from "naive-ui";
+import { NTooltip,SelectOption} from "naive-ui";
 import { useAppStore, useAuthStore, useThemeStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { removeLocal } from "@/utils/";
@@ -12,11 +12,10 @@ import { nextTick, ref } from "vue";
 const appStore = useAppStore()
 const authStore = useAuthStore()
 const themeStore = useThemeStore()
-const message = useMessage();
 const route = useRoute();
 const router = useRouter();
 
-const dropdownOptions = [
+const dropdownOptions:SelectOption[] = [
   {
     label: "个人中心",
     value: "mine",
@@ -27,12 +26,14 @@ const dropdownOptions = [
   },
 ];
 const handleSelect = function (val) {
-  if (val === "logout") onLogOut();
+  if (val === "logout"){
+    window.$dialog.warning({title:'确定退出吗',positiveText:'确定',negativeText:'取消',onPositiveClick:onLogOut,onNegativeClick:()=>{return}})
+  }
 };
 const onLogOut = function () {
   removeLocal("UNLIT-ADMIN-USER");
   removeLocal("UNLIT-TOKEN");
-  message.success("已退出");
+  window.$message.success("已退出");
   nextTick(() => {
     router.push("/login");
   });

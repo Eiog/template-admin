@@ -1,9 +1,12 @@
 import { MockMethod } from 'vite-plugin-mock';
 import Mock, { Random } from 'mockjs';
+const baseUrl = '/api'
 export default [
     {
-        url: '/user/login',
+        url: baseUrl+'/user/login',
         method: 'post',
+        timeout:2000,
+        statusCode:200,
         response: () => {
             return {
                 code: 200,
@@ -19,8 +22,10 @@ export default [
         }
     },
     {
-        url: '/user/status',
+        url: baseUrl+'/user/status',
         method: 'get',
+        statusCode:200,
+        timeout:100,
         response: () => {
             return {
                 code: 200,

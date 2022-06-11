@@ -51,6 +51,7 @@ const onSubmit = function (e: MouseEvent) {
       router.push('/')
     }).catch(()=>{
       message.error('用户名或密码错误')
+      loading.value = false
     });
   });
 };
@@ -63,6 +64,11 @@ const validateOnSuccess = function () {
     })
   });
 };
+function onKeyup(e){
+  if(e.key==='Enter'){
+    onSubmit(e)
+  }
+}
 </script>
 <template>
   <div>
@@ -76,13 +82,14 @@ const validateOnSuccess = function () {
         size="large"
       >
         <n-form-item label="用户名" path="userName">
-          <n-input v-model:value="formValue.userName" placeholder="用户名" />
+          <n-input v-model:value="formValue.userName" placeholder="用户名" @keyup="onKeyup" />
         </n-form-item>
         <n-form-item label="密码" path="password">
           <n-input
             v-model:value="formValue.password"
             type="password"
             placeholder="密码"
+            @keyup="onKeyup"
           />
         </n-form-item>
         <n-form-item label="密码" path="verifyCode">
@@ -91,6 +98,7 @@ const validateOnSuccess = function () {
             v-model:value="formValue.verifyCode"
             type="text"
             placeholder="验证码"
+            @keyup="onKeyup"
           />
           <image-verify v-model:code="verifyCode"></image-verify>
           </n-space>

@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite'
 import autoprefixer from 'autoprefixer'
 import { resolve } from 'path'
-import { createVitePlugins } from './build'
+import { createVitePlugins,configManualChunk } from './build'
 // https://vitejs.dev/config/
-export default defineConfig(() => {
+export default defineConfig(({ command, mode }) => {
+  const isBuild = command === 'build'
   return {
-    plugins: createVitePlugins(),
+    plugins: createVitePlugins(isBuild),
     server: {
       port: 3000,
       host: true, // host设置为true才可以使用network的形式，以ip访问项目
@@ -38,6 +39,7 @@ export default defineConfig(() => {
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
           assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+          manualChunks: configManualChunk
         },
       },
     },

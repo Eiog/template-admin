@@ -23,9 +23,11 @@ import Icons from 'unplugin-icons/vite'
 
 // rollup打包分析插件
 import visualizer from 'rollup-plugin-visualizer'
+//代码压缩
+import compressPlugin from 'vite-plugin-compression';
 
-import {createMockServe} from './mock'
-export function createVitePlugins() {
+import { createMockServe } from './mock'
+export function createVitePlugins(isBuild) {
     const plugin = [
         vue(),
         VueSetupExtend(),
@@ -36,7 +38,27 @@ export function createVitePlugins() {
         Unocss({
             presets: [presetUno(), presetAttributify(), presetIcons()],
         }),
-        createMockServe(false)
+        createMockServe(isBuild),
+        visualizer({
+            filename: './node_modules/.cache/visualizer/stats.html',
+            open: true,
+            gzipSize: true,
+            brotliSize: true,
+        }),
+        compressPlugin({
+            ext: '.gz',
+            deleteOriginFile: false,
+        })
     ]
     return plugin
+}
+export function createProxy(isBuild, prefix: string) {
+    const reg = new RegExp("/^" + prefix + "/")
+    const api = {
+        prefix: {
+            target: 'http://localhost:3000/' + prefix,
+            changeOrigin: true,
+            rewrite: path => path.replace(reg, '')
+        }
+    }
 }

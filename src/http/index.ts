@@ -53,7 +53,7 @@ axiosInstance.interceptors.response.use(
     NProgress.done()
     if (response) {
       console.log(showCodeMessage(response.status));
-      window.$notification.error({title:showCodeMessage(response.status),content:response.data as string})
+      window.$notification.error({title:showCodeMessage(response.status)})
       return Promise.reject(response.data);
     }
     if (request) {
