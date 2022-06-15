@@ -1,8 +1,10 @@
 import waterMarke  from "./waterMark"
 import permission from './permission'
+import lazyLoad from "./lazyLoad"
 const directives = {
     waterMarke,
-    permission
+    permission,
+    lazyLoad
 }
 export default {
     install(Vue){
