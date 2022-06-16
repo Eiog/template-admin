@@ -39,7 +39,16 @@ pnpm i
 ``` sh
 npm run dev
 ```
+
+# ✂️截图
 ![alt](/public/img/Snipaste_2022-06-16_10-06-46.png)
+![alt](/public/img/Snipaste_2022-06-16_10-07-20.png)
+![alt](/public/img/Snipaste_2022-06-16_10-07-31.png)
+![alt](/public/img/Snipaste_2022-06-16_10-07-42.png)
+![alt](/public/img/Snipaste_2022-06-16_10-07-50.png)
+![alt](/public/img/Snipaste_2022-06-16_10-08-02.png)
+![alt](/public/img/Snipaste_2022-06-16_10-08-10.png)
+![alt](/public/img/Snipaste_2022-06-16_10-08-38.png)
 
 # Vue 3 + TypeScript + Vite
 
