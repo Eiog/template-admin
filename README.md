@@ -1,3 +1,5 @@
+# U-Admin 是一个以Vite-Vue3开发的后台管理系统基础开发模板，没有过多的封装，可使开发者快速进行开发！
+
 # 😊快速的 Fast!!!
 基于最新技术栈，Vite2+Vue3+Vue-Router+Pinia+TS开发。
 # 🤦‍♂️Axios+Mock模拟数据
@@ -13,7 +15,31 @@ Menu 以及 Tab 动态权限显示。
 
 ## Vite2|Vue3|Vue-Router|Pinia|VueUse|Axios|Naive-UI|UnoCSS|Echarts|Nprogress|
 
-!(/public/img/Snipaste_2022-06-16_10-06-46.png)
+## 环境准备
+需要 Node.js 版本 >= 14.0.0
+## 工具配置
+IDE推荐使用vscode，并安装以下插件
+- Vue Language Features (Volar)
+- Vue 3 Snippets
+- UnoCSS
+- WindiCSS IntelliSense
+- TSLint
+- Prettier - Code formatter
+- Beautify
+## 拉取代码
+``` sh
+git clone https://gitee.com/cxice/unlit-admin-template.git
+cd unlit-admin-template
+```
+## 安装依赖
+``` sh
+pnpm i
+```
+## 运行
+``` sh
+npm run dev
+```
+![alt](/public/img/Snipaste_2022-06-16_10-06-46.png)
 
 # Vue 3 + TypeScript + Vite
 
