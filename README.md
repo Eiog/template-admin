@@ -13,6 +13,7 @@ Menu 以及 Tab 动态权限显示。
 
 ## Vite2|Vue3|Vue-Router|Pinia|VueUse|Axios|Naive-UI|UnoCSS|Echarts|Nprogress|
 
+!(/public/img/Snipaste_2022-06-16_10-06-46.png)
 
 # Vue 3 + TypeScript + Vite
 
