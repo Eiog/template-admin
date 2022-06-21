@@ -5,9 +5,7 @@ import { NDropdown, NScrollbar, type ScrollbarInst } from "naive-ui";
 import { useTabStore } from "@/store";
 import TabItem from "./components/TabItem.vue";
 import TabControl from "./components/TabControl.vue";
-import autoAnimate from "@formkit/auto-animate";
-import BetterScroll from "@/components/common/BetterScroll.vue";
-import BScroll from "@better-scroll/core";
+import autoAnimate from "@formkit/auto-animate"
 const tabStore = useTabStore();
 const route = useRoute();
 const router = useRouter();
@@ -23,15 +21,22 @@ const tabRef = ref<HTMLElement>();
 const scrollRef = ref<ScrollbarInst>();
 const tabWrapRef = ref<HTMLElement>();
 const getBounding = function () {
+  const tabElement = tabRef.value as Element;
+  const { x: tabX, width: tabWidth } = tabElement?.getBoundingClientRect();
+
   const currentTabElement = tabRef.value?.children[
     tabStore.authActiveIndex
   ] as Element;
   const { x: currentTabX, width: currentTabWidth } =
     currentTabElement.getBoundingClientRect();
+
   const scrollElement = tabWrapRef.value as Element;
   const { x: tabWrapX, width: tabWrapWidth } =
     scrollElement?.getBoundingClientRect();
   return {
+    tabX,
+    tabWidth,
+    tabRight: tabX + tabWidth,
     currentTabX,
     currentTabWidth,
     tabWrapX,
@@ -40,44 +45,48 @@ const getBounding = function () {
   };
 };
 const scrollTab = function () {
-  onScroll()
-  const { currentTabX, currentTabWidth, tabWrapX, tabWrapRight } =
-    getBounding();
+  const {
+    tabX,
+    tabWidth,
+    tabRight,
+    currentTabX,
+    currentTabWidth,
+    tabWrapX,
+    tabWrapWidth,
+    tabWrapRight,
+  } = getBounding();
   const scrollRight = currentTabX + currentTabWidth * 2 - tabWrapRight;
   if (scrollRight > 1) {
-    BScrollRef.value?.instance.scrollTo(scrollRight + scrollValue.value,0)
+    scrollRef.value?.scrollTo({ left: scrollRight + scrollValue.value });
   }
   const scrollLeft = tabWrapX - currentTabX + currentTabWidth;
   if (scrollLeft > 1) {
-    BScrollRef.value?.instance.scrollTo(scrollValue.value - scrollLeft,0)
+    scrollRef.value?.scrollTo({ left: scrollValue.value - scrollLeft });
   }
 };
-function initScrollTab(){
-  watch(()=>route.path,newValue=>{
-    scrollTab()
-  })
-}
 onMounted(() => {
-  // autoAnimate(tabRef.value!);
-  initScrollTab()
-  
+  watch(
+    () => route.path,
+    (value) => {
+      scrollTab();
+    },
+    { immediate: true }
+  );
+  autoAnimate(tabRef.value!)
 });
 const scrollValue = ref(0);
-const onScroll = function () {
-  BScrollRef.value?.instance.on('scrollEnd',({x})=>{
-    scrollValue.value = x
-  })
+const onScroll = function (e) {
+  scrollValue.value = e.target.scrollLeft;
 };
-const BScrollRef = ref<Expose.BetterScroll>();
 </script>
 <template>
   <div class="w-full h-full flex items-center">
-    <div class="flex-1 min-w-0 overflow-hidden" ref="tabWrapRef">
-      <better-scroll
-        :options="{ scrollX: true, probeType: 3 }"
-        ref="BScrollRef"
-      >
-        <div class="flex items-center gap-3" ref="tabRef">
+    <div class="flex-1 min-w-0" ref="tabWrapRef">
+      <n-scrollbar x-scrollable ref="scrollRef" @scroll="onScroll">
+        <div
+          class="h-full p-t-3 pb-3 flex w-max gap-2 items-center"
+          ref="tabRef"
+        >
           <tab-item
             v-for="(item, index) in tabStore.authTab"
             :key="index"
@@ -87,12 +96,9 @@ const BScrollRef = ref<Expose.BetterScroll>();
             @on-close="onClose"
           />
         </div>
-      </better-scroll>
+      </n-scrollbar>
     </div>
-    <tab-control
-      :refreshing="tabStore.refreshing"
-      @on-refresh="tabStore.refresh()"
-    />
+    <tab-control :refreshing="tabStore.refreshing" @on-refresh="tabStore.refresh()" />
   </div>
 </template>
 <style scoped lang="less"></style>
