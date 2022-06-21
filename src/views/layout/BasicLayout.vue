@@ -8,21 +8,15 @@ import { ref } from "vue";
 import { NDrawer, NDrawerContent, NScrollbar } from "naive-ui";
 import Layout from "./components/Layout.vue";
 import Header from "./components/Header.vue";
-import Tab from "./components/Tab.vue";
+import {GlobalTab} from "./components";
 import Menu from "./components/Menu.vue";
 import Main from "./components/Main.vue";
 import Setting from "./components/Setting.vue";
-import { useAppStore,useThemeStore,useTabStore,useRouteStore } from "@/store";
-import { useRoute, useRouter } from "vue-router";
+import { useAppStore,useThemeStore } from "@/store";
 import { storeToRefs } from "pinia";
 const appStore = useAppStore()
 const themeStore = useThemeStore()
-const tabStore = useTabStore()
-const routeStore = useRouteStore()
-const { themeColor,layout,header,side,tabs,footer} = storeToRefs(themeStore);
-const route = useRoute();
-const router = useRouter();
-const layoutMode = route.meta.layoutMode;
+const { themeColor,layout,header,side,tab,footer} = storeToRefs(themeStore);
 console.log();
 </script>
 <template>
@@ -35,7 +29,7 @@ console.log();
       :sider-width="side.width"
       :sider-collapse-width="side.collapsedWidth"
       :header-height="header.height"
-      :tabs-height="tabs.height"
+      :tabs-height="tab.height"
       :footer-height="footer.height"
     >
       <template #header>
@@ -47,7 +41,7 @@ console.log();
       </template>
       <template #tabs>
         <div class="w-full h-full bg-white dark:bg-dark-500 px-4 shadow-sm">
-          <Tab></Tab>
+          <global-tab></global-tab>
         </div>
       </template>
       <template #aside>

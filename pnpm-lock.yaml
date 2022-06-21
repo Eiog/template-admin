@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@better-scroll/core': ^2.4.2
+  '@formkit/auto-animate': 1.0.0-beta.1
   '@iconify-json/logos': ^1.1.5
   '@types/md5': ^2.3.2
   '@types/mockjs': ^1.0.6
@@ -27,6 +28,7 @@ specifiers:
   lodash-es: ^4.17.21
   md5: ^2.3.0
   mockjs: ^1.1.0
+  moment: ^2.29.3
   naive-ui: ^2.29.0
   nprogress: ^0.2.0
   pinia: ^2.0.13
@@ -53,6 +55,7 @@ specifiers:
 
 dependencies:
   '@better-scroll/core': 2.4.2
+  '@formkit/auto-animate': 1.0.0-beta.1_vue@3.2.37
   '@vueuse/core': 8.6.0_vue@3.2.37
   '@wangeditor/editor': 5.1.1
   '@wangeditor/editor-for-vue': 5.1.11_a76aza2fktkf7baiulym3iqxkm
@@ -65,6 +68,7 @@ dependencies:
   form-data: 4.0.0
   lodash-es: 4.17.21
   md5: 2.3.0
+  moment: 2.29.3
   nprogress: 0.2.0
   pinia: 2.0.14_vcmyupim4cga7k7f5hngmth5py
   print-js: 1.6.0
@@ -171,6 +175,20 @@ packages:
   /@emotion/hash/0.8.0:
     resolution: {integrity: sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==}
     dev: true
+
+  /@formkit/auto-animate/1.0.0-beta.1_vue@3.2.37:
+    resolution: {integrity: sha512-I3OWOBaPZKSJL4bsooXI8kC3q7bcgibD2oML0P/Lir6MnbvUe/0/7EH8br024juvM/Ulm9C9xGx9CJUQYrOWSA==}
+    peerDependencies:
+      react: ^16.8.0
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      vue: 3.2.37
+    dev: false
 
   /@iconify-json/logos/1.1.5:
     resolution: {integrity: sha512-PVBTp7fZ7zNBDdCCqN9IqJt78jO4f8agtiNVwxWfflmEGi3+Fu95Jre0CYAPDalyy862r46DXg8AiCoNENQ3SQ==}
@@ -2105,6 +2123,10 @@ packages:
     dependencies:
       commander: 9.3.0
     dev: true
+
+  /moment/2.29.3:
+    resolution: {integrity: sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==}
+    dev: false
 
   /mrmime/1.0.1:
     resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}

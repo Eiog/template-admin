@@ -1,9 +1,5 @@
-<script lang="ts">
-export default {
-  name: "",
-};
-</script>
-<script setup lang="ts">
+
+<script setup lang="ts" name="GlobalSetting">
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useThemeStore } from "@/store";
@@ -22,7 +18,7 @@ const {
   themeColorList,
   layout,
   header,
-  tabs,
+  tab,
   main,
   side,
   footer,
@@ -125,7 +121,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <div class="flex items-center justify-between">
         <span>标签页高度</span>
         <n-input-number
-          v-model:value="tabs.height"
+          v-model:value="tab.height"
           placeholder=""
           size="small"
           style="width: 100px"

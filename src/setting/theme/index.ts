@@ -1,4 +1,5 @@
-const themeColorList = [
+
+const themeColorList:ThemeSetting.ThemeColor[] = [
     { name: "朱砂", color: "#ff461f" },
     { name: "火红", color: "#ff2d51" },
     { name: "鹅黄", color: "#fff143" },
@@ -16,7 +17,7 @@ const themeColorList = [
     { name: "鸦青", color: "#424c50" },
     { name: "藕色", color: "#edd1d8" },
 ]
-export const defaultThemeSetting = {
+export const defaultThemeSetting:ThemeSetting.Theme = {
     darkMode: false,
     autoMode: false,
     themeColor: themeColorList[0].color,
@@ -28,7 +29,7 @@ export const defaultThemeSetting = {
         error: '#f5222d'
     },
     layout: {
-        mode: 'vertical',
+        mode:'vertical',
         minWidth: 1200,
         collapsed: false,
         hasTabs: true,
@@ -42,7 +43,7 @@ export const defaultThemeSetting = {
         fixed: true,
         height: 56
     },
-    tabs: {
+    tab: {
         inverted: false,
         fixed: true,
         height: 44

@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BetterScroll: typeof import('./src/components/common/BetterScroll.vue')['default']
     CountTo: typeof import('./src/components/widget/CountTo.vue')['default']
     ImageVerify: typeof import('./src/components/custom/ImageVerify.vue')['default']
     MiniCard: typeof import('./src/components/widget/MiniCard.vue')['default']

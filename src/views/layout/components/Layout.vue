@@ -1,52 +1,33 @@
-<script lang="ts">
-export default {
-  name: "Layout",
+<script setup lang="ts" name="Layout">
+enum Mode {
+  vertical,
+  horizontal,
+}
+type Props = {
+  mode?: keyof typeof ThemeSetting.Mode;
+  siderWidth?: number;
+  siderCollapseWidth?: number;
+  headerHeight?: number;
+  tabsHeight?: number;
+  footerHeight?: number;
+  fixedHeader?: boolean;
+  fixedFooter?: boolean;
+  collapsed?: boolean;
 };
-</script>
-<script setup lang="ts">
-import { NScrollbar } from "naive-ui";
-const props = defineProps({
-  mode: {
-    type: String,
-    default: "vertical", //'horizontal'
-  },
-  siderWidth: {
-    type: Number,
-    default: 200,
-  },
-  siderCollapseWidth: {
-    type: Number,
-    default: 64,
-  },
-  headerHeight: {
-    type: Number,
-    default: 56,
-  },
-  tabsHeight: {
-    type: Number,
-    default: 44,
-  },
-  footerHeight: {
-    type: Number,
-    default: 40,
-  },
-  fixedHeader: {
-    type: Boolean,
-    default: true,
-  },
-  fixedFooter: {
-    type: Boolean,
-    default: true,
-  },
-  collapsed: {
-    type: Boolean,
-    default: false,
-  },
+const props = withDefaults(defineProps<Props>(), {
+  mode: "vertical",
+  siderWidth: 200,
+  siderCollapseWidth: 64,
+  headerHeight: 56,
+  tabsHeight: 44,
+  footerHeight: 40,
+  fixedHeader: true,
+  fixedFooter: true,
+  collapsed: false,
 });
 </script>
 <template>
   <div class="unlit-admin-layout">
-    <n-scrollbar>
     <div
       class="unlit-admin-header-wrap"
       :style="[
@@ -153,7 +134,6 @@ const props = defineProps({
             },
       ]"
     >
-    
       <div class="unlit-admin-main">
         <slot name="main"></slot>
         <slot></slot>
@@ -184,7 +164,6 @@ const props = defineProps({
     >
       <slot name="footer"></slot>
     </div>
-    </n-scrollbar>
   </div>
 </template>
 <style scoped lang="less">
@@ -232,10 +211,9 @@ div {
     position: relative;
     flex-shrink: 0;
     width: 100%;
-    height: 100%;
-    min-height: 900px;
-    flex-grow:1;
-    min-width: 1200px;
+    min-height: 100%;
+    overflow-y: auto;
+    flex-grow: 1;
     z-index: 0;
     transition: all 0.3s;
     .unlit-admin-main {
