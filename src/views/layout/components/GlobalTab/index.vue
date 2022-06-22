@@ -1,13 +1,12 @@
 <script setup lang="ts" name="Tab">
 import { onMounted, ref, watch,nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { NDropdown, NScrollbar, type ScrollbarInst } from "naive-ui";
 import { useTabStore } from "@/store";
 import TabItem from "./components/TabItem.vue";
 import TabControl from "./components/TabControl.vue";
 import autoAnimate from "@formkit/auto-animate";
 import BetterScroll from "@/components/common/BetterScroll.vue";
-import BScroll from "@better-scroll/core";
+import { useElementSize } from "@vueuse/core";
 const tabStore = useTabStore();
 const route = useRoute();
 const router = useRouter();
@@ -20,7 +19,6 @@ const onClose = function (item) {
 };
 
 const tabRef = ref<HTMLElement>();
-const scrollRef = ref<ScrollbarInst>();
 const tabWrapRef = ref<HTMLElement>();
 const getBounding = function () {
   const currentTabElement = tabRef.value?.children[
@@ -42,33 +40,39 @@ const getBounding = function () {
 const scrollTab = function () {
   const { currentTabX, currentTabWidth, tabWrapX, tabWrapWidth, tabWrapRight } =
     getBounding();
-    
-    const maxs = BScrollRef.value?.instance.maxScrollX
-    console.log(maxs); 
+    const itemR = currentTabX+currentTabWidth*2
+    const itemDeffR = itemR-tabWrapRight
+    if(itemDeffR>0){
+      const maxS = -BScrollRef.value!.instance.maxScrollX
+      let scrollNum = scrollValue.value+itemDeffR
+      if(scrollNum>maxS) scrollNum = maxS
+      BScrollRef.value?.instance.scrollTo(-scrollNum,0,500)
+    }
+    const itemDeffL = tabWrapX-currentTabX+currentTabWidth
+    if(itemDeffL>0){
+      let scrollNum = scrollValue.value-itemDeffL
+      if(scrollNum<0) scrollNum = 0
+      BScrollRef.value?.instance.scrollTo(-scrollNum,0,500)
+    }
 };
+const {width:wrapWidth} = useElementSize(tabWrapRef)
 function initScrollTab() {
   watch(
-    () => route.path,
-    (newValue) => {
-      nextTick(()=>{
-        scrollTab();
-      })
+    [() => route.path,()=>wrapWidth.value],
+    () => {
+      scrollTab();
     }
   );
 }
 onMounted(() => {
-  // autoAnimate(tabRef.value!);
   initScrollTab();
+  
 });
 const scrollValue = ref(0);
 const onScroll = function (data) {
   scrollValue.value = -data.x;
 };
 const BScrollRef = ref<Expose.BetterScroll>();
-const ActiveTab = ref();
-function onActive(data) {
-  ActiveTab.value = data;
-}
 </script>
 <template>
   <div class="w-full h-full flex items-center">
@@ -82,7 +86,6 @@ function onActive(data) {
             :active="tabStore.authActiveIndex === index ? true : false"
             @on-change="onChange"
             @on-close="onClose"
-            @on-active="onActive"
           />
         </div>
       </better-scroll>
