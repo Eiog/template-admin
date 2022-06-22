@@ -4,17 +4,58 @@ import { useElementSize } from "@vueuse/core";
 import BScroll from "@better-scroll/core";
 import type { Options } from "@better-scroll/core";
 type Props = {
-  options: Options;
+  options?: Options;
+  scroll?: number;
+  scrollX: boolean;
+  scrollY?: boolean;
 };
-const props = defineProps<Props>();
+type Emit = {
+  (e: "update:scroll", data: number);
+  (e: "onScroll", data: { x: number; y: number });
+  (e: "onScrollStart");
+  (e: "onScrollEnd");
+};
+const props = withDefaults(defineProps<Props>(), {
+  scrollX: true,
+  scrollY: false,
+});
+const emit = defineEmits<Emit>()
+const BSOptions = ref({
+  scrollX: props.scrollX,
+  scrollY: props.scrollY,
+  probeType:3,
+});
+Object.assign(BSOptions.value, props.options);
 const bsWrap = ref<HTMLElement>();
 const instance = ref<BScroll>();
 const bsContent = ref<HTMLElement>();
-const isScrollY = computed(() => Boolean(props.options.scrollY));
+const isScrollY = computed(() => Boolean(props.scrollY));
 function initBetterScroll() {
   if (!bsWrap.value) return;
-  instance.value = new BScroll(bsWrap.value, props.options);
+  instance.value = new BScroll(bsWrap.value, BSOptions.value);
+  instance.value.on('scrollStart',()=>{    
+    emit('onScrollStart')
+  })
+  instance.value.on('scroll',({x,y})=>{
+    emit('onScroll',{x,y})
+    // emit('update:scroll',props.scrollX?-x:-y)
+  })
+  instance.value.on('scrollEnd',()=>{
+    emit('onScrollEnd')
+  })
 }
+watch(
+  () => props.scroll!,
+  (newValue) => {
+    if (instance.value) {
+      // instance.value.scrollBy(
+      //   props.scrollX ? newValue : 0,
+      //   props.scrollY ? newValue : 0
+      // );
+    }
+  }
+);
+
 // 滚动元素发生变化，刷新BS
 const { width: wrapWidth } = useElementSize(bsWrap);
 const { width, height } = useElementSize(bsContent);

@@ -1,5 +1,5 @@
 <script setup lang="ts" name="Tab">
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch,nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { NDropdown, NScrollbar, type ScrollbarInst } from "naive-ui";
 import { useTabStore } from "@/store";
@@ -40,43 +40,40 @@ const getBounding = function () {
   };
 };
 const scrollTab = function () {
-  onScroll()
-  const { currentTabX, currentTabWidth, tabWrapX, tabWrapRight } =
+  const { currentTabX, currentTabWidth, tabWrapX, tabWrapWidth, tabWrapRight } =
     getBounding();
-  const scrollRight = currentTabX + currentTabWidth * 2 - tabWrapRight;
-  if (scrollRight > 1) {
-    BScrollRef.value?.instance.scrollTo(scrollRight + scrollValue.value,0)
-  }
-  const scrollLeft = tabWrapX - currentTabX + currentTabWidth;
-  if (scrollLeft > 1) {
-    BScrollRef.value?.instance.scrollTo(scrollValue.value - scrollLeft,0)
-  }
+    
+    const maxs = BScrollRef.value?.instance.maxScrollX
+    console.log(maxs); 
 };
-function initScrollTab(){
-  watch(()=>route.path,newValue=>{
-    scrollTab()
-  })
+function initScrollTab() {
+  watch(
+    () => route.path,
+    (newValue) => {
+      nextTick(()=>{
+        scrollTab();
+      })
+    }
+  );
 }
 onMounted(() => {
   // autoAnimate(tabRef.value!);
-  initScrollTab()
-  
+  initScrollTab();
 });
 const scrollValue = ref(0);
-const onScroll = function () {
-  BScrollRef.value?.instance.on('scrollEnd',({x})=>{
-    scrollValue.value = x
-  })
+const onScroll = function (data) {
+  scrollValue.value = -data.x;
 };
 const BScrollRef = ref<Expose.BetterScroll>();
+const ActiveTab = ref();
+function onActive(data) {
+  ActiveTab.value = data;
+}
 </script>
 <template>
   <div class="w-full h-full flex items-center">
     <div class="flex-1 min-w-0 overflow-hidden" ref="tabWrapRef">
-      <better-scroll
-        :options="{ scrollX: true, probeType: 3 }"
-        ref="BScrollRef"
-      >
+      <better-scroll scrollX ref="BScrollRef" @on-scroll="onScroll">
         <div class="flex items-center gap-3" ref="tabRef">
           <tab-item
             v-for="(item, index) in tabStore.authTab"
@@ -85,6 +82,7 @@ const BScrollRef = ref<Expose.BetterScroll>();
             :active="tabStore.authActiveIndex === index ? true : false"
             @on-change="onChange"
             @on-close="onClose"
+            @on-active="onActive"
           />
         </div>
       </better-scroll>

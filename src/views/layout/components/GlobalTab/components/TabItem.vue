@@ -1,4 +1,5 @@
 <script setup lang="ts" name="TabItem">
+import { ref, watch, onMounted } from "vue";
 type Props = {
   data: AuthTab.Tab;
   active: boolean;
@@ -6,9 +7,28 @@ type Props = {
 type Emit = {
   (e: "onChange", data: AuthTab.Tab);
   (e: "onClose", data: AuthTab.Tab);
+  (e: "onActive", data: {x:number,width:number});
 };
 const props = defineProps<Props>();
 const emit = defineEmits<Emit>();
+const TabItemRef = ref<HTMLElement>();
+function getPosition() {
+  if (TabItemRef.value) {
+    const { x, width } = TabItemRef.value.getBoundingClientRect();
+    emit("onActive", {x,width});
+  }
+}
+onMounted(() => {
+  watch(
+    () => props.active,
+    (newValue) => {
+      if (newValue) {
+        getPosition();
+      }
+    },
+    { immediate: true }
+  );
+});
 </script>
 <template>
   <div
@@ -16,6 +36,7 @@ const emit = defineEmits<Emit>();
     hover="bg-gray-300"
     dark="bg-dark-200 hover:bg-dark-50"
     :class="active ? 'active' : ''"
+    ref="TabItemRef"
   >
     <div
       class="h-full flex items-center justify-center gap-1 py-1.5"
