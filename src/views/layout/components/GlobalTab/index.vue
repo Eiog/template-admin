@@ -5,7 +5,7 @@ import { useTabStore } from "@/store";
 import TabItem from "./components/TabItem.vue";
 import TabControl from "./components/TabControl.vue";
 import autoAnimate from "@formkit/auto-animate";
-import BetterScroll from "@/components/common/BetterScroll.vue";
+import {BetterScroll} from "@/components";
 import { useElementSize } from "@vueuse/core";
 const tabStore = useTabStore();
 const route = useRoute();
