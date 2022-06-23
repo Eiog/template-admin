@@ -1,6 +1,7 @@
 import vue from '@vitejs/plugin-vue'
 import Unocss from 'unocss/vite'
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
+import { presetScrollbar } from 'unocss-preset-scrollbar'
 /**
  * * 扩展setup插件，支持在script标签中使用name属性
  * usage: <script setup name="MyComp"></script>
@@ -36,7 +37,7 @@ export function createVitePlugins(isBuild) {
         }),
         Icons({ compiler: 'vue3', autoInstall: true }),
         Unocss({
-            presets: [presetUno(), presetAttributify(), presetIcons()],
+            presets: [presetUno(), presetAttributify(), presetIcons(),presetScrollbar()],
         }),
         createMockServe(isBuild),
         visualizer({

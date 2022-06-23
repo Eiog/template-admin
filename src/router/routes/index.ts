@@ -1,2 +1,2 @@
-export * from './route.root'
-export * from './route.common'
+export * from './root.routes'
+export * from './common.routes'

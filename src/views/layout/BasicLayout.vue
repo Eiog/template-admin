@@ -72,17 +72,6 @@ console.log();
         <Main></Main>
       </template>
     </Layout>
-    <div
-      class="fixed top-1/4 right-10px w-40px h-40px rounded-md shadow-md flex items-center justify-center text-white text-2xl cursor-pointer transition-all ease-linear z-9999"
-      :class="appStore.settingShow ? '!right-310px' : ''"
-      :style="{background:themeColor}"
-      @click="appStore.settingShow = !appStore.settingShow"
-    >
-      <i
-        class="transition-transform hover:rotate-90"
-        :class="appStore.settingShow ? 'ri-close-line' : 'ri-settings-3-line'"
-      ></i>
-    </div>
     <n-drawer
       v-model:show="appStore.settingShow"
       :auto-focus="false"

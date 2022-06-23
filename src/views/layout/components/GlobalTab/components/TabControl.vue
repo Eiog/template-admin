@@ -33,7 +33,7 @@ function onRefresh(){
       @click="onRefresh"
     >
       <i
-        class="ri-refresh-line"
+        class="ri-refresh-line animate-reverse "
         :class="isRefreshing ||isRefreshing ? 'animate-rotate-in' : ''"
       ></i>
     </div>
@@ -43,7 +43,7 @@ function onRefresh(){
         hover="bg-gray-100"
         dark="hover:bg-dark-200"
       >
-        <i class="ri-menu-line"></i>
+        <i class="ri-menu-4-line"></i>
       </div>
     </n-dropdown>
   </div>

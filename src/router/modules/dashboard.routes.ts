@@ -2,7 +2,6 @@ import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
 import analysis from '@/views/dashboard/analysis/index.vue'
 import workbench from '@/views/dashboard/workbench/index.vue'
-
 const dashboardRoute: RouteRecordRaw = {
     path: '/dashboard',
     name: 'dashboard',

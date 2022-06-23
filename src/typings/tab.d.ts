@@ -3,7 +3,7 @@ declare namespace AuthTab {
         name: string | unknown,
         path: string | unknown,
         title: string,
-        icon: string,
+        icon?: string,
         role: AuthRoute.RoleType[],
         rootTab?: boolean | unknown,
         loading?: boolean | unknown

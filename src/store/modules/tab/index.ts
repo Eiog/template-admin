@@ -37,7 +37,7 @@ export const useTabStore = defineStore({
                     name: route.name,
                     path: route.path,
                     title: route.meta.title,
-                    icon: route.meta.icon as string,
+                    icon: route.meta.icon??undefined,
                     role: route.meta.role!,
                     loading: true
                 }

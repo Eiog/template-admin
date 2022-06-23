@@ -1,10 +1,10 @@
-import dashboardRoute from "./dashboard";
-import documentRoute from "./document";
-import componentRoute from './component';
-import pluginRoute from "./pluginDemo";
-import authRoute from "./authDemo";
-import axiosDemo from "./axiosDemo";
-import directivesDemo from "./directivesDemo";
+import dashboardRoute from "./dashboard.routes";
+import documentRoute from "./document.routes";
+import componentRoute from './component.routes';
+import pluginRoute from "./pluginDemo.routes";
+import authRoute from "./authDemo.routes";
+import axiosDemo from "./axiosDemo.routes";
+import directivesDemo from "./directivesDemo.routes";
 
 const moduleRoutes = [
     dashboardRoute,

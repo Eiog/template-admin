@@ -42,7 +42,7 @@ onMounted(() => {
       class="h-full flex items-center justify-center gap-1 py-1.5"
       @click="emit('onChange', data)"
     >
-      <i class="leading-none text-lg" v-if="data.icon" :class="data.icon"></i>
+      <i class="leading-none text-lg" v-if="typeof data.icon ==='string'" :class="data.icon"></i>
       <span class="text-sm whitespace-nowrap">{{ data.title }}</span>
     </div>
     <span

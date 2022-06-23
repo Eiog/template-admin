@@ -3,7 +3,14 @@ lockfileVersion: 5.4
 specifiers:
   '@better-scroll/core': ^2.4.2
   '@formkit/auto-animate': 1.0.0-beta.1
+  '@iconify-json/emojione-v1': ^1.1.1
+  '@iconify-json/line-md': ^1.1.8
   '@iconify-json/logos': ^1.1.5
+  '@iconify-json/majesticons': ^1.1.1
+  '@iconify-json/ph': ^1.1.1
+  '@iconify-json/quill': ^1.1.0
+  '@iconify-json/ri': ^1.1.2
+  '@iconify-json/system-uicons': ^1.1.3
   '@types/md5': ^2.3.2
   '@types/mockjs': ^1.0.6
   '@types/nprogress': ^0.2.0
@@ -40,6 +47,7 @@ specifiers:
   typescript: ^4.5.4
   ua-parser-js: ^1.0.2
   unocss: ^0.34.1
+  unocss-preset-scrollbar: ^0.2.1
   unplugin-icons: ^0.14.3
   unplugin-vue-components: ^0.19.6
   vditor: ^3.8.15
@@ -82,7 +90,14 @@ dependencies:
   xgplayer: 2.31.6
 
 devDependencies:
+  '@iconify-json/emojione-v1': 1.1.1
+  '@iconify-json/line-md': 1.1.8
   '@iconify-json/logos': 1.1.5
+  '@iconify-json/majesticons': 1.1.1
+  '@iconify-json/ph': 1.1.1
+  '@iconify-json/quill': 1.1.0
+  '@iconify-json/ri': 1.1.2
+  '@iconify-json/system-uicons': 1.1.3
   '@types/md5': 2.3.2
   '@types/mockjs': 1.0.6
   '@types/nprogress': 0.2.0
@@ -99,6 +114,7 @@ devDependencies:
   rollup-plugin-visualizer: 5.6.0
   typescript: 4.7.3
   unocss: 0.34.1_vite@2.9.12
+  unocss-preset-scrollbar: 0.2.1_unocss@0.34.1
   unplugin-icons: 0.14.3_zzjg27s3eqfbklnrwy6rdd2pii
   unplugin-vue-components: 0.19.6_vite@2.9.12+vue@3.2.37
   vfonts: 0.0.3
@@ -190,8 +206,50 @@ packages:
       vue: 3.2.37
     dev: false
 
+  /@iconify-json/emojione-v1/1.1.1:
+    resolution: {integrity: sha512-iuPc1BLeOM8ViMtR8yezNx0IM5bdGqqDzF2g58Os8+szPwKom+exieK8I/nt2gnGajJof4SP5UhLOIIAuVKdlA==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/line-md/1.1.8:
+    resolution: {integrity: sha512-tVa87JacN2FWbiIe56sYexnbeQSG6Y/iQanQMI9byGRCbNkPIkqMh8bR3jrrOCwsy16DDnder8aUbkSTEpwjMw==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
   /@iconify-json/logos/1.1.5:
     resolution: {integrity: sha512-PVBTp7fZ7zNBDdCCqN9IqJt78jO4f8agtiNVwxWfflmEGi3+Fu95Jre0CYAPDalyy862r46DXg8AiCoNENQ3SQ==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/majesticons/1.1.1:
+    resolution: {integrity: sha512-7QYrUCEY5KFPveE3KI0S0Tr+Zqsp4y07wdwe1TTXn2eaCQCW7aOQVpthrgOVbTH/sMkCoAfdS37Px59kRnnv/A==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/ph/1.1.1:
+    resolution: {integrity: sha512-sIHTY+c1F8x29BM49IqoccJ3T8mvVXPcrE4WOpJ3GsBaip2YqFJRYU60rw64UL6GEI13vWSD7NsZKq8ytTO87g==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/quill/1.1.0:
+    resolution: {integrity: sha512-m99Ut0hq4eTkpLw6I1WR4kErfZP2N4vus8UBaAo83juD+YJ1839W92M3AJmfVBjRppeYGgdQeIkkA2V4Qq8hcg==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/ri/1.1.2:
+    resolution: {integrity: sha512-qLlDrpkxJi+aUxY2xipKC08aI2seaxFsrEWC3Wm5WJxTtZco+G8SUBpzNpQaKzjN4IwpzcZv8T37Q3aREXDk/A==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/system-uicons/1.1.3:
+    resolution: {integrity: sha512-QaOG/QZiLcmXJ359+e4cAwSE0BeAZDwt+tmcYAyn5v72Mzu5YGmmd275rcGK/CjVLorbBw5IGtsQsMZFk9EXwg==}
     dependencies:
       '@iconify/types': 1.1.0
     dev: true
@@ -355,6 +413,10 @@ packages:
       unconfig: 0.3.4
     dev: true
 
+  /@unocss/core/0.31.17:
+    resolution: {integrity: sha512-DJ3Uk2ePVXvV1qQmgoLK44aqB6f0s+naOEvouI97nzVXDZgxDQPBxIPB/L4vvE4U+gQxEiHwwE3gJ75iPqVzXw==}
+    dev: true
+
   /@unocss/core/0.34.1:
     resolution: {integrity: sha512-h2AeTLAiBWu6IZzR1tN2H/ypuCbc9CK7t8H/o2ncG22Jfoh6FO09jQPoiRZr72PcpDf2/0snN94iZLnjvPGZOg==}
     dev: true
@@ -380,6 +442,12 @@ packages:
       ohmyfetch: 0.4.18
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@unocss/preset-mini/0.31.17:
+    resolution: {integrity: sha512-gVgMTOKLt3O1ym348QIBmR5sS9W0Ozkk5xelhH6e0VXcpg0dXDPDrl4hFErMy4x6IB86yyJG6Dz5JhcwQB13Ig==}
+    dependencies:
+      '@unocss/core': 0.31.17
     dev: true
 
   /@unocss/preset-mini/0.34.1:
@@ -2722,6 +2790,15 @@ packages:
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
+    dev: true
+
+  /unocss-preset-scrollbar/0.2.1_unocss@0.34.1:
+    resolution: {integrity: sha512-7ubHdOaUwr7xBn1glPpICNNsM2SZGjvWK5uRPNiQYsrZ9YFjsCGHk9x5S2R8pTkuMDQeiaSa/UQbYhjC8Fra5g==}
+    peerDependencies:
+      unocss: '>= 0.31.13 < 1'
+    dependencies:
+      '@unocss/preset-mini': 0.31.17
+      unocss: 0.34.1_vite@2.9.12
     dev: true
 
   /unocss/0.34.1_vite@2.9.12:

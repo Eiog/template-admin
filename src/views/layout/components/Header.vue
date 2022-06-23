@@ -4,18 +4,22 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { NTooltip,SelectOption} from "naive-ui";
+import { NTooltip, SelectOption } from "naive-ui";
 import { useAppStore, useAuthStore, useThemeStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { removeLocal } from "@/utils/";
 import { nextTick, ref } from "vue";
-const appStore = useAppStore()
-const authStore = useAuthStore()
-const themeStore = useThemeStore()
+import LineMdMenuFoldLeft from "~icons/line-md/menu-fold-left";
+import LineMdMenuFoldRight from "~icons/line-md/menu-fold-right";
+import PhMoonStarsFill from "~icons/ph/moon-stars-fill";
+import LineMdGithubLoop from "~icons/line-md/github-loop";
+const appStore = useAppStore();
+const authStore = useAuthStore();
+const themeStore = useThemeStore();
 const route = useRoute();
 const router = useRouter();
 
-const dropdownOptions:SelectOption[] = [
+const dropdownOptions: SelectOption[] = [
   {
     label: "个人中心",
     value: "mine",
@@ -26,8 +30,16 @@ const dropdownOptions:SelectOption[] = [
   },
 ];
 const handleSelect = function (val) {
-  if (val === "logout"){
-    window.$dialog.warning({title:'确定退出吗',positiveText:'确定',negativeText:'取消',onPositiveClick:onLogOut,onNegativeClick:()=>{return}})
+  if (val === "logout") {
+    window.$dialog.warning({
+      title: "确定退出吗",
+      positiveText: "确定",
+      negativeText: "取消",
+      onPositiveClick: onLogOut,
+      onNegativeClick: () => {
+        return;
+      },
+    });
   }
 };
 const onLogOut = function () {
@@ -58,35 +70,49 @@ const darkModeOnClick = () => {
 <template>
   <div class="h-full flex items-center">
     <div class="header-item" @click="collapsedOnClick">
-      <i
-        :class="
-          appStore.sideCollapsed ? 'ri-menu-unfold-line' : 'ri-menu-fold-line'
-        "
-      ></i>
+      <LineMdMenuFoldLeft v-if="!appStore.sideCollapsed" />
+      <LineMdMenuFoldRight v-if="appStore.sideCollapsed" />
     </div>
     <div class="mr-auto dark:!text-light-500">
       {{ route.path }}
     </div>
     <div class="header-item">
-      <i class="ri-search-2-line"></i>
+      <i class="ri-search-2-line text-2xl"></i>
     </div>
     <div class="header-item">
-      <i class="ri-github-line"></i>
+      <LineMdGithubLoop />
     </div>
     <div class="header-item" @click="fullScreenOnClick">
       <n-tooltip trigger="hover">
         <template #trigger>
           <i
+            class="text-2xl"
             :class="
-              isFullScreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'
+              isFullScreen
+                ? 'ri-fullscreen-exit-fill'
+                : 'ri-fullscreen-fill'
             "
           ></i>
         </template>
         全屏
       </n-tooltip>
     </div>
+    <div
+      class="header-item"
+      @click="appStore.settingShow = !appStore.settingShow"
+    >
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <i class="ri-settings-4-fill text-2xl"></i>
+        </template>
+        设置
+      </n-tooltip>
+    </div>
     <div class="header-item" @click="darkModeOnClick">
-      <i :class="themeStore.darkMode ? 'ri-moon-line' : 'ri-sun-line'"></i>
+      <i
+        class="text-2xl"
+        :class="themeStore.darkMode ? 'ri-moon-clear-fill' : 'ri-sun-fill'"
+      ></i>
     </div>
     <div class="header-item hover:!bg-white dark:hover:!bg-black">
       <n-popselect
@@ -95,11 +121,11 @@ const darkModeOnClick = () => {
         :options="dropdownOptions"
       >
         <div class="flex items-center justify-center gap-2">
-        <n-avatar size="medium" round :src="authStore.user?.avatar">
-        </n-avatar>
-        <span>
-          {{authStore.user?.nickName}}
-        </span>
+          <n-avatar size="medium" round :src="authStore.user?.avatar">
+          </n-avatar>
+          <span>
+            {{ authStore.user?.nickName }}
+          </span>
         </div>
       </n-popselect>
     </div>

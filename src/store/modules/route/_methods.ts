@@ -18,7 +18,7 @@ export function routeToMenu(auth: AuthRoute.RoleType, routes = moduleRoutes):Men
             label: item.meta.title,
             key: item.name as string,
             role: item.meta.role,
-            icon: renderIcon(item.meta.icon as string)
+            icon: item.meta.icon?renderIcon(item.meta.icon):undefined
         }
         if (item.children) {
             menuItem.children = routeToMenu(auth, item.children)
@@ -59,5 +59,5 @@ function hasChildren(route: RouteRecordRaw) {
     return Boolean(route.children && route.children.length);
 }
 function renderIcon(icon: string) {
-    return () => h(NIcon, null, { default: () => h('i', { class: icon }, {}) })
+    if(typeof icon === 'string') return () => h('i', { class: icon }, {})
 }
