@@ -11,7 +11,6 @@ import { removeLocal } from "@/utils/";
 import { nextTick, ref } from "vue";
 import LineMdMenuFoldLeft from "~icons/line-md/menu-fold-left";
 import LineMdMenuFoldRight from "~icons/line-md/menu-fold-right";
-import PhMoonStarsFill from "~icons/ph/moon-stars-fill";
 import LineMdGithubLoop from "~icons/line-md/github-loop";
 const appStore = useAppStore();
 const authStore = useAuthStore();
