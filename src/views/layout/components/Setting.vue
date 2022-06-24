@@ -1,4 +1,3 @@
-
 <script setup lang="ts" name="GlobalSetting">
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
@@ -10,7 +9,7 @@ import {
   NButton,
   NInputNumber,
 } from "naive-ui";
-const themeStore = useThemeStore()
+const themeStore = useThemeStore();
 const {
   darkMode,
   autoMode,
@@ -26,9 +25,8 @@ const {
 const primaryColorIndex = ref(0);
 const primaryColorOnChange = function ({ item, index }) {
   primaryColorIndex.value = index;
-  themeColor.value = item.color
+  themeColor.value = item.color;
 };
-
 </script>
 <template>
   <div>
@@ -44,11 +42,13 @@ const primaryColorOnChange = function ({ item, index }) {
       </div>
       <div class="flex justify-items-center justify-between">
         <span>跟随系统</span>
-        <n-switch v-model:value="autoMode" size="medium" @update:value="themeStore.followSysMode">
+        <n-switch
+          v-model:value="autoMode"
+          size="medium"
+          @update:value="themeStore.followSysMode"
+        >
           <template #icon>
-            <i
-              :class="autoMode ? 'ri-close-circle-line' : 'ri-sun-line'"
-            ></i>
+            <i :class="autoMode ? 'ri-close-circle-line' : 'ri-sun-line'"></i>
           </template>
         </n-switch>
       </div>
@@ -89,11 +89,7 @@ const primaryColorOnChange = function ({ item, index }) {
       </div>
       <div class="flex items-center justify-between h-28px">
         <span>头部固定</span>
-        <n-switch
-          v-model:value="header.fixed"
-          size="medium"
-          @update:value=""
-        />
+        <n-switch v-model:value="header.fixed" size="medium" @update:value="" />
       </div>
       <div class="flex items-center justify-between">
         <span>头部高度</span>
@@ -112,11 +108,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <span class="text-xs text-gray-400">标签页</span>
       <div class="flex items-center justify-between h-28px">
         <span>显示标签页</span>
-        <n-switch
-          v-model:value="layout.hasTabs"
-          size="medium"
-          @update:value=""
-        />
+        <n-switch v-model:value="tab.hide" size="medium" @update:value="" />
       </div>
       <div class="flex items-center justify-between">
         <span>标签页高度</span>
@@ -144,11 +136,7 @@ const primaryColorOnChange = function ({ item, index }) {
       </div>
       <div class="flex items-center justify-between h-28px">
         <span>侧边栏固定</span>
-        <n-switch
-          v-model:value="side.fixed"
-          size="medium"
-          @update:value=""
-        />
+        <n-switch v-model:value="side.fixed" size="medium" @update:value="" />
       </div>
       <div class="flex items-center justify-between">
         <span>侧边栏展开宽度</span>
@@ -175,6 +163,17 @@ const primaryColorOnChange = function ({ item, index }) {
         />
       </div>
     </div>
+    <div class="flex flex-col gap-2 mt-5">
+      <span class="text-xs text-gray-400">底部</span>
+      <div class="flex items-center justify-between h-28px">
+        <span>底部固定</span>
+        <n-switch v-model:value="footer.fixed" size="medium" @update:value="" />
+      </div>
+      <div class="flex items-center justify-between h-28px">
+        <span>显示底栏</span>
+        <n-switch v-model:value="footer.show" size="medium" @update:value="" />
+      </div>
+    </div>
 
     <n-divider>界面显示</n-divider>
     <n-divider>主题配置</n-divider>
@@ -183,7 +182,9 @@ const primaryColorOnChange = function ({ item, index }) {
         <n-button type="primary" size="medium" block @click="">导出</n-button>
       </div>
       <div class="flex-1">
-        <n-button size="medium" block @click="themeStore.resetTheme">重置</n-button>
+        <n-button size="medium" block @click="themeStore.resetTheme"
+          >重置</n-button
+        >
       </div>
     </div>
   </div>

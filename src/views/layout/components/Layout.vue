@@ -5,26 +5,43 @@ enum Mode {
 }
 type Props = {
   mode?: keyof typeof ThemeSetting.Mode;
+  collapsed?: boolean;
+
   siderWidth?: number;
   siderCollapseWidth?: number;
+  siderShow?: boolean;
+
   headerHeight?: number;
-  tabsHeight?: number;
+  headerFixed?: boolean;
+  headerShow?: boolean;
+
+  tabHeight?: number;
+  tabShow?: boolean;
+
   footerHeight?: number;
-  fixedHeader?: boolean;
-  fixedFooter?: boolean;
-  collapsed?: boolean;
+  footerFixed?: boolean;
+  footerShow?: boolean;
 };
 const props = withDefaults(defineProps<Props>(), {
   mode: "vertical",
+  collapsed: false,
+
   siderWidth: 200,
   siderCollapseWidth: 64,
+  siderShow: true,
+
   headerHeight: 56,
-  tabsHeight: 44,
+  headerFixed: true,
+  headerShow: true,
+
+  tabHeight: 44,
+  tabShow: true,
+
   footerHeight: 40,
-  fixedHeader: true,
-  fixedFooter: true,
-  collapsed: false,
+  footerFixed: false,
+  footerShow: false,
 });
+console.log(props);
 </script>
 <template>
   <div class="unlit-admin-layout">
@@ -47,7 +64,7 @@ const props = withDefaults(defineProps<Props>(), {
             }
           : {},
 
-        fixedHeader
+        headerFixed
           ? {
               position: 'fixed',
               top: 0,
@@ -72,16 +89,16 @@ const props = withDefaults(defineProps<Props>(), {
           : {
               paddingLeft: siderWidth + 'px',
             },
-        fixedHeader
+        headerFixed
           ? {
               position: 'fixed',
               left: 0,
               top: headerHeight + 'px',
-              height: tabsHeight + 'px',
+              height: tabHeight + 'px',
             }
           : {
               position: 'static',
-              height: tabsHeight + 'px',
+              height: tabHeight + 'px',
             },
       ]"
     >
@@ -118,19 +135,19 @@ const props = withDefaults(defineProps<Props>(), {
           : {
               paddingLeft: siderWidth + 'px',
             },
-        fixedHeader
+        headerFixed
           ? {
-              paddingTop: headerHeight + tabsHeight + 'px',
+              paddingTop: headerHeight + tabHeight + 'px',
             }
           : {
               paddingTop: 0,
             },
-        fixedFooter
+        footerFixed
           ? {
               paddingBottom: footerHeight + 'px',
             }
           : {
-              paddingTop: 0,
+              paddingBottom: 0,
             },
       ]"
     >
@@ -141,6 +158,7 @@ const props = withDefaults(defineProps<Props>(), {
     </div>
     <div
       class="unlit-admin-footer-wrap"
+      v-if="footerShow"
       :style="[
         collapsed
           ? {
@@ -149,9 +167,10 @@ const props = withDefaults(defineProps<Props>(), {
           : {
               paddingLeft: siderWidth + 'px',
             },
-        fixedFooter
+        footerFixed
           ? {
               position: 'fixed',
+              left: 0,
               right: 0,
               bottom: 0,
               height: footerHeight + 'px',

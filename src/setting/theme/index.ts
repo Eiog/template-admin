@@ -32,7 +32,6 @@ export const defaultThemeSetting:ThemeSetting.Theme = {
         mode:'vertical',
         minWidth: 1200,
         collapsed: false,
-        hasTabs: true,
         modeList: [
             { value: 'vertical', lable: '左右布局' },
             { value: 'horizontal', lable: '上下布局' },
@@ -41,18 +40,21 @@ export const defaultThemeSetting:ThemeSetting.Theme = {
     header: {
         inverted: false,
         fixed: true,
-        height: 56
+        height: 56,
+        show:false
     },
     tab: {
         inverted: false,
         fixed: true,
-        height: 44
+        height: 44,
+        show:false
     },
     side: {
         inverted: false,
         fixed: true,
         width: 200,
         collapsedWidth: 64,
+        show:false
     },
     main: {
         animation: true,
@@ -60,7 +62,8 @@ export const defaultThemeSetting:ThemeSetting.Theme = {
     },
     footer: {
         inverted: false,
-        fixed: true,
+        fixed: false,
         height: 60,
+        show:false
     }
 }

@@ -24,13 +24,21 @@ console.log();
     <Layout
       :mode="layout.mode"
       :collapsed="appStore.sideCollapsed"
-      :fixed-header="header.fixed"
-      :fixed-footer="footer.fixed"
+
       :sider-width="side.width"
       :sider-collapse-width="side.collapsedWidth"
+      :sider-show="side.show"
+      
       :header-height="header.height"
-      :tabs-height="tab.height"
+      :header-fixed="header.fixed"
+      :header-show="header.show"
+
+      :tab-height="tab.height"
+      :tab-show="tab.show"
+
       :footer-height="footer.height"
+      :footer-fixed="footer.fixed"
+      :footer-show="footer.show"
     >
       <template #header>
         <header

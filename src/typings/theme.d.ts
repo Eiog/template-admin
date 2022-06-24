@@ -30,7 +30,6 @@ declare namespace ThemeSetting {
         mode: keyof typeof Mode;
         minWidth: number,
         collapsed: boolean,
-        hasTabs: boolean,
         modeList: {
             value: keyof typeof Mode,
             lable: `${Mode}`
@@ -40,17 +39,20 @@ declare namespace ThemeSetting {
         inverted: boolean,
         fixed: boolean,
         height: number
+        show:boolean
     }
     type Tab = {
         inverted: boolean,
         fixed: boolean,
         height: number
+        show:boolean
     }
     type Side = {
         inverted: boolean,
         fixed: boolean,
         width: number,
         collapsedWidth: number,
+        show:boolean
     }
     type Main = {
         animation: boolean,
@@ -59,6 +61,7 @@ declare namespace ThemeSetting {
     type Footer = {
         inverted: boolean,
         fixed: boolean,
-        height: number
+        height: number,
+        show:boolean
     }
 }
