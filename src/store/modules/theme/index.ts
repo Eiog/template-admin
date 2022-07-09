@@ -1,8 +1,13 @@
 import { defineStore } from "pinia";
 import { darkTheme,useOsTheme } from 'naive-ui';
+import { createPersistedState } from 'pinia-plugin-persistedstate'
 import {getDefaultThemeSetting,getNaiveThemeOverrides} from './_methods'
 export const useThemeStore = defineStore({
     id:'themeStore',
+    persist: {
+        key: 'DefaultThemeSetting',
+        paths: ['getDefaultThemeSetting']
+      },
     state:()=>getDefaultThemeSetting(),
     actions:{
         followSysMode(value:boolean){

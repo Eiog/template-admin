@@ -39,6 +39,7 @@ specifiers:
   naive-ui: ^2.29.0
   nprogress: ^0.2.0
   pinia: ^2.0.13
+  pinia-plugin-persistedstate: ^1.6.1
   print-js: ^1.6.0
   qs: ^6.10.3
   remixicon: ^2.5.0
@@ -79,6 +80,7 @@ dependencies:
   moment: 2.29.3
   nprogress: 0.2.0
   pinia: 2.0.14_vcmyupim4cga7k7f5hngmth5py
+  pinia-plugin-persistedstate: 1.6.1_pinia@2.0.14
   print-js: 1.6.0
   qs: 6.10.5
   remixicon: 2.5.0
@@ -2394,6 +2396,14 @@ packages:
     engines: {node: '>=6'}
     dev: true
     optional: true
+
+  /pinia-plugin-persistedstate/1.6.1_pinia@2.0.14:
+    resolution: {integrity: sha512-4re0ZO5KgqDnSNWX2RhJVIsIYvH+uaEGTN+UOx34mb7fVoE8A3CfB9QhbMT3Zn7ZSBXTfT2cgI/w7cLq2zNQMw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.0.14_vcmyupim4cga7k7f5hngmth5py
+    dev: false
 
   /pinia/2.0.14_vcmyupim4cga7k7f5hngmth5py:
     resolution: {integrity: sha512-0nPuZR4TetT/WcLN+feMSjWJku3SQU7dBbXC6uw+R6FLQJCsg+/0pzXyD82T1FmAYe0lsx+jnEDQ1BLgkRKlxA==}

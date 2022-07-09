@@ -25,6 +25,7 @@
     "moment": "^2.29.3",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.13",
+    "pinia-plugin-persistedstate": "^1.6.1",
     "print-js": "^1.6.0",
     "qs": "^6.10.3",
     "remixicon": "^2.5.0",
