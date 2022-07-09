@@ -1,6 +1,7 @@
 <script setup lang="ts" name="draggable-demo">
 import { ref } from "vue";
 import VueDraggable from "vuedraggable";
+
 const chartsList = ref([
   {
     name: "基础折线图",
