@@ -108,7 +108,7 @@ const primaryColorOnChange = function ({ item, index }) {
       <span class="text-xs text-gray-400">标签页</span>
       <div class="flex items-center justify-between h-28px">
         <span>显示标签页</span>
-        <n-switch v-model:value="tab.hide" size="medium" @update:value="" />
+        <n-switch v-model:value="tab.show" size="medium" @update:value="" />
       </div>
       <div class="flex items-center justify-between">
         <span>标签页高度</span>
