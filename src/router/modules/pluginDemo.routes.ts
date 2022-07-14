@@ -7,8 +7,9 @@ import Editor from '@/views/plugin-demo/editor/index.vue'
 import Map from '@/views/plugin-demo/map/index.vue'
 import Clipboard from '@/views/plugin-demo/clipboard/index.vue'
 import Swiper from '@/views/plugin-demo/swiper/index.vue'
-import Charts from '@/views/plugin-demo/charts/index.vue'
 import ECharts from '@/views/plugin-demo/charts/echarts/index.vue'
+import LargeScreen from '@/views/plugin-demo/charts/large-screen/large-screen.vue'
+import AutoAnimate from '@/views/plugin-demo/auto-animate/index.vue'
 const pluginRoute: RouteRecordRaw = {
     path: '/plugin',
     name: 'plugin',
@@ -145,8 +146,38 @@ const pluginRoute: RouteRecordRaw = {
                         href: '',
                         order: 1
                     },
-                }
+                },
+                {
+                    path: '/plugin/charts/large-screen',
+                    name: LargeScreen.name,
+                    component: LargeScreen,
+                    meta: {
+                        title: 'LargeScreen',
+                        icon: 'ri-line-chart-line',
+                        requiresAuth: true,
+                        role: ['admin', 'super'],
+                        keepAlive: true,
+                        hide: false,
+                        href: '',
+                        order: 1
+                    },
+                },
             ]
+        },
+        {
+            path: '/plugin/auto-animate',
+            name: AutoAnimate.name,
+            component: AutoAnimate,
+            meta: {
+                title: 'AutoAnimate',
+                icon: 'ri-pie-chart-line',
+                requiresAuth: true,
+                role: ['admin', 'super'],
+                keepAlive: true,
+                hide: false,
+                href: '',
+                order: 1
+            }
         },
     ]
 

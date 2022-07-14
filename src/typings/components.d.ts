@@ -5,13 +5,15 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    BetterScroll: typeof import('./src/components/common/BetterScroll.vue')['default']
-    CountTo: typeof import('./src/components/widget/CountTo.vue')['default']
-    ImageVerify: typeof import('./src/components/custom/ImageVerify.vue')['default']
-    MiniCard: typeof import('./src/components/widget/MiniCard.vue')['default']
-    NaiveProvider: typeof import('./src/components/common/NaiveProvider.vue')['default']
+    BetterScroll: typeof import('./../components/common/BetterScroll.vue')['default']
+    CountTo: typeof import('./../components/widget/CountTo.vue')['default']
+    ImageVerify: typeof import('./../components/custom/ImageVerify.vue')['default']
+    MiniCard: typeof import('./../components/widget/MiniCard.vue')['default']
+    NaiveProvider: typeof import('./../components/common/NaiveProvider.vue')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
+    NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']
+    NInput: typeof import('naive-ui')['NInput']
     NPopselect: typeof import('naive-ui')['NPopselect']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

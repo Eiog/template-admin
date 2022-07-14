@@ -16,7 +16,7 @@ export function routeToMenu(auth: AuthRoute.RoleType, routes = moduleRoutes):Men
         if (!item.meta.role!.includes(auth)) return
         let menuItem: MenuOption = {
             label: item.meta.title,
-            key: item.name as string,
+            key: item.path as string,
             role: item.meta.role,
             icon: item.meta.icon?renderIcon(item.meta.icon):undefined
         }

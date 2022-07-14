@@ -41,7 +41,6 @@ const props = withDefaults(defineProps<Props>(), {
   footerFixed: false,
   footerShow: false,
 });
-console.log(props);
 </script>
 <template>
   <div class="unlit-admin-layout">

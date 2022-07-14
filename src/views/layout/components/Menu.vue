@@ -28,12 +28,10 @@ const route = useRoute();
 const router = useRouter();
 const activeKey = ref();
 watchEffect(()=>{
-    activeKey.value = route.name
+    activeKey.value = route.path
 })
 const menuOnChange = function (key: string, item: MenuOption): void {
-  router.push({
-    name: key,
-  });
+  router.push(key);
 };
 </script>
 <template>
