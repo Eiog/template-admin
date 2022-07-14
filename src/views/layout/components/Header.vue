@@ -42,8 +42,7 @@ const handleSelect = function (val) {
   }
 };
 const onLogOut = function () {
-  removeLocal("UNLIT-ADMIN-USER");
-  removeLocal("UNLIT-TOKEN");
+  authStore.$reset()
   window.$message.success("已退出");
   nextTick(() => {
     router.push("/login");

@@ -1,3 +1,3 @@
-import userMock from './user.mock'
+import userMock from './login.mock'
 const mocks = [...userMock]
 export default mocks

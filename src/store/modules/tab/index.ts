@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { useRouteStore,useAuthStore } from '@/store';
 import { nextTick } from "vue";
 import {getAuthTab} from './_methods'
-type tabState = {
+type State = {
     tabs: AuthTab.Tab[]
     activePath:string,
     refreshing: boolean,
@@ -19,7 +19,7 @@ const rootTab: AuthTab.Tab = {
 }
 export const useTabStore = defineStore({
     id: 'tabStore',
-    state: (): tabState => ({
+    state: (): State => ({
         tabs: [
             rootTab
         ],

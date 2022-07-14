@@ -3,14 +3,14 @@ import type { MenuOption } from 'naive-ui'
 import { defineStore } from "pinia";
 import { initRoutes,routeToMenu } from "./_methods";
 import { useAuthStore } from "../auth";
-interface RouteState{
+type State = {
     routes:RouteRecordRaw[],
     include:string[],
     excludes:string[]
 }
 export const useRouteStore = defineStore({
     id: 'routeStore',
-    state: ():RouteState => ({
+    state: ():State => ({
         routes:initRoutes(),
         include:new Array,
         excludes:new Array,

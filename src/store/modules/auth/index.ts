@@ -13,15 +13,21 @@ type state = {
         avatar?: string,
         token?: string
     },
-    auth:`${Auth}`,
+    auth:`${Auth}`
+    token?:string
     refreshed:boolean
 }
 export const useAuthStore = defineStore({
     id: 'authStore',
+    persist: {
+        key: 'UNLIT__TOKEN',
+        paths: ['token']
+      },
     state: ():state => ({
         user:{},
         auth:'user',
-        refreshed:false
+        refreshed:false,
+        token:undefined
     }),
     actions: {
 

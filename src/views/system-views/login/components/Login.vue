@@ -14,12 +14,10 @@ import {
   useMessage,
   NSpace
 } from "naive-ui";
-import { useAuthStore } from "@/store";
 import { getImgCodeRule } from '@/utils';
 import {ImageVerify} from "@/components";
-import {setLocal} from '@/utils/storage'
 import router from "@/router";
-import {_feachLogin} from '@/api'
+import {loginApi} from '@/api'
 const message = useMessage();
 const emit = defineEmits(["onGo"]);
 const loading = ref(false)
@@ -42,12 +40,8 @@ const onSubmit = function (e: MouseEvent) {
       return message.error("请输入内容");
     }
     loading.value = true
-    validateOnSuccess().then((res:any)=>{
+    loginApi.login(formValue.value).then((res:any)=>{
       message.success('登录成功')
-      useAuthStore().user = res.data
-      useAuthStore().auth = res.data.auth
-      useAuthStore().refreshed = true
-      setLocal('UNLIT-TOKEN',res.data.token)
       router.push('/')
     }).catch(()=>{
       message.error('用户名或密码错误')
@@ -55,15 +49,7 @@ const onSubmit = function (e: MouseEvent) {
     });
   });
 };
-const validateOnSuccess = function () {
-  return new Promise((resolve, reject) => {
-    _feachLogin(formValue.value).then((res:any)=>{
-      return resolve(res)
-    }).catch(()=>{
-      return reject()
-    })
-  });
-};
+
 function onKeyup(e){
   if(e.key==='Enter'){
     onSubmit(e)

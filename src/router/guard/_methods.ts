@@ -1,8 +1,8 @@
 import NProgress from 'nprogress';
 import { RouteLocation, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useTabStore, useAuthStore } from '@/store';
-import { getLocal, setLocal,removeLocal } from '@/utils/storage'
-import { _feachStatus } from '@/api'
+import { getLocal, setLocal, removeLocal } from '@/utils/storage'
+import { loginApi } from '@/api'
 
 /**使用进度条 */
 export function useNProgress() {
@@ -21,8 +21,8 @@ export function useNProgress() {
 
 /**token判断登录状态 */
 export function useAuth(to: RouteLocation, form: RouteLocationNormalized, next: NavigationGuardNext) {
-    const token = getLocal('UNLIT-TOKEN')
     const authStore = useAuthStore()
+    const token = authStore.token
     /**没有token并且去往需要权限地址 跳转到登录 */
     if (!token && to.meta.requiresAuth) {
         next('/login')
@@ -36,11 +36,11 @@ export function useAuth(to: RouteLocation, form: RouteLocationNormalized, next: 
         /**判断是否是第一次验证 */
         if (authStore.refreshed) {
             /**不是第一次验证 直接跳转路由权限验证 */
-            checkAuth(to,form,authStore.auth,next)
+            checkAuth(to, form, authStore.auth, next)
         } else {
             /**是第一次验证 获取登录状态 刷新token */
-            refreshToken().then(() => {
-                checkAuth(to,form,authStore.auth,next)
+            loginApi.status().then(() => {
+                checkAuth(to, form, authStore.auth, next)
             }).catch(() => {
                 window.$notification.error({ content: '登录失效' })
                 next('/login')
@@ -70,20 +70,4 @@ function checkAuth(to: RouteLocation, form: RouteLocationNormalized, auth: AuthR
         window.$notification.error({ content: '没有权限' })
         next(form.path)
     }
-}
-/**检测状态刷新token*/
-function refreshToken() {
-    const authStore = useAuthStore()
-    return new Promise((resolve, reject) => {
-        _feachStatus().then((res: any) => {
-            authStore.user = res.data
-            authStore.auth = res.data.auth
-            authStore.refreshed = true
-            setLocal('UNLIT-TOKEN', res.data.token)
-            return resolve(res)
-        }).catch(() => {
-            removeLocal('UNLIT-TOKEN')
-            return reject()
-        })
-    })
 }
