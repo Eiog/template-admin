@@ -11,6 +11,7 @@ specifiers:
   '@iconify-json/quill': ^1.1.0
   '@iconify-json/ri': ^1.1.2
   '@iconify-json/system-uicons': ^1.1.3
+  '@types/lodash-es': ^4.17.6
   '@types/md5': ^2.3.2
   '@types/mockjs': ^1.0.6
   '@types/nprogress': ^0.2.0
@@ -64,6 +65,7 @@ specifiers:
   vue-grid-layout: ^2.3.12
   vue-router: ^4.0.14
   vue-tsc: ^0.34.7
+  vue3-grid-layout: ^1.0.0
   vuedraggable: ^4.1.0
   xgplayer: ^2.31.6
 
@@ -97,6 +99,7 @@ dependencies:
   vue-draggable-resizable: 2.3.0
   vue-grid-layout: 2.3.12
   vue-router: 4.0.16_vue@3.2.37
+  vue3-grid-layout: 1.0.0
   vuedraggable: 4.1.0_vue@3.2.37
   xgplayer: 2.31.6
 
@@ -109,6 +112,7 @@ devDependencies:
   '@iconify-json/quill': 1.1.0
   '@iconify-json/ri': 1.1.2
   '@iconify-json/system-uicons': 1.1.3
+  '@types/lodash-es': 4.17.6
   '@types/md5': 2.3.2
   '@types/mockjs': 1.0.6
   '@types/nprogress': 0.2.0
@@ -2361,7 +2365,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
@@ -3468,6 +3471,21 @@ packages:
       '@vue/runtime-dom': 3.2.37
       '@vue/server-renderer': 3.2.37_vue@3.2.37
       '@vue/shared': 3.2.37
+
+  /vue3-grid-layout/1.0.0:
+    resolution: {integrity: sha512-rFiHnlBFxkY9ojh0YB+cSKCE9A9/mhdbgaPARWD7r2yHPWxV9tHDPbMAN+uycsIDF7ikBpNgeQ9PfeiGaXHUWw==}
+    dependencies:
+      '@interactjs/actions': 1.10.16
+      '@interactjs/auto-start': 1.10.16
+      '@interactjs/dev-tools': 1.10.16_ckevc2fkoegtd7lml56rk6nxka
+      '@interactjs/interactjs': 1.10.16
+      '@interactjs/modifiers': 1.10.16
+      element-resize-detector: 1.2.4
+      lodash: 4.17.21
+    transitivePeerDependencies:
+      - '@interactjs/core'
+      - '@interactjs/utils'
+    dev: false
 
   /vuedraggable/4.1.0_vue@3.2.37:
     resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
