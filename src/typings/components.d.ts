@@ -12,9 +12,11 @@ declare module '@vue/runtime-core' {
     ImageVerify: typeof import('./../components/custom/ImageVerify.vue')['default']
     MiniCard: typeof import('./../components/widget/MiniCard.vue')['default']
     NaiveProvider: typeof import('./../components/common/NaiveProvider.vue')['default']
+    NAvatar: typeof import('naive-ui')['NAvatar']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']
     NInput: typeof import('naive-ui')['NInput']
+    NPopselect: typeof import('naive-ui')['NPopselect']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

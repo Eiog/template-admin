@@ -2,6 +2,7 @@ import NProgress from 'nprogress';
 import { RouteLocation, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useTabStore, useAuthStore } from '@/store';
 import { getLocal, setLocal, removeLocal } from '@/utils/storage'
+import { useTitle } from '@vueuse/core'
 import { loginApi } from '@/api'
 
 /**使用进度条 */
@@ -18,7 +19,12 @@ export function useNProgress() {
     }
     return { start, done }
 }
-
+/**动态修改title */
+export function useChangeTitle(to:RouteLocation){
+    const title = useTitle()
+    const envTitle = import.meta.env.VITE_APP_TITLE||''
+    title.value = (to.meta.title??envTitle) as string
+}
 /**token判断登录状态 */
 export function useAuth(to: RouteLocation, form: RouteLocationNormalized, next: NavigationGuardNext) {
     const authStore = useAuthStore()
