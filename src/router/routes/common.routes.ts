@@ -1,8 +1,8 @@
 // 不需要鉴权的业务路由
 import { RouteRecordRaw } from 'vue-router';
 import BlankLayout from '@/views/layout/BlankLayout.vue';
-import Login from '@/views/system-views/login/index.vue'
-import NotFound from '@/views/system-views/not-found/index.vue'
+const Login = () => import('@/views/system-views/login/index.vue')
+const NotFound = () => import('@/views/system-views/not-found/index.vue')
 export const commonRoutes: Array<RouteRecordRaw> = [
     {
         path: '/not-found',
@@ -17,7 +17,7 @@ export const commonRoutes: Array<RouteRecordRaw> = [
             href: '',
             order: 1
         },
-        redirect:'/not-found',
+        redirect: '/not-found',
         children: [
             {
                 path: '/login',

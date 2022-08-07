@@ -1,10 +1,10 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import Vue from '@/views/document/vue/index.vue'
-import Vite from '@/views/document/vite/index.vue'
-import Pinia from '@/views/document/pinia/index.vue'
-import UnoCSS from '@/views/document/unocss/index.vue'
-import NaiveUI from '@/views/document/naiveui/index.vue'
+const Vue = () => import('@/views/document/vue/index.vue')
+const Vite = () => import('@/views/document/vite/index.vue')
+const Pinia = () => import('@/views/document/pinia/index.vue')
+const UnoCSS = () => import('@/views/document/unocss/index.vue')
+const NaiveUI = () => import('@/views/document/naiveui/index.vue')
 
 const documentRoute: RouteRecordRaw = {
     path: '/document',
@@ -14,7 +14,7 @@ const documentRoute: RouteRecordRaw = {
         title: '文档',
         icon: 'ri-file-list-line',
         requiresAuth: true,
-        role:['admin','super'],
+        role: ['admin', 'super'],
         keepAlive: true,
         hide: false,
         href: '',
@@ -29,7 +29,7 @@ const documentRoute: RouteRecordRaw = {
                 title: 'Vue文档',
                 icon: 'ri-vuejs-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -44,7 +44,7 @@ const documentRoute: RouteRecordRaw = {
                 title: 'Vite文档',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -59,7 +59,7 @@ const documentRoute: RouteRecordRaw = {
                 title: 'Pinia文档',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -74,7 +74,7 @@ const documentRoute: RouteRecordRaw = {
                 title: 'UnoCSS文档',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -89,7 +89,7 @@ const documentRoute: RouteRecordRaw = {
                 title: 'NaiveUI文档',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',

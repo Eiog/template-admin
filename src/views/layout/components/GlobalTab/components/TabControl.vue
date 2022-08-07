@@ -1,27 +1,27 @@
 <script setup lang="ts" name="TabControl">
-import { watch,ref } from "vue";
-import { NDropdown } from "naive-ui";
+import { watch, ref } from 'vue';
+import { NDropdown } from 'naive-ui';
 type Props = {
   refreshing: boolean;
 };
 type Emit = {
-  (e: "onRefresh"): void;
+  (e: 'refresh'): void;
 };
 const props = defineProps<Props>();
 const emit = defineEmits<Emit>();
 const options = [
-  { label: "关闭全部", key: "close-all" },
-  { label: "关闭左侧", key: "close-left" },
-  { label: "关闭右侧", key: "close-right" },
+  { label: '关闭全部', key: 'close-all' },
+  { label: '关闭左侧', key: 'close-left' },
+  { label: '关闭右侧', key: 'close-right' },
 ];
 const handleSelect = (key) => {};
-const isRefreshing = ref(false)
-function onRefresh(){
-    emit('onRefresh')
-    isRefreshing.value = true
-    setTimeout(() => {
-        isRefreshing.value = false
-    }, 1000);
+const isRefreshing = ref(false);
+function onRefresh() {
+  emit('refresh');
+  isRefreshing.value = true;
+  setTimeout(() => {
+    isRefreshing.value = false;
+  }, 1000);
 }
 </script>
 <template>
@@ -33,8 +33,8 @@ function onRefresh(){
       @click="onRefresh"
     >
       <i
-        class="ri-refresh-line animate-reverse "
-        :class="isRefreshing ||isRefreshing ? 'animate-rotate-in' : ''"
+        class="ri-refresh-line animate-reverse"
+        :class="isRefreshing || isRefreshing ? 'animate-rotate-in' : ''"
       ></i>
     </div>
     <n-dropdown trigger="click" :options="options" @select="handleSelect">

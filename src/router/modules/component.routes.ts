@@ -1,8 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import Button from '@/views/component/button/index.vue';
-import Card from '@/views/component/card/index.vue';
-import Table from '@/views/component/table/index.vue';
+const Button = () => import('@/views/component/button/index.vue');
+const Card = () => import('@/views/component/card/index.vue');
+const Table = () => import('@/views/component/table/index.vue');
 
 const componentRoute: RouteRecordRaw = {
     path: '/component',

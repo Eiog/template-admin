@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import AuthTest from '@/views/auth-demo/auth-test/index.vue'
-import AuthSuper from '@/views/auth-demo/auth-super/index.vue'
+const AuthTest = () => import('@/views/auth-demo/auth-test/index.vue')
+const AuthSuper = () => import('@/views/auth-demo/auth-super/index.vue')
 const pluginRoute: RouteRecordRaw = {
     path: '/auth-demo',
     name: 'auth-demo',
@@ -10,13 +10,13 @@ const pluginRoute: RouteRecordRaw = {
         title: '权限示例',
         icon: 'ri-admin-line',
         requiresAuth: true,
-        role:['user','admin','super'],
+        role: ['user', 'admin', 'super'],
         keepAlive: true,
         hide: false,
         href: '',
         order: 1,
     },
-    redirect:'/auth-demo/auth-test',
+    redirect: '/auth-demo/auth-test',
     children: [
         {
             path: '/auth-demo/auth-test',
@@ -26,7 +26,7 @@ const pluginRoute: RouteRecordRaw = {
                 title: '权限测试',
                 icon: 'ri-key-2-line',
                 requiresAuth: true,
-                role:['user','admin','super'],
+                role: ['user', 'admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -41,14 +41,14 @@ const pluginRoute: RouteRecordRaw = {
                 title: '超级管理员可见',
                 icon: 'ri-handbag-line',
                 requiresAuth: true,
-                role:['super'],
+                role: ['super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
                 order: 1
             }
         },
-        
+
     ]
 
 }

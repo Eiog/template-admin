@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import Draggable from '@/views/draggable-demo/index.vue'
-const draggableRoute:RouteRecordRaw = {
+const Draggable = () => import('@/views/draggable-demo/index.vue')
+const draggableRoute: RouteRecordRaw = {
     path: '/draggable',
     name: 'draggable',
     component: BasicLayout,
@@ -9,13 +9,13 @@ const draggableRoute:RouteRecordRaw = {
         title: '拖拽示例',
         icon: 'ri-file-list-line',
         requiresAuth: true,
-        role:['admin','super'],
+        role: ['admin', 'super'],
         keepAlive: true,
         hide: false,
         href: '',
         order: 1
     },
-    children:[
+    children: [
         {
             path: '',
             name: Draggable.name,
@@ -24,7 +24,7 @@ const draggableRoute:RouteRecordRaw = {
                 title: '拖拽示例',
                 icon: 'ri-vuejs-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',

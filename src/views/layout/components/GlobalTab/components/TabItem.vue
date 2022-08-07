@@ -1,13 +1,13 @@
 <script setup lang="ts" name="TabItem">
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted } from 'vue';
 type Props = {
   data: AuthTab.Tab;
   active: boolean;
 };
 type Emit = {
-  (e: "onChange", data: AuthTab.Tab);
-  (e: "onClose", data: AuthTab.Tab);
-  (e: "onActive", data: {x:number,width:number});
+  (e: 'change', data: AuthTab.Tab);
+  (e: 'close', data: AuthTab.Tab);
+  (e: 'active', data: { x: number; width: number });
 };
 const props = defineProps<Props>();
 const emit = defineEmits<Emit>();
@@ -15,7 +15,7 @@ const TabItemRef = ref<HTMLElement>();
 function getPosition() {
   if (TabItemRef.value) {
     const { x, width } = TabItemRef.value.getBoundingClientRect();
-    emit("onActive", {x,width});
+    emit('active', { x, width });
   }
 }
 onMounted(() => {
@@ -26,7 +26,7 @@ onMounted(() => {
         getPosition();
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
 });
 </script>
@@ -40,9 +40,13 @@ onMounted(() => {
   >
     <div
       class="h-full flex items-center justify-center gap-1 py-1.5"
-      @click="emit('onChange', data)"
+      @click="emit('change', data)"
     >
-      <i class="leading-none text-lg" v-if="typeof data.icon ==='string'" :class="data.icon"></i>
+      <i
+        class="leading-none text-lg"
+        v-if="typeof data.icon === 'string'"
+        :class="data.icon"
+      ></i>
       <span class="text-sm whitespace-nowrap">{{ data.title }}</span>
     </div>
     <span
@@ -50,7 +54,7 @@ onMounted(() => {
       hover="bg-light-50"
       dark="bg-dark-50 hover:bg-dark-500"
       v-if="!data.rootTab"
-      @click="emit('onClose', data)"
+      @click="emit('close', data)"
     >
       <i
         class="leading-none transition-transform ease-in-out"

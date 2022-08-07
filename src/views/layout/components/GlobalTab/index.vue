@@ -1,12 +1,12 @@
 <script setup lang="ts" name="Tab">
-import { onMounted, ref, watch,nextTick } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useTabStore } from "@/store";
-import TabItem from "./components/TabItem.vue";
-import TabControl from "./components/TabControl.vue";
-import autoAnimate from "@formkit/auto-animate";
-import {BetterScroll} from "@/components";
-import { useElementSize } from "@vueuse/core";
+import { onMounted, ref, watch, nextTick } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useTabStore } from '@/store';
+import TabItem from './components/TabItem.vue';
+import TabControl from './components/TabControl.vue';
+import autoAnimate from '@formkit/auto-animate';
+import { BetterScroll } from '@/components';
+import { useElementSize } from '@vueuse/core';
 const tabStore = useTabStore();
 const route = useRoute();
 const router = useRouter();
@@ -40,33 +40,29 @@ const getBounding = function () {
 const scrollTab = function () {
   const { currentTabX, currentTabWidth, tabWrapX, tabWrapWidth, tabWrapRight } =
     getBounding();
-    const itemR = currentTabX+currentTabWidth*2
-    const itemDeffR = itemR-tabWrapRight
-    if(itemDeffR>0){
-      const maxS = -BScrollRef.value!.instance.maxScrollX
-      let scrollNum = scrollValue.value+itemDeffR
-      if(scrollNum>maxS) scrollNum = maxS
-      BScrollRef.value?.instance.scrollTo(-scrollNum,0,500)
-    }
-    const itemDeffL = tabWrapX-currentTabX+currentTabWidth
-    if(itemDeffL>0){
-      let scrollNum = scrollValue.value-itemDeffL
-      if(scrollNum<0) scrollNum = 0
-      BScrollRef.value?.instance.scrollTo(-scrollNum,0,500)
-    }
+  const itemR = currentTabX + currentTabWidth * 2;
+  const itemDeffR = itemR - tabWrapRight;
+  if (itemDeffR > 0) {
+    const maxS = -BScrollRef.value!.instance.maxScrollX;
+    let scrollNum = scrollValue.value + itemDeffR;
+    if (scrollNum > maxS) scrollNum = maxS;
+    BScrollRef.value?.instance.scrollTo(-scrollNum, 0, 500);
+  }
+  const itemDeffL = tabWrapX - currentTabX + currentTabWidth;
+  if (itemDeffL > 0) {
+    let scrollNum = scrollValue.value - itemDeffL;
+    if (scrollNum < 0) scrollNum = 0;
+    BScrollRef.value?.instance.scrollTo(-scrollNum, 0, 500);
+  }
 };
-const {width:wrapWidth} = useElementSize(tabWrapRef)
+const { width: wrapWidth } = useElementSize(tabWrapRef);
 function initScrollTab() {
-  watch(
-    [() => route.path,()=>wrapWidth.value],
-    () => {
-      scrollTab();
-    }
-  );
+  watch([() => route.path, () => wrapWidth.value], () => {
+    scrollTab();
+  });
 }
 onMounted(() => {
   initScrollTab();
-  
 });
 const scrollValue = ref(0);
 const onScroll = function (data) {
@@ -84,15 +80,15 @@ const BScrollRef = ref<Expose.BetterScroll>();
             :key="index"
             :data="item"
             :active="tabStore.authActiveIndex === index ? true : false"
-            @on-change="onChange"
-            @on-close="onClose"
+            @change="onChange"
+            @close="onClose"
           />
         </div>
       </better-scroll>
     </div>
     <tab-control
       :refreshing="tabStore.refreshing"
-      @on-refresh="tabStore.refresh()"
+      @refresh="tabStore.refresh()"
     />
   </div>
 </template>

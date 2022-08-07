@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import analysis from '@/views/dashboard/analysis/index.vue'
-import workbench from '@/views/dashboard/workbench/index.vue'
+const analysis = () => import('@/views/dashboard/analysis/index.vue')
+const workbench = () => import('@/views/dashboard/workbench/index.vue')
 const dashboardRoute: RouteRecordRaw = {
     path: '/dashboard',
     name: 'dashboard',
@@ -10,7 +10,7 @@ const dashboardRoute: RouteRecordRaw = {
         title: '仪表盘',
         icon: 'ri-apps-line',
         requiresAuth: true,
-        role:['user','admin','super'],
+        role: ['user', 'admin', 'super'],
         keepAlive: true,
         hide: false,
         href: '',
@@ -25,7 +25,7 @@ const dashboardRoute: RouteRecordRaw = {
                 title: '分析页',
                 icon: 'ri-bubble-chart-line',
                 requiresAuth: true,
-                role:['user','admin','super'],
+                role: ['user', 'admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
@@ -40,7 +40,7 @@ const dashboardRoute: RouteRecordRaw = {
                 title: '工作台',
                 icon: 'ri-slideshow-line',
                 requiresAuth: true,
-                role:['admin','super'],
+                role: ['admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',

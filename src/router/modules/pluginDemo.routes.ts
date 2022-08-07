@@ -1,15 +1,15 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
 import BlankLayout from '@/views/layout/BlankLayout.vue';
-import Video from '@/views/plugin-demo/video/index.vue'
-import Print from '@/views/plugin-demo/print/index.vue'
-import Editor from '@/views/plugin-demo/editor/index.vue'
-import Map from '@/views/plugin-demo/map/index.vue'
-import Clipboard from '@/views/plugin-demo/clipboard/index.vue'
-import Swiper from '@/views/plugin-demo/swiper/index.vue'
-import ECharts from '@/views/plugin-demo/charts/echarts/index.vue'
-import LargeScreen from '@/views/plugin-demo/charts/large-screen/large-screen.vue'
-import AutoAnimate from '@/views/plugin-demo/auto-animate/index.vue'
+const Video = () => import('@/views/plugin-demo/video/index.vue')
+const Print = () => import('@/views/plugin-demo/print/index.vue')
+const Editor = () => import('@/views/plugin-demo/editor/index.vue')
+const Map = () => import('@/views/plugin-demo/map/index.vue')
+const Clipboard = () => import('@/views/plugin-demo/clipboard/index.vue')
+const Swiper = () => import('@/views/plugin-demo/swiper/index.vue')
+const ECharts = () => import('@/views/plugin-demo/charts/echarts/index.vue')
+const LargeScreen = () => import('@/views/plugin-demo/charts/large-screen/large-screen.vue')
+const AutoAnimate = () => import('@/views/plugin-demo/auto-animate/index.vue')
 const pluginRoute: RouteRecordRaw = {
     path: '/plugin',
     name: 'plugin',

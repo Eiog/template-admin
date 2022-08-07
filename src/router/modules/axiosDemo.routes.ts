@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/views/layout/BasicLayout.vue';
-import RepeatRequest from '@/views/axios-demo/repeat-request/index.vue'
-import StatusNotification from '@/views/axios-demo/status-notification/index.vue'
+const RepeatRequest = () => import('@/views/axios-demo/repeat-request/index.vue')
+const StatusNotification = () => import('@/views/axios-demo/status-notification/index.vue')
 const pluginRoute: RouteRecordRaw = {
     path: '/axios-demo',
     name: 'axios-demo',
@@ -10,13 +10,13 @@ const pluginRoute: RouteRecordRaw = {
         title: 'Axios示例',
         icon: 'ri-git-pull-request-line',
         requiresAuth: true,
-        role:['user','admin','super'],
+        role: ['user', 'admin', 'super'],
         keepAlive: true,
         hide: false,
         href: '',
         order: 1,
     },
-    redirect:'/axios-demo/repeat-request',
+    redirect: '/axios-demo/repeat-request',
     children: [
         {
             path: '/axios-demo/repeat-request',
@@ -26,13 +26,13 @@ const pluginRoute: RouteRecordRaw = {
                 title: '重复请求拦截',
                 icon: 'ri-git-branch-line',
                 requiresAuth: true,
-                role:['user','admin','super'],
+                role: ['user', 'admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
                 order: 1
             }
-        },  
+        },
         {
             path: '/axios-demo/status-notification',
             name: StatusNotification.name,
@@ -41,13 +41,13 @@ const pluginRoute: RouteRecordRaw = {
                 title: '重复状态码通知合并',
                 icon: 'ri-git-merge-line',
                 requiresAuth: true,
-                role:['user','admin','super'],
+                role: ['user', 'admin', 'super'],
                 keepAlive: true,
                 hide: false,
                 href: '',
                 order: 1
             }
-        },  
+        },
     ]
 
 }
